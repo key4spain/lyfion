@@ -809,17 +809,25 @@ const VSP_CARDS = [
     sub: "A product direction connected with sports spirit, healthy values, family identity and premium positioning.",
     link: "https://biomelem.rs",
     future: undefined as string | undefined,
+    accentGradient: undefined as string | undefined,
+    badgeBg: undefined as string | undefined,
+    badgeColor: undefined as string | undefined,
+    badgeBorder: undefined as string | undefined,
   },
   {
-    name: "VSP.rs",
+    name: "VSP",
     category: "Premium product identity / Quality standard",
     badge: "VSP",
-    hue: "#b45309",
+    hue: "#1d4ed8",
     desc: "VSP represents a premium product identity built around the idea of the best healthy, value-driven and quality-led standard — from family values to product excellence.",
     highlight: undefined as string | undefined,
     sub: "Designed to symbolize a higher product benchmark inside the wider ecosystem. VSP is a brand and product identity direction, not a legal certification body or official health certification.",
     link: "https://vsp.rs",
     future: undefined as string | undefined,
+    accentGradient: "linear-gradient(90deg, #dc2626, #1d4ed8, #c7d2fe)",
+    badgeBg: "rgba(29,78,216,0.08)",
+    badgeColor: "#1d4ed8",
+    badgeBorder: "rgba(220,38,38,0.3)",
   },
   {
     name: "Sampion",
@@ -831,6 +839,10 @@ const VSP_CARDS = [
     sub: "Designed as a future sports-facing communication channel connected to the wider Biomelem and product ecosystem.",
     link: undefined as string | undefined,
     future: "Long-term positioning may include regional sports culture and selected international club directions.",
+    accentGradient: "linear-gradient(90deg, #dc2626, #0f172a)",
+    badgeBg: "rgba(220,38,38,0.08)",
+    badgeColor: "#dc2626",
+    badgeBorder: "rgba(15,23,42,0.22)",
   },
 ];
 
@@ -947,19 +959,19 @@ function ReferencesSection() {
                 <div
                   className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full mb-4 self-start"
                   style={{
-                    background: `${card.hue}14`,
-                    color: card.hue,
-                    border: `1px solid ${card.hue}22`,
+                    background: card.badgeBg ?? `${card.hue}14`,
+                    color: card.badgeColor ?? card.hue,
+                    border: `1px solid ${card.badgeBorder ?? `${card.hue}22`}`,
                   }}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: card.hue }} />
+                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: card.badgeColor ?? card.hue }} />
                   {card.badge}
                 </div>
 
                 {/* Color bar */}
                 <div
                   className="w-8 h-1 rounded-full mb-4"
-                  style={{ background: `linear-gradient(90deg, ${card.hue}, ${card.hue}60)` }}
+                  style={{ background: card.accentGradient ?? `linear-gradient(90deg, ${card.hue}, ${card.hue}60)` }}
                 />
 
                 <h3 className="text-base font-bold text-gray-900 mb-1">
