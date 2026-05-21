@@ -785,19 +785,52 @@ const ECOSYSTEM_PROJECTS = [
     highlight: undefined as { label: string; sub: string } | undefined,
   },
   {
-    name: "Biomelem DOO",
-    category: "Family business / Cosmetic products / Full-stack store",
-    desc: "A family business for cosmetic and natural product lines, planned with a full-stack digital store and dedicated product ecosystem.",
-    tag: "Coming soon" as string | null,
-    hue: "#10b981",
-    link: undefined as string | undefined,
+    name: "Veterans Europe Gateway",
+    category: "Veteran pathways / Spain-first Europe gateway",
+    desc: "An independent Spain-first platform helping U.S. veterans and military-connected families explore education, GI Bill pathways, pilot training, relocation, property, business and life opportunities in Europe.",
+    tag: "Independent platform" as string | null,
+    hue: "#2563eb",
+    link: "https://veterans-europe-gateway.com/",
     linkSoon: false,
-    note: undefined as string | undefined,
-    premium: true,
-    highlight: {
-      label: "Sampion + VSP",
-      sub: "Very Special Product — exclusive champion product direction.",
-    },
+    note: "Not affiliated with the U.S. Department of Veterans Affairs, the U.S. government or any official military agency.",
+    premium: false,
+    highlight: undefined as { label: string; sub: string } | undefined,
+  },
+];
+
+const VSP_CARDS = [
+  {
+    name: "Biomelem",
+    category: "Family business / Cosmetic products / Full-stack store",
+    badge: "Very Special Product",
+    hue: "#10b981",
+    desc: "A family business direction focused on cosmetic and natural products, developed as a full-stack digital store with a premium product ecosystem.",
+    highlight: "Sampion product line",
+    sub: "A product direction connected with sports spirit, healthy values, family identity and premium positioning.",
+    link: "https://biomelem.rs",
+    future: undefined as string | undefined,
+  },
+  {
+    name: "VSP.rs",
+    category: "Premium product identity / Quality standard",
+    badge: "VSP",
+    hue: "#b45309",
+    desc: "VSP represents a premium product identity built around the idea of the best healthy, value-driven and quality-led standard — from family values to product excellence.",
+    highlight: undefined as string | undefined,
+    sub: "Designed to symbolize a higher product benchmark inside the wider ecosystem. VSP is a brand and product identity direction, not a legal certification body or official health certification.",
+    link: "https://vsp.rs",
+    future: undefined as string | undefined,
+  },
+  {
+    name: "Sampion",
+    category: "Sports media / Podcast / Brand channel",
+    badge: "Sports spirit",
+    hue: "#dc2626",
+    desc: "A sports-focused media and podcast direction built around sports news, public conversation, athlete stories and strong brand energy.",
+    highlight: undefined as string | undefined,
+    sub: "Designed as a future sports-facing communication channel connected to the wider Biomelem and product ecosystem.",
+    link: undefined as string | undefined,
+    future: "Long-term positioning may include regional sports culture and selected international club directions.",
   },
 ];
 
@@ -822,11 +855,11 @@ function ReferencesSection() {
         </div>
 
         {/* Ecosystem Projects grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
           {ECOSYSTEM_PROJECTS.map((ref) => (
             <div
               key={ref.name}
-              className={`relative bg-white rounded-2xl p-6 border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-200/60 flex flex-col${ref.premium ? " border-emerald-100 shadow-sm" : " border-gray-100"}`}
+              className="relative bg-white rounded-2xl p-6 border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-200/60 flex flex-col"
             >
               {/* Tag badge */}
               {ref.tag && (
@@ -853,10 +886,7 @@ function ReferencesSection() {
               </h3>
 
               {/* Category */}
-              <div
-                className="text-xs font-medium mb-3"
-                style={{ color: ref.hue }}
-              >
+              <div className="text-xs font-medium mb-3" style={{ color: ref.hue }}>
                 {ref.category}
               </div>
 
@@ -869,21 +899,6 @@ function ReferencesSection() {
                 <p className="text-xs text-gray-400 leading-relaxed mt-2 italic">
                   {ref.note}
                 </p>
-              )}
-
-              {/* Biomelem highlight block */}
-              {ref.highlight && (
-                <div
-                  className="mt-4 rounded-xl px-4 py-3"
-                  style={{ background: `${ref.hue}0d`, border: `1px solid ${ref.hue}20` }}
-                >
-                  <div className="text-sm font-bold" style={{ color: ref.hue }}>
-                    {ref.highlight.label}
-                  </div>
-                  <div className="text-xs text-gray-500 mt-0.5">
-                    {ref.highlight.sub}
-                  </div>
-                </div>
               )}
 
               {/* Domain link */}
@@ -901,13 +916,110 @@ function ReferencesSection() {
                       className="text-xs font-mono transition-colors duration-200 hover:underline"
                       style={{ color: ref.hue }}
                     >
-                      {ref.link.replace("https://", "")}
+                      {ref.link.replace("https://", "").replace(/\/$/, "")}
                     </a>
                   )}
                 </div>
               )}
             </div>
           ))}
+        </div>
+
+        {/* ── Very Special Product subsection ── */}
+        <div className="border-t border-gray-200 pt-14">
+          <div className="text-center mb-10">
+            <SectionLabel>Very Special Product</SectionLabel>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+              Very Special Product
+            </h3>
+            <p className="text-sm text-gray-500 max-w-xl mx-auto">
+              A product-focused direction connected to family values, quality, healthy living, sports spirit and premium brand positioning.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {VSP_CARDS.map((card) => (
+              <div
+                key={card.name}
+                className="relative bg-white rounded-2xl p-6 border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-200/60 flex flex-col"
+              >
+                {/* Badge */}
+                <div
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full mb-4 self-start"
+                  style={{
+                    background: `${card.hue}14`,
+                    color: card.hue,
+                    border: `1px solid ${card.hue}22`,
+                  }}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: card.hue }} />
+                  {card.badge}
+                </div>
+
+                {/* Color bar */}
+                <div
+                  className="w-8 h-1 rounded-full mb-4"
+                  style={{ background: `linear-gradient(90deg, ${card.hue}, ${card.hue}60)` }}
+                />
+
+                <h3 className="text-base font-bold text-gray-900 mb-1">
+                  {card.name}
+                </h3>
+
+                <div className="text-xs font-medium mb-3" style={{ color: card.hue }}>
+                  {card.category}
+                </div>
+
+                <p className="text-sm text-gray-500 leading-relaxed flex-1">
+                  {card.desc}
+                </p>
+
+                {/* Highlighted product line */}
+                {card.highlight && (
+                  <div
+                    className="mt-4 rounded-xl px-4 py-3"
+                    style={{ background: `${card.hue}0d`, border: `1px solid ${card.hue}20` }}
+                  >
+                    <div className="text-sm font-bold" style={{ color: card.hue }}>
+                      {card.highlight}
+                    </div>
+                    {card.sub && (
+                      <div className="text-xs text-gray-500 mt-0.5">{card.sub}</div>
+                    )}
+                  </div>
+                )}
+
+                {/* Supporting text (when no highlight block) */}
+                {!card.highlight && card.sub && (
+                  <p className="text-xs text-gray-400 leading-relaxed mt-3 italic">
+                    {card.sub}
+                  </p>
+                )}
+
+                {/* Future direction note */}
+                {card.future && (
+                  <p className="text-xs text-gray-400 leading-relaxed mt-2 italic">
+                    {card.future}
+                  </p>
+                )}
+
+                {/* Link */}
+                {card.link && (
+                  <div className="mt-4">
+                    <a
+                      href={card.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-mono transition-colors duration-200 hover:underline"
+                      style={{ color: card.hue }}
+                    >
+                      {card.link.replace("https://", "").replace(/\/$/, "")}
+                    </a>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>
