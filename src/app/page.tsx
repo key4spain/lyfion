@@ -390,7 +390,7 @@ function HeroVisual() {
             className="font-mono text-xs"
             style={{ color: "rgba(14,165,233,0.6)" }}
           >
-            lyf-ion.com
+            lyfion.digital
           </span>
           <span
             className="text-xs"
@@ -442,7 +442,7 @@ function HeroSection() {
               className="text-xs font-semibold tracking-[0.25em] uppercase font-mono"
               style={{ color: "rgba(56,189,248,0.7)" }}
             >
-              lyf-ion.com · 2026
+              LYFION.DIGITAL · 2026
             </span>
           </div>
 
@@ -675,90 +675,129 @@ function EcosystemSection() {
 
 // ─── References section ───────────────────────────────────────────────────────
 
-const REFERENCES = [
-  {
-    name: "Biomelem DOO",
-    category: "Wellness / Natural products",
-    desc: "A wellness and natural product company connected to the wider business ecosystem.",
-    tag: null,
-    hue: "#10b981",
-  },
+const ECOSYSTEM_PROJECTS = [
   {
     name: "El Código Patrimonio",
     category: "Business media / Investment education",
-    desc: "A premium Spanish-language media brand focused on business, patrimony, investment thinking, personal growth and market analysis.",
-    tag: null,
+    desc: "A Spanish-language media brand focused on business, patrimony, investment thinking, personal growth and market analysis.",
+    tag: "Coming soon" as string | null,
     hue: "#0ea5e9",
+    link: "https://elcodigopatrimonio.com",
+    linkSoon: true,
+    note: undefined as string | undefined,
+    premium: false,
+    highlight: undefined as { label: string; sub: string } | undefined,
   },
   {
     name: "Lo Que Nadie Te Dice",
     category: "Media / Public conversation",
-    desc: "A Spanish-language media channel focused on hidden truths, consumer topics, society and stories that deserve attention.",
-    tag: null,
+    desc: "A Spanish-language media channel focused on hidden truths, consumer topics, society, public conversation and stories that deserve attention.",
+    tag: "Coming soon" as string | null,
     hue: "#8b5cf6",
+    link: "https://loquenadietedice.es",
+    linkSoon: true,
+    note: undefined as string | undefined,
+    premium: false,
+    highlight: undefined as { label: string; sub: string } | undefined,
   },
   {
-    name: "VOLGA OS",
-    category: "AI creator infrastructure",
-    desc: "A private operating system for synthetic personas, content workflows, avatar production and compliance-controlled creator systems.",
-    tag: null,
+    name: "LYFION World AI",
+    category: "AI models / Brand ambassadors",
+    desc: "An AI model and digital ambassador direction for creating exclusive AI faces that can represent, promote and sell for one brand at a time. Each model is intended to be unique inside the LYFION ecosystem and not reused for competing brands.",
+    tag: "Coming soon" as string | null,
     hue: "#38bdf8",
+    link: undefined as string | undefined,
+    linkSoon: false,
+    note: "Protection and usage rules will be reviewed before public launch.",
+    premium: false,
+    highlight: undefined as { label: string; sub: string } | undefined,
   },
   {
     name: "Ready Rent",
     category: "Mobility / Premium rentals",
     desc: "A rental and mobility-related project connected to premium service, transport and future digital infrastructure.",
-    tag: null,
+    tag: null as string | null,
     hue: "#f59e0b",
+    link: "https://readyrent.rs",
+    linkSoon: false,
+    note: undefined as string | undefined,
+    premium: false,
+    highlight: undefined as { label: string; sub: string } | undefined,
   },
   {
     name: "SkyLens Enterprise",
     category: "Creative production / Digital marketing",
     desc: "A creative and digital marketing direction focused on media production, visual content, brand visibility and growth.",
-    tag: null,
+    tag: null as string | null,
     hue: "#f97316",
+    link: "https://skylens-enterprise.rs",
+    linkSoon: false,
+    note: undefined as string | undefined,
+    premium: false,
+    highlight: undefined as { label: string; sub: string } | undefined,
   },
   {
     name: "Key4Spain",
     category: "Spain advisory / Real estate / Relocation",
     desc: "A Spain-focused advisory brand for international clients interested in property, relocation, investment and practical support.",
-    tag: null,
+    tag: null as string | null,
     hue: "#0d9488",
+    link: "https://key4spain.com",
+    linkSoon: false,
+    note: undefined as string | undefined,
+    premium: false,
+    highlight: undefined as { label: string; sub: string } | undefined,
   },
   {
-    name: "Keys2Spain",
+    name: "Keys4Spain",
     category: "Legal-administrative coordination",
-    desc: "A legal-administrative support direction connected with licensed professionals for documentation, NIE, residence and institutional processes.",
-    tag: null,
+    desc: "A legal-administrative support direction connected with licensed professionals for documentation, NIE, residence and institutional processes in Spain.",
+    tag: null as string | null,
     hue: "#64748b",
+    link: "https://keys4spain.com",
+    linkSoon: false,
+    note: undefined as string | undefined,
+    premium: false,
+    highlight: undefined as { label: string; sub: string } | undefined,
   },
   {
     name: "Key4SpainGroup",
     category: "Spain-focused advisory ecosystem",
     desc: "The umbrella ecosystem connecting property, relocation, investment, legal-administrative coordination and trusted local support in Spain.",
-    tag: null,
+    tag: null as string | null,
     hue: "#059669",
+    link: undefined as string | undefined,
+    linkSoon: false,
+    note: undefined as string | undefined,
+    premium: false,
+    highlight: undefined as { label: string; sub: string } | undefined,
   },
   {
     name: "Great App",
-    category: "Mobility / Courier / Platform concept",
-    desc: "A future mobility and courier platform direction connected with electric mobility, fleet operations and app-based services.",
-    tag: null,
+    category: "Mobility / Courier / P2P platform concept",
+    desc: "A future mobility, courier and P2P app platform direction connected with electric mobility, fleet operations, peer-to-peer services and app-based local logistics.",
+    tag: "Launch date: 11.11.2026" as string | null,
     hue: "#eab308",
+    link: undefined as string | undefined,
+    linkSoon: false,
+    note: undefined as string | undefined,
+    premium: false,
+    highlight: undefined as { label: string; sub: string } | undefined,
   },
   {
-    name: "Sintra AI",
-    category: "AI tools / Recommended partner",
-    desc: "A recommended AI helper system for teams, content, social media and operational workflows.",
-    tag: "Recommended tool",
-    hue: "#0ea5e9",
-  },
-  {
-    name: "MCloud",
-    category: "Cloud / Hosting / Recommended partner",
-    desc: "A recommended hosting and cloud infrastructure option for digital projects and scalable online presence.",
-    tag: "Recommended infrastructure",
-    hue: "#6366f1",
+    name: "Biomelem DOO",
+    category: "Family business / Cosmetic products / Full-stack store",
+    desc: "A family business for cosmetic and natural product lines, planned with a full-stack digital store and dedicated product ecosystem.",
+    tag: "Coming soon" as string | null,
+    hue: "#10b981",
+    link: undefined as string | undefined,
+    linkSoon: false,
+    note: undefined as string | undefined,
+    premium: true,
+    highlight: {
+      label: "Sampion + VSP",
+      sub: "Very Special Product — exclusive champion product direction.",
+    },
   },
 ];
 
@@ -770,22 +809,24 @@ function ReferencesSection() {
       style={{ background: "#f8fafb" }}
     >
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
+
+        {/* Section header */}
         <div className="text-center mb-14">
-          <SectionLabel>References</SectionLabel>
+          <SectionLabel>Ecosystem</SectionLabel>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Selected references and ecosystem projects
+            Selected ecosystem projects
           </h2>
           <p className="text-base text-gray-500 max-w-xl mx-auto">
-            Real ventures, media brands and partner directions connected within
-            the Lyfion ecosystem.
+            Real ventures, media brands, operating projects and future directions connected within the LYFION digital ecosystem.
           </p>
         </div>
 
+        {/* Ecosystem Projects grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {REFERENCES.map((ref) => (
+          {ECOSYSTEM_PROJECTS.map((ref) => (
             <div
               key={ref.name}
-              className="relative bg-white rounded-2xl p-6 border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-200/60 flex flex-col"
+              className={`relative bg-white rounded-2xl p-6 border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-200/60 flex flex-col${ref.premium ? " border-emerald-100 shadow-sm" : " border-gray-100"}`}
             >
               {/* Tag badge */}
               {ref.tag && (
@@ -822,9 +863,295 @@ function ReferencesSection() {
               <p className="text-sm text-gray-500 leading-relaxed flex-1">
                 {ref.desc}
               </p>
+
+              {/* Additional note */}
+              {ref.note && (
+                <p className="text-xs text-gray-400 leading-relaxed mt-2 italic">
+                  {ref.note}
+                </p>
+              )}
+
+              {/* Biomelem highlight block */}
+              {ref.highlight && (
+                <div
+                  className="mt-4 rounded-xl px-4 py-3"
+                  style={{ background: `${ref.hue}0d`, border: `1px solid ${ref.hue}20` }}
+                >
+                  <div className="text-sm font-bold" style={{ color: ref.hue }}>
+                    {ref.highlight.label}
+                  </div>
+                  <div className="text-xs text-gray-500 mt-0.5">
+                    {ref.highlight.sub}
+                  </div>
+                </div>
+              )}
+
+              {/* Domain link */}
+              {ref.link && (
+                <div className="mt-4">
+                  {ref.linkSoon ? (
+                    <span className="text-xs text-gray-400 font-mono">
+                      {ref.link.replace("https://", "")}
+                    </span>
+                  ) : (
+                    <a
+                      href={ref.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-mono transition-colors duration-200 hover:underline"
+                      style={{ color: ref.hue }}
+                    >
+                      {ref.link.replace("https://", "")}
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           ))}
         </div>
+
+      </div>
+    </section>
+  );
+}
+
+// ─── Tools we recommend section ──────────────────────────────────────────────
+
+type ToolCard = {
+  name: string;
+  category: string;
+  badge: string;
+  hue: string;
+  desc: string;
+  notes?: string[];
+  note?: string;
+  caution?: string;
+  link?: string;
+  linkLabel?: string;
+  disclosure?: string;
+};
+
+const FREE_TOOLS: ToolCard[] = [
+  {
+    name: "sarena.ai",
+    category: "Free AI tool / Learning and testing",
+    badge: "Free tool concept",
+    hue: "#22c55e",
+    desc: "A free AI learning and testing direction for people entering AI, exploring prompts, comparing use cases and building confidence with practical workflows.",
+    note: "Link coming later.",
+  },
+  {
+    name: "sarenadesigne.ai",
+    category: "Free design AI / Creative workflows",
+    badge: "Free design concept",
+    hue: "#8b5cf6",
+    desc: "A free design-focused AI direction for creators, small businesses and beginners who want to explore visual AI, creative prompts and design workflows.",
+    note: "Link coming later.",
+  },
+];
+
+const PAID_TOOLS: ToolCard[] = [
+  {
+    name: "AI Helper",
+    category: "AI operations / Business helper system",
+    badge: "Recommended AI tool",
+    hue: "#0ea5e9",
+    desc: "An AI helper system positioned as 12 specialized workers inside one subscription, designed to support daily business operations, content, social media, planning and execution workflows.",
+    notes: [
+      "Best used with a structured setup period: 7–21 days, around 4 hours per day, plus up to 2 hours of daily operational work after setup.",
+      "LYFION may provide a tutorial book and guided setup process for configuring the tool properly.",
+      "Discount or guided onboarding may be added later only if officially approved.",
+    ],
+  },
+  {
+    name: "MCloud",
+    category: "Cloud / Hosting / Serbian infrastructure",
+    badge: "Recommended infrastructure",
+    hue: "#6366f1",
+    desc: "A recommended hosting and cloud infrastructure option for Serbian domain projects, local clients and scalable online presence.",
+    note: "Link coming later.",
+  },
+  {
+    name: "Hostinger",
+    category: "Premium hosting / Website infrastructure",
+    badge: "Premium option",
+    hue: "#f59e0b",
+    desc: "A premium hosting and website infrastructure option for clients who want a stronger managed setup, higher service level and more complete support. It is not the cheapest path, but can fit projects where quality and reliability matter more than minimum cost.",
+    link: "https://www.hostinger.com?REFERRALCODE=E4DKEY4SPV0I",
+    linkLabel: "Visit Hostinger",
+    disclosure: "Affiliate link: LYFION may earn a commission if you purchase through this link, at no extra cost to you.",
+  },
+  {
+    name: "OpenClaw",
+    category: "Open-source AI agent / Advanced automation",
+    badge: "Advanced option",
+    hue: "#ef4444",
+    desc: "An open-source AI assistant and automation direction for advanced users who want more control over AI agents, background tasks and self-hosted workflows.",
+    caution: "Requires careful setup, permissions review and security awareness before use. Not suitable for beginners without technical guidance.",
+  },
+  {
+    name: "HeyGen",
+    category: "AI video / Avatar production",
+    badge: "Content production",
+    hue: "#f97316",
+    desc: "An AI video and avatar production tool that can support multilingual presentations, explainers, sales videos and content workflows when used with clear scripts and responsible brand guidelines.",
+  },
+  {
+    name: "ElevenLabs",
+    category: "AI voice / Audio production",
+    badge: "Voice production",
+    hue: "#a855f7",
+    desc: "An AI voice and audio tool direction for narration, multilingual voiceovers, training material and content production.",
+    caution: "Voice usage should respect consent, rights and platform rules.",
+  },
+  {
+    name: "Kling",
+    category: "AI video generation / Creative production",
+    badge: "Video generation",
+    hue: "#ec4899",
+    desc: "An AI video generation direction for creative experiments, campaign visuals and short-form production workflows.",
+  },
+  {
+    name: "Hexus / tool to confirm",
+    category: "AI presentation / Content system",
+    badge: "To confirm",
+    hue: "#94a3b8",
+    desc: "A potential AI content or presentation tool to review before adding as a formal recommendation.",
+    note: "Exact product name and fit are not yet verified. Listed for internal review only.",
+  },
+];
+
+function ToolCard({ tool }: { tool: ToolCard }) {
+  return (
+    <div className="relative bg-white rounded-2xl p-6 border border-gray-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gray-200/60 flex flex-col">
+      {/* Badge */}
+      <div
+        className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full mb-4 self-start"
+        style={{
+          background: `${tool.hue}14`,
+          color: tool.hue,
+          border: `1px solid ${tool.hue}22`,
+        }}
+      >
+        <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: tool.hue }} />
+        {tool.badge}
+      </div>
+
+      {/* Color bar */}
+      <div
+        className="w-8 h-1 rounded-full mb-4"
+        style={{ background: `linear-gradient(90deg, ${tool.hue}, ${tool.hue}60)` }}
+      />
+
+      <h3 className="text-base font-bold text-gray-900 mb-1">{tool.name}</h3>
+
+      <div className="text-xs font-medium mb-3" style={{ color: tool.hue }}>
+        {tool.category}
+      </div>
+
+      <p className="text-sm text-gray-500 leading-relaxed flex-1">{tool.desc}</p>
+
+      {tool.notes && tool.notes.length > 0 && (
+        <ul className="mt-3 space-y-1.5">
+          {tool.notes.map((n, i) => (
+            <li key={i} className="text-xs text-gray-400 leading-relaxed flex gap-1.5">
+              <span className="mt-1.5 shrink-0 w-1 h-1 rounded-full bg-gray-300" />
+              {n}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {tool.caution && (
+        <div
+          className="mt-4 rounded-xl px-3 py-2.5 flex gap-2"
+          style={{ background: "#fef2f2", border: "1px solid #fecaca" }}
+        >
+          <span className="text-xs text-red-500 leading-relaxed">{tool.caution}</span>
+        </div>
+      )}
+
+      {tool.note && (
+        <p className="text-xs text-gray-400 leading-relaxed mt-3 italic">{tool.note}</p>
+      )}
+
+      {tool.disclosure && (
+        <p className="text-xs text-gray-400 leading-relaxed mt-3 italic border-t border-gray-100 pt-3">
+          {tool.disclosure}
+        </p>
+      )}
+
+      {tool.link && (
+        <a
+          href={tool.link}
+          target="_blank"
+          rel="noopener noreferrer sponsored"
+          className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold transition-opacity duration-200 hover:opacity-70 self-start"
+          style={{ color: tool.hue }}
+        >
+          {tool.linkLabel ?? "Learn more"}
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M1.5 6h9M7 2.5l3.5 3.5L7 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </a>
+      )}
+    </div>
+  );
+}
+
+function ToolsSection() {
+  return (
+    <section id="affiliates" className="py-24 md:py-32 bg-white">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+
+        {/* Header */}
+        <div className="text-center mb-14">
+          <SectionLabel>Tools we recommend</SectionLabel>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Tools we recommend
+          </h2>
+          <p className="text-base text-gray-500 max-w-2xl mx-auto">
+            Selected free and paid tools we may recommend for AI learning, business workflows, automation, hosting, content production and digital infrastructure. Recommendations are based on practical fit, not hype.
+          </p>
+        </div>
+
+        {/* Group A — Free / learning tools */}
+        <div className="mb-16">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px flex-1 bg-gray-100" />
+            <span className="text-xs font-semibold tracking-widest uppercase text-gray-400">
+              Free / learning tools
+            </span>
+            <div className="h-px flex-1 bg-gray-100" />
+          </div>
+          <div className="grid sm:grid-cols-2 gap-5 max-w-2xl mx-auto">
+            {FREE_TOOLS.map((tool) => (
+              <ToolCard key={tool.name} tool={tool} />
+            ))}
+          </div>
+        </div>
+
+        {/* Group B — Paid / professional tools */}
+        <div>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-px flex-1 bg-gray-100" />
+            <span className="text-xs font-semibold tracking-widest uppercase text-gray-400">
+              Paid / professional tools
+            </span>
+            <div className="h-px flex-1 bg-gray-100" />
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {PAID_TOOLS.map((tool) => (
+              <ToolCard key={tool.name} tool={tool} />
+            ))}
+          </div>
+        </div>
+
+        {/* Disclaimer */}
+        <p className="text-center text-xs text-gray-400 mt-10 max-w-2xl mx-auto leading-relaxed">
+          Recommendations are based on practical fit and may change over time. Some links may be affiliate or partner links. LYFION does not claim official partnership unless explicitly stated. No tool guarantees business results, AI rankings, revenue or automation success.
+        </p>
+
       </div>
     </section>
   );
@@ -862,13 +1189,13 @@ const AI_GUIDE_CARDS = [
 const LANGUAGES = [
   "English",
   "Spanish",
-  "Serbian",
   "Turkish",
   "German",
   "Russian",
   "Italian",
   "French",
   "Arabic",
+  "Serbian",
   "Scandinavian languages",
   "and more",
 ];
@@ -970,109 +1297,6 @@ function AIGuideSection() {
   );
 }
 
-// ─── Affiliates / Recommendations section ────────────────────────────────────
-
-const AFFILIATE_CARDS = [
-  {
-    name: "Sintra AI",
-    label: "Recommended AI tool",
-    desc: "AI helpers for social media, content, planning, workflow support and daily business execution.",
-    hue: "#0ea5e9",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <circle cx="14" cy="14" r="6" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M14 4v3M14 21v3M4 14h3M21 14h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M7.05 7.05l2.12 2.12M18.83 18.83l2.12 2.12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
-  },
-  {
-    name: "MCloud",
-    label: "Recommended infrastructure",
-    desc: "Hosting and cloud infrastructure for modern web projects, online systems and scalable digital presence.",
-    hue: "#6366f1",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M20 18H8a6 6 0 010-12c.34 0 .67.03 1 .08A8 8 0 1122 18h-2z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-];
-
-function AffiliatesSection() {
-  return (
-    <section id="affiliates" className="py-24 md:py-32 bg-white">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="text-center mb-14">
-          <SectionLabel>Tools we recommend</SectionLabel>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Tools we recommend
-          </h2>
-          <p className="text-base text-gray-500 max-w-xl mx-auto">
-            Some tools inside the Lyfion ecosystem are presented as
-            recommendations because they can support real business workflows, AI
-            operations, hosting, content systems and growth. We only recommend
-            tools that fit the ecosystem and bring practical value.
-          </p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          {AFFILIATE_CARDS.map((card) => (
-            <div
-              key={card.name}
-              className="relative rounded-2xl p-7 border border-gray-100 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-gray-100/80"
-            >
-              {/* Badge */}
-              <div
-                className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full mb-5"
-                style={{
-                  background: `${card.hue}10`,
-                  color: card.hue,
-                  border: `1px solid ${card.hue}20`,
-                }}
-              >
-                <span
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{ background: card.hue }}
-                />
-                {card.label}
-              </div>
-
-              {/* Icon */}
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: `${card.hue}12`, color: card.hue }}
-              >
-                {card.icon}
-              </div>
-
-              <h3 className="text-xl font-bold text-gray-900 mb-2">
-                {card.name}
-              </h3>
-              <p className="text-sm text-gray-500 leading-relaxed">
-                {card.desc}
-              </p>
-
-              {/* Subtle divider */}
-              <div
-                className="mt-5 pt-5 border-t border-gray-50 text-xs text-gray-400"
-              >
-                Part of the Lyfion ecosystem
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Disclaimer */}
-        <p className="text-center text-xs text-gray-400 mt-8 max-w-md mx-auto">
-          Recommendations are honest and based on ecosystem fit. No guaranteed
-          results. No aggressive claims.
-        </p>
-      </div>
-    </section>
-  );
-}
-
 // ─── Coming Soon section ──────────────────────────────────────────────────────
 
 function ComingSoonSection() {
@@ -1084,19 +1308,19 @@ function ComingSoonSection() {
     >
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="text-center mb-12">
-          <SectionLabel>Coming Soon</SectionLabel>
+          <SectionLabel>Now entering the market</SectionLabel>
           <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: "#ffffff" }}>
-            Coming soon
+            Pilot direction
           </h2>
         </div>
 
         {/* Feature card */}
-        <div className="max-w-lg mx-auto mb-8">
+        <div className="max-w-xl mx-auto mb-8">
           <div
             className="rounded-2xl p-8 relative overflow-hidden"
             style={{
               background: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.09)",
+              border: "1px solid rgba(14,165,233,0.18)",
             }}
           >
             {/* Background glow */}
@@ -1105,28 +1329,31 @@ function ComingSoonSection() {
                 position: "absolute",
                 inset: 0,
                 background:
-                  "radial-gradient(ellipse at 80% 20%, rgba(14,165,233,0.07) 0%, transparent 70%)",
+                  "radial-gradient(ellipse at 80% 20%, rgba(14,165,233,0.1) 0%, rgba(16,185,129,0.05) 60%, transparent 100%)",
                 pointerEvents: "none",
               }}
             />
 
-            {/* Status */}
+            {/* Badge */}
             <div className="flex items-center gap-2 mb-6">
               <span
                 className="px-2.5 py-1 rounded-full text-xs font-semibold"
                 style={{
-                  background: "rgba(14,165,233,0.12)",
-                  border: "1px solid rgba(14,165,233,0.2)",
+                  background: "rgba(14,165,233,0.14)",
+                  border: "1px solid rgba(14,165,233,0.28)",
                   color: "#38bdf8",
                 }}
               >
-                Coming soon
+                Pilot version live
               </span>
             </div>
 
-            {/* Domain */}
-            <div
-              className="font-mono text-2xl font-bold mb-3"
+            {/* Title — linked */}
+            <a
+              href="https://lyfion.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block font-mono text-2xl font-bold mb-4 hover:opacity-80 transition-opacity duration-200"
               style={{
                 background: GRADIENT,
                 WebkitBackgroundClip: "text",
@@ -1134,26 +1361,88 @@ function ComingSoonSection() {
                 backgroundClip: "text",
               }}
             >
-              multivers-ai.ai
+              lyfion.ai
+            </a>
+
+            {/* Primary description */}
+            <p
+              className="text-sm leading-relaxed mb-4"
+              style={{ color: "rgba(255,255,255,0.5)" }}
+            >
+              LYFION.AI is the pilot software direction for AI entity trust,
+              visibility audits, canonical business profiles, structured data
+              workflows, prompt monitoring and digital evidence records.
+            </p>
+
+            {/* Secondary paragraph */}
+            <p
+              className="text-sm leading-relaxed mb-6"
+              style={{ color: "rgba(255,255,255,0.32)" }}
+            >
+              The pilot version is already connected to the LYFION direction. We
+              are continuing the build while gradually merging the digital
+              ecosystem, client workflows and AI trust infrastructure into one
+              clearer product path.
+            </p>
+
+            {/* Feature list */}
+            <div
+              className="rounded-xl px-5 py-4 mb-6"
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(255,255,255,0.07)",
+              }}
+            >
+              <ul className="space-y-2">
+                {[
+                  "AI visibility audits",
+                  "Canonical entity profiles",
+                  "JSON-LD / Schema.org workflows",
+                  "AI prompt monitoring",
+                  "Proof-of-existence records",
+                  "Pilot workflow validation",
+                ].map((feature) => (
+                  <li key={feature} className="flex items-center gap-2.5">
+                    <span
+                      className="w-1 h-1 rounded-full flex-shrink-0"
+                      style={{ background: "#38bdf8" }}
+                    />
+                    <span
+                      className="text-xs font-medium"
+                      style={{ color: "rgba(255,255,255,0.4)" }}
+                    >
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            <p
-              className="text-sm leading-relaxed"
-              style={{ color: "rgba(255,255,255,0.45)" }}
+            {/* CTA */}
+            <a
+              href="https://lyfion.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity duration-200 hover:opacity-70"
+              style={{ color: "#38bdf8" }}
             >
-              A future AI media and digital universe concept currently in
-              preparation.
-            </p>
+              Visit lyfion.ai
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
           </div>
         </div>
 
-        {/* Additional note */}
+        {/* Bottom note */}
         <p
-          className="text-center text-sm max-w-lg mx-auto"
+          className="text-center text-sm max-w-xl mx-auto leading-relaxed"
           style={{ color: "rgba(255,255,255,0.3)" }}
         >
-          More references, case studies, AI resources and ecosystem updates will
-          be added gradually as the Lyfion ecosystem grows.
+          LYFION.DIGITAL remains the bridge for ecosystem projects, references
+          and recommended tools. LYFION.AI is the pilot AI trust and visibility
+          software direction, now entering the market while the platform
+          continues to evolve.
         </p>
       </div>
     </section>
@@ -1295,8 +1584,8 @@ export default function HomePage() {
         <HeroSection />
         <EcosystemSection />
         <ReferencesSection />
+        <ToolsSection />
         <AIGuideSection />
-        <AffiliatesSection />
         <ComingSoonSection />
         <ContactSection />
       </main>
