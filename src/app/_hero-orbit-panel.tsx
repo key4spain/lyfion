@@ -31,8 +31,8 @@ type OrbitTrack = {
 export const ORBIT_TRACKS: OrbitTrack[] = [
   {
     id: "outer",
-    diameterDesktop: 360,
-    diameterMobile: 288,
+    diameterDesktop: 392,
+    diameterMobile: 314,
     border: "1px solid rgba(14,165,233,0.05)",
     spin: "slow",
     durationSec: 58,
@@ -40,8 +40,8 @@ export const ORBIT_TRACKS: OrbitTrack[] = [
   },
   {
     id: "mid-a",
-    diameterDesktop: 278,
-    diameterMobile: 228,
+    diameterDesktop: 303,
+    diameterMobile: 248,
     border: "1px dashed rgba(16,185,129,0.08)",
     spin: "reverse",
     durationSec: 46,
@@ -57,8 +57,8 @@ export const ORBIT_TRACKS: OrbitTrack[] = [
   },
   {
     id: "inner-a",
-    diameterDesktop: 232,
-    diameterMobile: 196,
+    diameterDesktop: 253,
+    diameterMobile: 214,
     border: "1px solid rgba(56,189,248,0.09)",
     spin: "mid",
     durationSec: 64,
@@ -73,8 +73,8 @@ export const ORBIT_TRACKS: OrbitTrack[] = [
 
 const DESKTOP_TRACK_IDS: OrbitTrackId[] = ["outer", "mid-a", "inner-a"];
 const MOBILE_TRACK_IDS: OrbitTrackId[] = ["outer", "mid-a"];
-const DESKTOP_STAGE = 360;
-const MOBILE_STAGE = 288;
+const DESKTOP_STAGE = 392;
+const MOBILE_STAGE = 314;
 
 function trackById(id: OrbitTrackId) {
   return ORBIT_TRACKS.find((t) => t.id === id)!;
@@ -320,9 +320,9 @@ function OrbitalNodeSystem({
   mobile: boolean;
   motionAllowed: boolean;
 }) {
-  const size = mobile ? 188 : 228;
-  const nodeRadius = mobile ? 58 : 74;
-  const coreRadius = mobile ? 24 : 31;
+  const size = mobile ? 204 : 248;
+  const nodeRadius = mobile ? 63 : 80;
+  const coreRadius = mobile ? 26 : 34;
   const cx = size / 2;
   const cy = size / 2;
   const nodes = buildNodePoints(size, nodeRadius);
@@ -359,7 +359,7 @@ function OrbitalNodeSystem({
         <span
           className="font-mono uppercase text-center leading-none"
           style={{
-            fontSize: mobile ? 5.5 : 7.5,
+            fontSize: mobile ? 6 : 8,
             letterSpacing: "0.14em",
             color: "rgba(56,189,248,0.84)",
             textShadow: "0 1px 2px rgba(0,0,0,0.4)",
@@ -382,24 +382,24 @@ function OrbitalNodeSystem({
               left: n.x,
               top: n.y,
               transform: "translate(-50%, -50%)",
-              maxWidth: mobile ? 54 : 70,
+              maxWidth: mobile ? 58 : 76,
             }}
           >
             <span
               aria-hidden="true"
               className="rounded-full flex-shrink-0"
               style={{
-                width: mobile ? 5 : 7,
-                height: mobile ? 5 : 7,
+                width: mobile ? 5 : 8,
+                height: mobile ? 5 : 8,
                 background: n.accent.core,
-                boxShadow: `0 0 ${mobile ? 8 : 11}px 2px ${n.accent.glow}`,
+                boxShadow: `0 0 ${mobile ? 8 : 12}px 2px ${n.accent.glow}`,
               }}
             />
             <span
               className="text-center font-mono uppercase"
               style={{
-                color: "rgba(255,255,255,0.7)",
-                fontSize: mobile ? 7.5 : 9.5,
+                color: "rgba(255,255,255,0.72)",
+                fontSize: mobile ? 8 : 10,
                 letterSpacing: "0.06em",
                 lineHeight: 1.25,
                 textShadow: "0 1px 3px rgba(0,0,0,0.4)",
@@ -510,7 +510,7 @@ export default function HeroOrbitPanel() {
 
   return (
     <div
-      className="relative flex items-center justify-center w-full max-w-[380px] mx-auto min-h-[288px] md:min-h-[360px] overflow-hidden isolate"
+      className="relative flex items-center justify-center w-full max-w-[416px] mx-auto min-h-[314px] md:min-h-[392px] overflow-hidden isolate"
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       role={interactionEnabled ? "button" : undefined}

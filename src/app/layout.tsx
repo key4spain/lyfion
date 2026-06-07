@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "./_nav";
 import CursorGlow from "./_cursor-glow";
+import AssistantCorner from "./_assistant-corner";
+import CookieConsent from "./_cookie-consent";
 import { LyfionInteractionProvider } from "./_lyfion-interaction";
 import { Footer, BRAND_FAVICON, BRAND_ICON_512 } from "./_shared";
 
@@ -18,6 +20,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://lyfion.digital"),
   robots: { index: true, follow: true },
   title: {
     default:
@@ -53,6 +56,8 @@ export default function RootLayout({
           <NavBar />
           <main>{children}</main>
           <Footer />
+          <AssistantCorner />
+          <CookieConsent />
         </LyfionInteractionProvider>
       </body>
     </html>

@@ -1,66 +1,67 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   CARD_BG,
   CARD_BORDER,
   TEXT_BODY,
   TEXT_CARD_TITLE,
-  GRADIENT,
+  TEXT_MUTED,
   RomanLabel,
   Check,
-  Arrow,
   FogBackdrop,
   SpotlightBackdrop,
   sectionBg,
   PageHeader,
-  MAILTO_CTA,
+  PrimaryCta,
+  SecondaryCta,
+  INTAKE_FORM_URL,
+  MAILTO_SUPPORT,
   MAILTO_DIRECT,
   SUPPORT_EMAIL,
   DIRECT_EMAIL,
+  BASE,
 } from "../_shared";
 
-// Contact — CTA page without a live form. Mailto only.
-
 export const metadata: Metadata = {
-  title: "Start with a system review",
+  title: "Tell us what you want to improve",
   description:
-    "Contact Lyfion Digital to request a practical system review for your website, tools, forms, workflow, or digital operating structure.",
+    "Send what exists today and what you want to improve. Lyfion reviews your visible business layer and points you to the clearest next step.",
 };
 
-const REVIEW_CHECKS = [
-  "Current website or landing page (if any)",
-  "Forms, intake, and how data is collected today",
-  "CRM or lead flow and how follow-up happens",
-  "Automations already in use",
-  "Content and AI production workflow",
-  "Source-of-truth and documentation",
-  "Risks, data exposure, and access handling",
-  "Goals and the outcome you actually want",
+const LOOK_AT_FIRST = [
+  "Current website or landing page, if any",
+  "Social profiles or public business presence",
+  "Contact forms, lead flow, or booking process",
+  "Tools, CRM, or follow-up process if they exist",
+  "Content workflow and approval structure",
+  "Trust signals and visible business layer",
+  "The outcome you actually want",
 ];
 
 const PREPARE = [
-  "Links to your current site, forms, or pages",
-  "The main tools and platforms you use",
-  "A short description of the project and its goal",
-  "Any existing documents or notes you can share",
-  "The single biggest problem you want solved first",
+  "Website, social, or public links",
+  "A short description of what you want improved",
+  "Existing documents, screenshots, or notes if useful",
+  "The main problem you want solved first",
+  "Any deadline or launch goal",
 ];
 
 const NEXT_STEPS = [
   {
     title: "We review what exists",
-    desc: "We look at your current tools, pages, forms, and source material before suggesting anything.",
+    desc: "We check your current pages, profile, lead flow, and source material before suggesting anything.",
   },
   {
-    title: "We identify gaps and risks",
-    desc: "We map where the execution system is scattered and where data or process risk sits.",
+    title: "We identify the right path",
+    desc: "Digital Refresh, Ready Business Kit, System Build, AI Workflow, or custom scope.",
   },
   {
-    title: "We map the first build step",
-    desc: "You get a clear, practical first step. Not a vague pitch.",
+    title: "You get the clearest next step",
+    desc: "A practical recommendation, not a vague pitch.",
   },
   {
-    title: "We confirm scope before any work",
-    desc: "Scope, data handling, and launch are confirmed before anything is built or published.",
+    title: "Scope is confirmed before work starts",
+    desc: "Deliverables, timeline, pricing, data handling, and launch requirements are confirmed first.",
   },
 ];
 
@@ -68,9 +69,9 @@ export default function ContactPage() {
   return (
     <>
       <PageHeader
-        label="Get started"
-        title="Start with a system review"
-        intro="Send your project, current tools, website, forms, or workflow. We review what exists, identify the gaps, and map the first practical build step."
+        label="Contact"
+        title="Tell us what you want to improve"
+        intro="You do not need to know the technical solution. Send what exists, what feels unclear, slow, outdated, or disconnected, and what you want to achieve. We will review it and point you to the clearest next step."
       />
 
       <section
@@ -81,16 +82,15 @@ export default function ContactPage() {
         <SpotlightBackdrop position="top" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
           <div className="grid md:grid-cols-2 gap-6">
-            {/* What the review checks */}
             <div
               className="rounded-2xl p-7"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
               <h2 className="text-lg font-semibold mb-5" style={{ color: "#ffffff" }}>
-                What the review checks
+                What we look at first
               </h2>
               <ul className="space-y-3">
-                {REVIEW_CHECKS.map((c) => (
+                {LOOK_AT_FIRST.map((c) => (
                   <li key={c} className="flex gap-2.5">
                     <Check />
                     <span className="text-sm leading-relaxed" style={{ color: TEXT_BODY }}>
@@ -101,7 +101,6 @@ export default function ContactPage() {
               </ul>
             </div>
 
-            {/* What to prepare */}
             <div
               className="rounded-2xl p-7"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
@@ -125,7 +124,6 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* What happens next */}
           <div className="mt-6">
             <h2 className="text-lg font-semibold mb-5" style={{ color: "#ffffff" }}>
               What happens next
@@ -152,7 +150,7 @@ export default function ContactPage() {
       </section>
 
       <section
-        className="relative overflow-hidden py-16 md:py-20"
+        className="relative overflow-hidden py-16 md:py-20 pb-28 md:pb-32"
         style={{ background: sectionBg("deep") }}
       >
         <FogBackdrop variant="deep" />
@@ -163,28 +161,50 @@ export default function ContactPage() {
             style={{ background: CARD_BG, border: "1px solid rgba(14,165,233,0.2)" }}
           >
             <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "#ffffff" }}>
-              Start with a system review
+              Ready to send your request?
             </h2>
-            <p className="text-sm md:text-base leading-relaxed mb-6" style={{ color: TEXT_BODY }}>
-              Send your current website, tools, forms, workflow, or project
-              material. We will review what exists, identify the gaps, and map
-              the first practical build step.
+            <p className="text-sm md:text-base leading-relaxed mb-8" style={{ color: TEXT_BODY }}>
+              Digital Refresh is the usual first step for existing businesses. If you are
+              launching something new or need a deeper build, we will point you to the right path.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 mb-4">
+              <PrimaryCta href={INTAKE_FORM_URL}>
+                Tell us what you want to improve
+              </PrimaryCta>
+              <SecondaryCta href={`${BASE}/services#digital-refresh`}>
+                View Digital Refresh
+              </SecondaryCta>
+            </div>
+            <p className="mb-8">
+              <Link
+                href={`${BASE}/services`}
+                className="text-sm font-semibold transition-opacity hover:opacity-80"
+                style={{ color: "rgba(56,189,248,0.85)" }}
+              >
+                See all services
+              </Link>
             </p>
             <div
-              className="text-sm leading-relaxed mb-8 space-y-2"
-              style={{ color: TEXT_BODY }}
+              className="text-sm leading-relaxed space-y-2 pt-6"
+              style={{
+                color: TEXT_BODY,
+                borderTop: `1px solid ${CARD_BORDER}`,
+              }}
             >
+              <p className="text-xs mb-2" style={{ color: TEXT_MUTED }}>
+                Direct email if you prefer:
+              </p>
               <p>
-                For system review requests:{" "}
+                Support:{" "}
                 <a
-                  href={MAILTO_CTA}
+                  href={MAILTO_SUPPORT}
                   style={{ color: "rgba(45,212,191,0.85)", textDecoration: "none" }}
                 >
                   {SUPPORT_EMAIL}
                 </a>
               </p>
               <p>
-                For direct business development:{" "}
+                Business development:{" "}
                 <a
                   href={MAILTO_DIRECT}
                   style={{ color: "rgba(45,212,191,0.85)", textDecoration: "none" }}
@@ -193,18 +213,6 @@ export default function ContactPage() {
                 </a>
               </p>
             </div>
-            <a
-              href={MAILTO_CTA}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90"
-              style={{
-                background: GRADIENT,
-                color: "#ffffff",
-                boxShadow: "0 4px 24px rgba(14,165,233,0.28)",
-              }}
-            >
-              Start with a system review
-              <Arrow />
-            </a>
           </div>
         </div>
       </section>

@@ -230,3 +230,12 @@ body {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.9);
 }
+
+/* Reserve space when cookie consent banner is visible */
+body.cookie-banner-open main {
+  padding-bottom: var(--lyfion-cookie-offset, 10rem);
+}
+
+body.cookie-banner-open footer {
+  margin-bottom: var(--lyfion-cookie-offset, 0px);
+}

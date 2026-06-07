@@ -133,16 +133,16 @@ export function LyfionWordmark({
 export const SUPPORT_EMAIL = "support@lyfion.digital";
 export const DIRECT_EMAIL = "filip@lyfion.digital";
 
-export const OFFER_PRICE = "from $499 / €429";
+export const OFFER_PRICE = "from €429 / $499";
 
-export const MAILTO_CTA =
-  "mailto:support@lyfion.digital?subject=Lyfion.digital%20System%20Review%20Request&body=Hi%20Lyfion%20Digital%2C%0A%0AI%20would%20like%20to%20request%20a%20system%20review.%0A%0AProject%20/%20business%20name%3A%0ACurrent%20website%20or%20links%3A%0AWhat%20needs%20to%20be%20improved%3A%0ATools%20currently%20used%3A%0APriority%3A%0A%0AThank%20you.";
+export const INTAKE_FORM_URL = "https://form.jotform.com/261574330244048";
 
-export const MAILTO_DIRECT =
-  "mailto:filip@lyfion.digital?subject=Lyfion.digital%20Business%20Development%20Inquiry&body=Hi%20Lyfion%20Digital%2C%0A%0AI%20would%20like%20to%20discuss%20business%20development%20or%20European%20execution.%0A%0AName%20/%20company%3A%0AProject%20context%3A%0APriority%3A%0A%0AThank%20you.";
+export const MAILTO_SUPPORT = `mailto:${SUPPORT_EMAIL}`;
+
+export const MAILTO_DIRECT = `mailto:${DIRECT_EMAIL}`;
 
 export const OFFER_DISCLAIMER =
-  "From $499 / €429. Final scope, deliverables, timeline, taxes/VAT and payment terms are confirmed before work begins. No guaranteed business outcome, lead volume, ranking, automation result, or revenue result is implied.";
+  "From €429 / $499. Final scope, deliverables, timeline, taxes/VAT and payment terms are confirmed before work begins. No guaranteed business outcome, lead volume, ranking, automation result, or revenue result is implied.";
 
 export const GRADIENT_TEXT: React.CSSProperties = {
   background: GRADIENT,
@@ -290,16 +290,22 @@ export function SecondaryCta({
   href: string;
   children: React.ReactNode;
 }) {
+  const cls =
+    "inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition-colors duration-200 hover:bg-white/10";
+  const sty = {
+    background: "rgba(255,255,255,0.06)",
+    border: "1px solid rgba(255,255,255,0.12)",
+    color: "rgba(255,255,255,0.82)",
+  };
+  if (href.startsWith("mailto:") || href.startsWith("http")) {
+    return (
+      <a href={href} className={cls} style={sty}>
+        {children}
+      </a>
+    );
+  }
   return (
-    <Link
-      href={href}
-      className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition-colors duration-200 hover:bg-white/10"
-      style={{
-        background: "rgba(255,255,255,0.06)",
-        border: "1px solid rgba(255,255,255,0.12)",
-        color: "rgba(255,255,255,0.82)",
-      }}
-    >
+    <Link href={href} className={cls} style={sty}>
       {children}
     </Link>
   );
@@ -345,6 +351,7 @@ export function PageHeader({
 export const NAV_ITEMS = [
   { label: "Home", href: BASE || "/" },
   { label: "Services", href: `${BASE}/services` },
+  { label: "Catalog", href: `${BASE}/catalog` },
   { label: "Process", href: `${BASE}/process` },
   { label: "Work", href: `${BASE}/work` },
   { label: "Contact", href: `${BASE}/contact` },
@@ -369,6 +376,49 @@ export function FooterSignal() {
       <span>Build</span>
       <span style={{ color: "#38bdf8" }}>→</span>
       <span>Production</span>
+    </div>
+  );
+}
+
+function SocialIcon({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <span
+      aria-label={label}
+      className="inline-flex items-center justify-center w-7 h-7 rounded-full"
+      style={{
+        color: "rgba(148,163,184,0.55)",
+        border: "1px solid rgba(255,255,255,0.06)",
+        background: "rgba(255,255,255,0.02)",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
+export function FooterSocial() {
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="flex items-center gap-2.5" aria-hidden="true">
+        <SocialIcon label="Instagram">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.25 6a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.25 6z" />
+          </svg>
+        </SocialIcon>
+        <SocialIcon label="TikTok">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M14 3h3.2l.1 2.2a5.8 5.8 0 0 0 4.2 2V10a8.4 8.4 0 0 1-4.5-1.3v7.4a6.2 6.2 0 1 1-6.2-6.2c.3 0 .6 0 .9.1v3.1a3.1 3.1 0 1 0 2.2 3V3z" />
+          </svg>
+        </SocialIcon>
+        <SocialIcon label="YouTube">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C17.7 5 12 5 12 5s-5.7 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C6.3 19 12 19 12 19s5.7 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z" />
+          </svg>
+        </SocialIcon>
+      </div>
+      <p className="text-[10px] tracking-wide" style={{ color: "rgba(255,255,255,0.28)" }}>
+        Social channels coming soon
+      </p>
     </div>
   );
 }
@@ -425,7 +475,7 @@ export function Footer() {
             <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
               Support:
             </p>
-            <a href={MAILTO_CTA} style={linkStyle} className="text-xs">
+            <a href={MAILTO_SUPPORT} style={linkStyle} className="text-xs">
               {SUPPORT_EMAIL}
             </a>
           </div>
@@ -446,6 +496,7 @@ export function Footer() {
               ))}
             </nav>
             <FooterSignal />
+            <FooterSocial />
           </div>
 
           {/* Right — LYFION S.L. (mobile order 2) */}

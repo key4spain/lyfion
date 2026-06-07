@@ -3,7 +3,6 @@ import Link from "next/link";
 import HeroOrbitPanel from "./_hero-orbit-panel";
 import {
   GRADIENT,
-  GRADIENT_TEXT,
   HERO_BG,
   CARD_BG,
   CARD_BORDER,
@@ -20,18 +19,17 @@ import {
   Check,
   PrimaryCta,
   SecondaryCta,
-  SERVICES,
   PROCESS_STEPS,
   WORK_CATEGORIES,
   BASE,
-  MAILTO_CTA,
+  INTAKE_FORM_URL,
   OFFER_DISCLAIMER,
   OFFER_PRICE,
 } from "./_shared";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Lyfion.digital — Homepage · route: /
-// Nav + Footer provided by ./layout.tsx. All CTAs use MAILTO_CTA.
+// Nav + Footer provided by ./layout.tsx. Primary homepage CTA → Digital Refresh.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
@@ -40,19 +38,17 @@ export const metadata: Metadata = {
       "Lyfion.digital | Digital Systems, Websites and Automation Workflows",
   },
   description:
-    "Lyfion Digital builds the structure behind modern business execution: websites, lead intake, content workflows, AI-assisted production, and automation-ready operating systems.",
+    "Lyfion Digital builds the structure behind modern business execution: websites, lead intake, content workflows, approval gates, and launch-ready operating systems.",
 };
 
 const CONTAINER = "max-w-7xl mx-auto px-6 sm:px-10 lg:px-12";
 const PAD_PROBLEM = "py-16 md:py-24";
 const PAD_BUILD = "py-16 md:py-24";
-const PAD_SERVICES = "py-16 md:py-24";
+const PAD_SERVICE_PATHS = "py-12 md:py-16";
 const PAD_WHO = "py-14 md:py-20";
 const PAD_PROOF = "py-14 md:py-20";
 const PAD_WORK = "py-14 md:py-20";
 const PAD_PROCESS = "py-14 md:py-[5.5rem]";
-const PAD_COMMERCIAL = "py-16 md:py-24";
-const PAD_OFFER = "py-14 md:py-20";
 const PAD_TRUST = "py-12 md:py-16";
 const PAD_CTA = "py-16 md:py-[5.5rem]";
 
@@ -115,18 +111,18 @@ function HeroSection() {
               className="text-base md:text-lg leading-relaxed mb-10 max-w-xl animate-fade-in-up-delay-1"
               style={{ color: TEXT_BODY }}
             >
-              Lyfion reviews your website, intake, tools, and workflows, then
-              maps the first practical build step. Websites, CRM flow, content
-              systems, and automation-ready structure.
+              Lyfion reviews your visible business layer, then maps the first
+              practical build step. Websites, lead flow, content workflow, and
+              launch structure behind the business.
             </p>
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 animate-fade-in-up-delay-2">
-              <PrimaryCta href={MAILTO_CTA}>
-                Start with a system review
+              <PrimaryCta href={`${BASE}/services#digital-refresh`}>
+                Start with Digital Refresh
               </PrimaryCta>
-              <SecondaryCta href={`${BASE}/services`}>
-                View what we build
+              <SecondaryCta href={INTAKE_FORM_URL}>
+                Tell us what you need
               </SecondaryCta>
             </div>
 
@@ -141,7 +137,7 @@ function HeroSection() {
           </div>
 
           {/* Right — orbit map */}
-          <div className="flex items-center justify-center mt-4 md:mt-0 w-full min-h-[288px] md:min-h-[360px] overflow-hidden isolate">
+          <div className="flex items-center justify-center mt-4 md:mt-0 w-full min-h-[314px] md:min-h-[392px] overflow-hidden isolate">
             <HeroOrbitPanel />
           </div>
         </div>
@@ -280,58 +276,141 @@ function WhatWeBuildSection() {
   );
 }
 
-// ─── Services preview ─────────────────────────────────────────────────────────
+// ─── Service paths: Digital Refresh primary + 3 secondary ─────────────────────
 
-function ServicesPreview() {
+const REFRESH_INCLUDES = [
+  "Website or landing page refresh",
+  "Instagram profile cleanup",
+  "Basic SEO structure",
+  "Basic AEO / GEO / LLMO setup",
+  "Contact and lead flow check",
+  "Basic trust and credibility improvements",
+  "Launch-readiness checklist",
+];
+
+const SECONDARY_SERVICE_CARDS = [
+  {
+    title: "Ready Business Kit",
+    price: "From €699 / $800",
+    description:
+      "For new businesses, offers, or local services that need a fast launch package.",
+    cta: "View Ready Business Kit",
+    href: `${BASE}/services#ready-business-kit`,
+  },
+  {
+    title: "Digital System Build",
+    price: "From €2,500 / $2,850",
+    description:
+      "For businesses that need a deeper website, lead intake, CRM logic, service flow, QA, and launch readiness.",
+    cta: "View System Build",
+    href: `${BASE}/services#digital-system-build`,
+  },
+  {
+    title: "AI Content & Production Workflow",
+    price: "From €1,750 / $1,999",
+    description:
+      "For brands that need a repeatable system for content planning, production, approval, and publishing.",
+    cta: "View AI Workflow",
+    href: `${BASE}/services#ai-content-workflow`,
+  },
+];
+
+function ServicePathsSection() {
   return (
     <section
-      className={`relative overflow-hidden ${PAD_SERVICES}`}
-      style={{ background: sectionBg("a") }}
+      className={`relative overflow-hidden ${PAD_SERVICE_PATHS}`}
+      style={{ background: sectionBg("deep") }}
     >
-      <FogBackdrop variant="blue" />
+      <FogBackdrop variant="deep" />
       <SpotlightBackdrop position="top" />
       <div className={`relative z-10 ${CONTAINER}`}>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
-          <div className="max-w-2xl">
-            <SectionLabel>Service pillars</SectionLabel>
-            <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#ffffff" }}>
-              Six build areas. One entry point: the review.
-            </h2>
-          </div>
-          <Link
-            href={`${BASE}/services`}
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-80 self-start md:self-auto"
-            style={GRADIENT_TEXT}
+        <div className="max-w-2xl mb-8">
+          <SectionLabel>Services</SectionLabel>
+          <h2
+            className="text-2xl md:text-3xl font-bold leading-tight mb-3"
+            style={{ color: "#ffffff" }}
           >
-            See all services
-            <span style={{ color: "#38bdf8" }}>
-              <Arrow />
-            </span>
-          </Link>
+            Start with Digital Refresh
+          </h2>
+          <p className="text-sm md:text-base leading-relaxed" style={{ color: TEXT_BODY }}>
+            Digital Refresh is the fastest first step. If you are launching something
+            new or need a deeper system, choose one of the other paths.
+          </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SERVICES.map((s, i) => (
-            <Link
-              key={s.id}
-              href={`${BASE}/services#${s.id}`}
-              className="group rounded-2xl p-7 flex flex-col transition-all duration-300 hover:-translate-y-1"
+        <div
+          className="rounded-2xl p-7 md:p-9 mb-5"
+          style={{
+            background: CARD_BG,
+            border: "1px solid rgba(14,165,233,0.22)",
+          }}
+        >
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3 mb-5">
+            <div>
+              <h3 className="text-xl md:text-2xl font-semibold mb-1" style={{ color: TEXT_CARD_TITLE }}>
+                Digital Refresh
+              </h3>
+              <p className="text-sm font-mono" style={{ color: "rgba(56,189,248,0.85)" }}>
+                €429 / $499
+              </p>
+            </div>
+          </div>
+
+          <p className="text-base leading-relaxed mb-6 max-w-3xl" style={{ color: TEXT_BODY }}>
+            For businesses that already exist, but need their digital presence cleaned,
+            structured, and prepared for the new search and AI discovery era.
+          </p>
+
+          <div
+            className="text-xs font-semibold tracking-[0.16em] uppercase mb-3"
+            style={{ color: TEXT_MUTED }}
+          >
+            Includes
+          </div>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3 mb-6">
+            {REFRESH_INCLUDES.map((item) => (
+              <li key={item} className="flex gap-2.5">
+                <Check />
+                <span className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+                  {item}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex flex-wrap gap-4 mb-4">
+            <PrimaryCta href={`${BASE}/services#digital-refresh`}>
+              View Digital Refresh options
+            </PrimaryCta>
+            <SecondaryCta href={INTAKE_FORM_URL}>Tell us what you need</SecondaryCta>
+          </div>
+
+          <p className="text-xs leading-relaxed max-w-2xl" style={{ color: TEXT_MUTED }}>
+            {OFFER_DISCLAIMER}
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-3 gap-4">
+          {SECONDARY_SERVICE_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className="rounded-xl p-5 flex flex-col h-full"
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
-              <RomanLabel n={i + 1} total={SERVICES.length} className="mb-4" />
-              <h3 className="text-lg font-semibold mb-2 mt-3" style={{ color: TEXT_CARD_TITLE }}>
-                {s.title}
+              <h3 className="text-base font-semibold mb-1" style={{ color: TEXT_CARD_TITLE }}>
+                {card.title}
               </h3>
-              <p className="text-sm md:text-[15px] leading-relaxed flex-1" style={{ color: TEXT_BODY }}>
-                {s.short}
-              </p>
-              <span
-                className="inline-flex items-center gap-1.5 text-xs font-semibold mt-5 transition-opacity opacity-60 group-hover:opacity-100"
-                style={{ color: "#38bdf8" }}
+              <p
+                className="text-[11px] font-mono mb-2.5"
+                style={{ color: "rgba(56,189,248,0.75)" }}
               >
-                Learn more <Arrow />
-              </span>
-            </Link>
+                {card.price}
+              </p>
+              <p className="text-sm leading-relaxed flex-1 mb-4" style={{ color: TEXT_BODY }}>
+                {card.description}
+              </p>
+              <SecondaryCta href={card.href}>{card.cta}</SecondaryCta>
+            </div>
           ))}
         </div>
       </div>
@@ -591,238 +670,6 @@ function ProcessPreview() {
   );
 }
 
-// ─── Commercial path: Review → Build → Production ────────────────────────────
-
-const COMMERCIAL_STEPS = [
-  {
-    title: "Digital Refresh Review",
-    price: OFFER_PRICE,
-    purpose:
-      "A focused review of the current website, tools, lead intake, content flow, and execution structure.",
-    outcome:
-      "Clear gaps, risks, priorities, and the first practical build recommendation.",
-    includes: null as string[] | null,
-  },
-  {
-    title: "Digital System Build",
-    price: "Custom scope after review",
-    purpose: "For businesses that need the actual system built after the review.",
-    outcome: null,
-    includes: [
-      "Website or landing page structure",
-      "Lead intake flow",
-      "CRM / follow-up logic",
-      "Service logic",
-      "Content workflow base",
-      "Approval and QA structure",
-      "Launch-readiness checklist",
-    ],
-  },
-  {
-    title: "AI Content & Production Workflow",
-    price: "Custom scope after review",
-    purpose:
-      "For brands that need repeatable content, image, video, and AI-assisted production without chaos.",
-    outcome: null,
-    includes: [
-      "Content planning system",
-      "Image/video prompt workflows",
-      "Approval gates",
-      "QA checklist",
-      "Reusable production templates",
-      "Posting/preparation workflow",
-      "Handoff structure for team or client",
-    ],
-  },
-];
-
-function CommercialPathSection() {
-  return (
-    <section
-      className={`relative overflow-hidden ${PAD_COMMERCIAL}`}
-      style={{ background: sectionBg("b") }}
-    >
-      <FogBackdrop variant="green" />
-      <SpotlightBackdrop position="top" />
-      <div className={`relative z-10 ${CONTAINER}`}>
-        <div className="max-w-2xl mb-10">
-          <SectionLabel>From review to build</SectionLabel>
-          <h2
-            className="text-3xl md:text-4xl font-bold leading-tight mb-5"
-            style={{ color: "#ffffff" }}
-          >
-            What happens after the{" "}
-            <GradientText>review.</GradientText>
-          </h2>
-          <p className="text-base leading-relaxed" style={{ color: TEXT_BODY }}>
-            Digital Refresh Review is the entry point, not the only service.
-            Most projects move review, system build, and production workflow
-            in a controlled sequence.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
-          {COMMERCIAL_STEPS.map((step, i) => (
-            <div
-              key={step.title}
-              className="rounded-2xl p-7 flex flex-col h-full"
-              style={{
-                background: CARD_BG,
-                border:
-                  i === 0
-                    ? "1px solid rgba(14,165,233,0.22)"
-                    : `1px solid ${CARD_BORDER}`,
-              }}
-            >
-              <RomanLabel n={i + 1} total={3} className="mb-4" />
-              <h3
-                className="text-lg font-semibold mb-2 mt-2"
-                style={{ color: TEXT_CARD_TITLE }}
-              >
-                {step.title}
-              </h3>
-              <p
-                className="text-sm font-semibold mb-4"
-                style={i === 0 ? GRADIENT_TEXT : { color: TEXT_MUTED }}
-              >
-                {step.price}
-              </p>
-              <p
-                className="text-sm leading-relaxed mb-4"
-                style={{ color: TEXT_BODY }}
-              >
-                <span
-                  className="block text-[11px] font-semibold tracking-[0.18em] uppercase mb-1.5"
-                  style={{ color: "rgba(56,189,248,0.75)" }}
-                >
-                  Purpose
-                </span>
-                {step.purpose}
-              </p>
-              {step.outcome && (
-                <p
-                  className="text-sm leading-relaxed mb-4"
-                  style={{ color: TEXT_BODY }}
-                >
-                  <span
-                    className="block text-[11px] font-semibold tracking-[0.18em] uppercase mb-1.5"
-                    style={{ color: "rgba(52,211,153,0.85)" }}
-                  >
-                    Outcome
-                  </span>
-                  {step.outcome}
-                </p>
-              )}
-              {step.includes && (
-                <ul className="space-y-2 mb-6 flex-1">
-                  {step.includes.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <Check />
-                      <span
-                        className="text-xs md:text-sm leading-relaxed"
-                        style={{ color: TEXT_BODY }}
-                      >
-                        {item}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <div className={step.includes ? "mt-auto" : "mt-auto pt-2"}>
-                <PrimaryCta href={MAILTO_CTA}>
-                  Start with a system review
-                </PrimaryCta>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Offer: Digital Refresh Review ───────────────────────────────────────────
-
-const REVIEW_DELIVERABLES = [
-  "Review of current website, landing page, or digital presence",
-  "Forms, intake, and lead flow assessment",
-  "Tools and automation audit",
-  "Content or AI workflow review if relevant",
-  "Gap and risk identification",
-  "First-step build recommendation with clear scope and priorities",
-];
-
-function OfferSection() {
-  return (
-    <section
-      className={`relative overflow-hidden ${PAD_OFFER}`}
-      style={{ background: sectionBg("deep") }}
-    >
-      <FogBackdrop variant="deep" />
-      <SpotlightBackdrop position="top" />
-      <div className={`relative z-10 ${CONTAINER} max-w-4xl`}>
-        <div className="text-center mb-10">
-          <SectionLabel>Where most projects start</SectionLabel>
-          <h2
-            className="text-3xl md:text-4xl font-bold leading-tight mb-3"
-            style={{ color: "#ffffff" }}
-          >
-            Digital Refresh Review
-          </h2>
-          <span
-            className="text-2xl font-bold"
-            style={GRADIENT_TEXT}
-          >
-            {OFFER_PRICE}
-          </span>
-        </div>
-
-        <div
-          className="rounded-2xl p-8 md:p-10"
-          style={{
-            background: CARD_BG,
-            border: "1px solid rgba(14,165,233,0.22)",
-          }}
-        >
-          <p
-            className="text-base md:text-lg leading-relaxed mb-8"
-            style={{ color: TEXT_BODY }}
-          >
-            We review your current digital setup: website, forms, tools, intake
-            logic, and content workflow. Then we map the first practical build step
-            with clear scope and priorities.
-          </p>
-
-          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3.5 mb-10">
-            {REVIEW_DELIVERABLES.map((d) => (
-              <li key={d} className="flex gap-2.5">
-                <Check />
-                <span
-                  className="text-sm md:text-[15px] leading-relaxed"
-                  style={{ color: "rgba(255,255,255,0.72)" }}
-                >
-                  {d}
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mb-6">
-            <PrimaryCta href={MAILTO_CTA}>Start with a system review</PrimaryCta>
-          </div>
-
-          <p
-            className="text-xs leading-relaxed max-w-2xl"
-            style={{ color: TEXT_MUTED }}
-          >
-            {OFFER_DISCLAIMER}
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ─── Trust / Safety ───────────────────────────────────────────────────────────
 
 function TrustSection() {
@@ -864,18 +711,19 @@ function CtaSection() {
       <div className={`relative z-10 ${CONTAINER} max-w-3xl text-center`}>
         <SectionLabel>Get started</SectionLabel>
         <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6" style={{ color: "#ffffff" }}>
-          Start with a <GradientText>system review.</GradientText>
+          Tell us what you want to <GradientText>improve.</GradientText>
         </h2>
         <p
           className="text-base md:text-lg leading-relaxed mb-10 max-w-2xl mx-auto"
           style={{ color: TEXT_BODY }}
         >
-          Send your project, current tools, website, forms, or workflow. We
-          review what exists, identify the gaps, and map the first practical
-          build step.
+          Send your website, profile, lead flow, or launch goal. We review what
+          exists, identify gaps, and map the first practical build step.
         </p>
         <div className="flex justify-center">
-          <PrimaryCta href={MAILTO_CTA}>Start with a system review</PrimaryCta>
+          <PrimaryCta href={INTAKE_FORM_URL}>
+            Tell us what you want to improve
+          </PrimaryCta>
         </div>
       </div>
     </section>
@@ -890,13 +738,11 @@ export default function LyfionDigitalHome() {
       <HeroSection />
       <ProblemSection />
       <WhatWeBuildSection />
-      <ServicesPreview />
+      <ServicePathsSection />
       <WhoItIsForSection />
       <ProofSection />
       <WorkPreview />
       <ProcessPreview />
-      <CommercialPathSection />
-      <OfferSection />
       <TrustSection />
       <CtaSection />
     </>

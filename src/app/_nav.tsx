@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_ITEMS, GRADIENT, BASE, MAILTO_CTA, LyfionWordmark } from "./_shared";
+import { NAV_ITEMS, GRADIENT, BASE, LyfionWordmark } from "./_shared";
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -44,13 +44,13 @@ export default function NavBar() {
         </div>
 
         {/* Desktop CTA */}
-        <a
-          href={MAILTO_CTA}
+        <Link
+          href={`${BASE}/services#digital-refresh`}
           className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-opacity duration-200 hover:opacity-90"
           style={{ background: GRADIENT, color: "#ffffff" }}
         >
-          Start with a system review
-        </a>
+          Start with Digital Refresh
+        </Link>
 
         {/* Mobile toggle */}
         <button
@@ -103,14 +103,14 @@ export default function NavBar() {
               {l.label}
             </Link>
           ))}
-          <a
-            href={MAILTO_CTA}
+          <Link
+            href={`${BASE}/services#digital-refresh`}
             onClick={() => setOpen(false)}
             className="mt-2 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-full text-sm font-semibold"
             style={{ background: GRADIENT, color: "#ffffff" }}
           >
-            Start with a system review
-          </a>
+            Start with Digital Refresh
+          </Link>
         </div>
       </div>
     </nav>
