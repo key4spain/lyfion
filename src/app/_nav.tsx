@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { NAV_ITEMS, GRADIENT, BASE, MAILTO_CTA } from "./_shared";
+import { NAV_ITEMS, GRADIENT, BASE, MAILTO_CTA, LyfionWordmark } from "./_shared";
 
 export default function NavBar() {
   const pathname = usePathname();
@@ -23,24 +23,8 @@ export default function NavBar() {
       }}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 flex items-center justify-between h-16">
-        <Link href={BASE || "/"} className="flex items-center gap-2 flex-shrink-0">
-          <span
-            className="font-extrabold text-lg tracking-[0.28em] select-none"
-            style={{
-              background: GRADIENT,
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            LYFION
-          </span>
-          <span
-            className="text-[10px] font-mono tracking-widest"
-            style={{ color: "rgba(255,255,255,0.35)" }}
-          >
-            .DIGITAL
-          </span>
+        <Link href={BASE || "/"} className="flex items-center flex-shrink-0">
+          <LyfionWordmark size="md" />
         </Link>
 
         {/* Desktop links */}

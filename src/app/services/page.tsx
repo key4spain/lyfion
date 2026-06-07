@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import {
-  DARK_BG,
-  DARK_BG_ALT,
   CARD_BG,
   CARD_BORDER,
+  TEXT_BODY,
+  TEXT_MUTED,
+  FogBackdrop,
+  SpotlightBackdrop,
+  sectionBg,
   GradientText,
   RomanLabel,
   Check,
@@ -13,7 +16,7 @@ import {
   MAILTO_CTA,
 } from "../_shared";
 
-// /v1/services — service overview without pricing. CTAs link to /v1/contact.
+// Services — overview without pricing. CTAs use mailto.
 
 export const metadata: Metadata = {
   title: "Services",
@@ -29,18 +32,20 @@ export default function ServicesPage() {
       <PageHeader
         label="Services"
         title="Services built for structured digital execution"
-        intro="Six practical service families. Each one starts with a system review, has a clear scope, and is built with approval gates before anything goes live. No prices, no timelines, and no guaranteed results — just structured work."
+        intro="Six practical service areas. Each one starts with a system review, has a clear scope, and is built with approval gates before anything goes live. No public prices or fixed packages."
       />
 
-      <div style={{ background: DARK_BG }}>
+      <div style={{ background: sectionBg("a") }}>
         {SERVICES.map((s, i) => (
           <section
             key={s.id}
             id={s.id}
-            className="scroll-mt-24 py-24 md:py-28"
-            style={{ background: i % 2 === 0 ? DARK_BG : DARK_BG_ALT }}
+            className="relative overflow-hidden scroll-mt-24 py-20 md:py-24"
+            style={{ background: i % 2 === 0 ? sectionBg("a") : sectionBg("b") }}
           >
-            <div className={CONTAINER}>
+            <FogBackdrop variant={i % 2 === 0 ? "blue" : "green"} />
+            <SpotlightBackdrop position="top" />
+            <div className={`relative z-10 ${CONTAINER}`}>
               <div className="grid lg:grid-cols-12 gap-10 lg:gap-14">
                 {/* Left: title + framing */}
                 <div className="lg:col-span-5">
@@ -54,7 +59,7 @@ export default function ServicesPage() {
                   {/* Lead summary — makes the card read like a real offer */}
                   <p
                     className="text-base leading-relaxed mb-7"
-                    style={{ color: "rgba(255,255,255,0.7)" }}
+                    style={{ color: TEXT_BODY }}
                   >
                     {s.short}
                   </p>
@@ -67,7 +72,7 @@ export default function ServicesPage() {
                       >
                         Who it&apos;s for
                       </div>
-                      <p className="text-sm md:text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                      <p className="text-sm md:text-[15px] leading-relaxed" style={{ color: TEXT_BODY }}>
                         {s.whoFor}
                       </p>
                     </div>
@@ -78,7 +83,7 @@ export default function ServicesPage() {
                       >
                         The problem it solves
                       </div>
-                      <p className="text-sm md:text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.6)" }}>
+                      <p className="text-sm md:text-[15px] leading-relaxed" style={{ color: TEXT_BODY }}>
                         {s.problem}
                       </p>
                     </div>
@@ -93,7 +98,7 @@ export default function ServicesPage() {
                   >
                     <div
                       className="text-xs font-semibold tracking-[0.18em] uppercase mb-5"
-                      style={{ color: "rgba(255,255,255,0.5)" }}
+                      style={{ color: TEXT_MUTED }}
                     >
                       What gets built
                     </div>
@@ -138,15 +143,19 @@ export default function ServicesPage() {
       </div>
 
       {/* Closing note */}
-      <section className="py-20" style={{ background: DARK_BG_ALT }}>
-        <div className={`${CONTAINER} max-w-3xl text-center`}>
-          <p className="text-base md:text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
+      <section
+        className="relative overflow-hidden py-16 md:py-20"
+        style={{ background: sectionBg("deep") }}
+      >
+        <FogBackdrop variant="deep" />
+        <SpotlightBackdrop />
+        <div className={`relative z-10 ${CONTAINER} max-w-3xl text-center`}>
+          <p className="text-base md:text-lg leading-relaxed" style={{ color: TEXT_BODY }}>
             Not sure which fits? <GradientText>Start with a system review</GradientText>{" "}
             and we map the first practical step together.
           </p>
-          <p className="text-xs mt-4" style={{ color: "rgba(255,255,255,0.3)" }}>
-            V1 does not list prices, delivery timelines, or guaranteed packages.
-            Scope is defined per project after the review.
+          <p className="text-xs mt-4" style={{ color: TEXT_MUTED }}>
+            Scope is defined per project after the review. It is not a fixed public package.
           </p>
         </div>
       </section>

@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import {
-  DARK_BG,
-  DARK_BG_ALT,
   CARD_BG,
   CARD_BORDER,
+  TEXT_BODY,
+  TEXT_MUTED,
+  TEXT_CARD_TITLE,
+  FogBackdrop,
+  SpotlightBackdrop,
+  sectionBg,
   GRADIENT,
   GradientText,
   RomanLabel,
@@ -13,7 +17,7 @@ import {
   MAILTO_CTA,
 } from "../_shared";
 
-// /v1/work — proof-safe selected work. No screenshots, metrics, client names,
+// Work — proof-safe selected work. No screenshots, metrics, client names,
 // or private data. No app.dostavapro.com reference.
 
 export const metadata: Metadata = {
@@ -28,11 +32,16 @@ export default function WorkPage() {
       <PageHeader
         label="Selected work"
         title="Selected work and internal systems"
-        intro="Real systems, staged concepts, and project infrastructure built to turn ideas into structured digital execution."
+        intro="Internal operating systems, website structures, intake workflows, and content production layers built for structured execution. Real work, not slide decks."
       />
 
-      <section className="py-24 md:py-28" style={{ background: DARK_BG }}>
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+      <section
+        className="relative overflow-hidden py-20 md:py-24"
+        style={{ background: sectionBg("b") }}
+      >
+        <FogBackdrop variant="blue" />
+        <SpotlightBackdrop position="top" />
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
           {/* Proof statement */}
           <div
             className="rounded-2xl p-8 md:p-10 mb-14 text-center"
@@ -52,27 +61,31 @@ export default function WorkPage() {
               >
                 <RomanLabel n={i + 1} className="mb-4" />
                 <div className="w-8 h-1 rounded-full mb-4 mt-3" style={{ background: GRADIENT }} />
-                <h3 className="text-base font-semibold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>
+                <h3 className="text-base font-semibold mb-2" style={{ color: TEXT_CARD_TITLE }}>
                   {c.title}
                 </h3>
-                <p className="text-sm md:text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                <p className="text-sm md:text-[15px] leading-relaxed" style={{ color: TEXT_BODY }}>
                   {c.desc}
                 </p>
               </div>
             ))}
           </div>
 
-          <p className="text-xs mt-8 max-w-2xl leading-relaxed" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <p className="text-xs mt-8 max-w-2xl leading-relaxed" style={{ color: TEXT_MUTED }}>
             High-level references only. No screenshots, metrics, dashboard access,
-            private data, or client names are shown in V1. Specific examples are
+            private data, or client names are shown here. Specific examples are
             shared privately, where appropriate, after a system review.
           </p>
         </div>
       </section>
 
-      <section className="py-20 md:py-24" style={{ background: DARK_BG_ALT }}>
-        <div className="max-w-3xl mx-auto px-6 sm:px-10 lg:px-12 text-center">
-          <p className="text-base leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.55)" }}>
+      <section
+        className="relative overflow-hidden py-16 md:py-20"
+        style={{ background: sectionBg("deep") }}
+      >
+        <FogBackdrop variant="deep" />
+        <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-12 text-center">
+          <p className="text-base leading-relaxed mb-8" style={{ color: TEXT_BODY }}>
             Want to see how this applies to your project?
           </p>
           <div className="flex justify-center">

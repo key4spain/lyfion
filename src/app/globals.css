@@ -90,6 +90,115 @@ body {
   animation: float 6s ease-in-out infinite;
 }
 
+.animate-glow-pulse {
+  animation: pulseGlow 8s ease-in-out infinite;
+}
+
+.animate-orbit-slow {
+  animation: spinSlow 48s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: spinReverse 36s linear infinite;
+}
+
+.animate-orbit-mid {
+  animation: spinSlow 62s linear infinite;
+}
+
+.animate-card-breathe {
+  animation: cardBreathe 8s ease-in-out infinite;
+}
+
+.animate-core-glow {
+  animation: coreGlow 8s ease-in-out infinite;
+}
+
+.animate-thread-pulse {
+  animation: threadPulse 8s ease-in-out infinite;
+}
+
+@keyframes coreGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 18px var(--card-glow),
+      inset 0 0 12px rgba(14, 165, 233, 0.06);
+    border-color: var(--card-border);
+  }
+  50% {
+    box-shadow:
+      0 0 28px var(--card-glow),
+      inset 0 0 16px rgba(16, 185, 129, 0.08);
+    border-color: rgba(16, 185, 129, 0.18);
+  }
+}
+
+@keyframes threadPulse {
+  0%, 100% {
+    stroke-opacity: 0.22;
+  }
+  50% {
+    stroke-opacity: 0.38;
+  }
+}
+
+.orbit-system-field {
+  --hub-opacity: 0.55;
+  --card-border: rgba(14, 165, 233, 0.11);
+  --card-glow: rgba(14, 165, 233, 0.05);
+  --frame-ring: rgba(56, 189, 248, 0.11);
+  animation: orbitSystemBreathe 8s ease-in-out infinite;
+}
+
+@keyframes orbitSystemBreathe {
+  0%, 100% {
+    --hub-opacity: 0.55;
+    --card-border: rgba(14, 165, 233, 0.11);
+    --card-glow: rgba(14, 165, 233, 0.05);
+    --frame-ring: rgba(56, 189, 248, 0.11);
+  }
+  50% {
+    --hub-opacity: 0.78;
+    --card-border: rgba(16, 185, 129, 0.16);
+    --card-glow: rgba(16, 185, 129, 0.07);
+    --frame-ring: rgba(16, 185, 129, 0.15);
+  }
+}
+
+@keyframes cardBreathe {
+  0%, 100% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 0 22px var(--card-glow),
+      0 0 48px rgba(14, 165, 233, 0.025);
+  }
+  50% {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 0 32px var(--card-glow),
+      0 0 56px rgba(16, 185, 129, 0.035);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-glow-pulse,
+  .animate-float,
+  .animate-orbit-slow,
+  .animate-orbit-reverse,
+  .animate-orbit-mid,
+  .animate-card-breathe,
+  .animate-core-glow,
+  .animate-thread-pulse,
+  .orbit-system-field,
+  .animate-fade-in-up,
+  .animate-fade-in-up-delay-1,
+  .animate-fade-in-up-delay-2,
+  .animate-fade-in-up-delay-3,
+  .animate-fade-in {
+    animation: none !important;
+  }
+}
+
 /* ── Scrollbar ── */
 
 ::-webkit-scrollbar {

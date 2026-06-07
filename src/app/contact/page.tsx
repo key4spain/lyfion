@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
 import {
-  DARK_BG,
-  DARK_BG_ALT,
   CARD_BG,
   CARD_BORDER,
+  TEXT_BODY,
+  TEXT_CARD_TITLE,
   GRADIENT,
   RomanLabel,
   Check,
   Arrow,
+  FogBackdrop,
+  SpotlightBackdrop,
+  sectionBg,
   PageHeader,
   MAILTO_CTA,
+  MAILTO_DIRECT,
+  SUPPORT_EMAIL,
+  DIRECT_EMAIL,
 } from "../_shared";
 
-// /v1/contact — CTA page WITHOUT a live form. No email/form/CRM/Jotform connected.
+// Contact — CTA page without a live form. Mailto only.
 
 export const metadata: Metadata = {
   title: "Start with a system review",
@@ -50,7 +56,7 @@ const NEXT_STEPS = [
   },
   {
     title: "We map the first build step",
-    desc: "You get a clear, practical first step — not a vague pitch.",
+    desc: "You get a clear, practical first step. Not a vague pitch.",
   },
   {
     title: "We confirm scope before any work",
@@ -67,8 +73,13 @@ export default function ContactPage() {
         intro="Send your project, current tools, website, forms, or workflow. We review what exists, identify the gaps, and map the first practical build step."
       />
 
-      <section className="py-24 md:py-28" style={{ background: DARK_BG }}>
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
+      <section
+        className="relative overflow-hidden py-20 md:py-24"
+        style={{ background: sectionBg("a") }}
+      >
+        <FogBackdrop variant="green" />
+        <SpotlightBackdrop position="top" />
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
           <div className="grid md:grid-cols-2 gap-6">
             {/* What the review checks */}
             <div
@@ -82,7 +93,7 @@ export default function ContactPage() {
                 {REVIEW_CHECKS.map((c) => (
                   <li key={c} className="flex gap-2.5">
                     <Check />
-                    <span className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                    <span className="text-sm leading-relaxed" style={{ color: TEXT_BODY }}>
                       {c}
                     </span>
                   </li>
@@ -105,7 +116,7 @@ export default function ContactPage() {
                       className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
                       style={{ background: "#38bdf8" }}
                     />
-                    <span className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>
+                    <span className="text-sm leading-relaxed" style={{ color: TEXT_BODY }}>
                       {p}
                     </span>
                   </li>
@@ -127,10 +138,10 @@ export default function ContactPage() {
                   style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
                 >
                   <RomanLabel n={i + 1} className="mb-4" />
-                  <h3 className="text-sm font-semibold mb-2 mt-3" style={{ color: "rgba(255,255,255,0.92)" }}>
+                  <h3 className="text-sm font-semibold mb-2 mt-3" style={{ color: TEXT_CARD_TITLE }}>
                     {s.title}
                   </h3>
-                  <p className="text-xs md:text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+                  <p className="text-xs md:text-sm leading-relaxed" style={{ color: TEXT_BODY }}>
                     {s.desc}
                   </p>
                 </div>
@@ -141,10 +152,12 @@ export default function ContactPage() {
       </section>
 
       <section
-        className="py-24 md:py-28"
-        style={{ background: `radial-gradient(ellipse at 50% 0%, #082840 0%, ${DARK_BG_ALT} 60%)` }}
+        className="relative overflow-hidden py-16 md:py-20"
+        style={{ background: sectionBg("deep") }}
       >
-        <div className="max-w-2xl mx-auto px-6 sm:px-10 lg:px-12">
+        <FogBackdrop variant="deep" />
+        <SpotlightBackdrop />
+        <div className="relative z-10 max-w-2xl mx-auto px-6 sm:px-10 lg:px-12">
           <div
             className="rounded-2xl p-8 md:p-10 text-center"
             style={{ background: CARD_BG, border: "1px solid rgba(14,165,233,0.2)" }}
@@ -152,20 +165,34 @@ export default function ContactPage() {
             <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "#ffffff" }}>
               Start with a system review
             </h2>
-            <p className="text-sm md:text-base leading-relaxed mb-3" style={{ color: "rgba(255,255,255,0.55)" }}>
+            <p className="text-sm md:text-base leading-relaxed mb-6" style={{ color: TEXT_BODY }}>
               Send your current website, tools, forms, workflow, or project
               material. We will review what exists, identify the gaps, and map
               the first practical build step.
             </p>
-            <p className="text-sm leading-relaxed mb-8" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Email:{" "}
-              <a
-                href={MAILTO_CTA}
-                style={{ color: "rgba(45,212,191,0.85)", textDecoration: "none" }}
-              >
-                filip@lyfion.digital
-              </a>
-            </p>
+            <div
+              className="text-sm leading-relaxed mb-8 space-y-2"
+              style={{ color: TEXT_BODY }}
+            >
+              <p>
+                For system review requests:{" "}
+                <a
+                  href={MAILTO_CTA}
+                  style={{ color: "rgba(45,212,191,0.85)", textDecoration: "none" }}
+                >
+                  {SUPPORT_EMAIL}
+                </a>
+              </p>
+              <p>
+                For direct business development:{" "}
+                <a
+                  href={MAILTO_DIRECT}
+                  style={{ color: "rgba(45,212,191,0.85)", textDecoration: "none" }}
+                >
+                  {DIRECT_EMAIL}
+                </a>
+              </p>
+            </div>
             <a
               href={MAILTO_CTA}
               className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90"

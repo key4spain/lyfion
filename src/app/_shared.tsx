@@ -10,11 +10,139 @@ import Link from "next/link";
 export const GRADIENT =
   "linear-gradient(135deg, #38bdf8 0%, #0ea5e9 45%, #10b981 100%)";
 export const HERO_BG =
-  "radial-gradient(ellipse at 70% 35%, #082840 0%, #031a10 45%, #020b06 100%)";
+  "radial-gradient(ellipse at 68% 28%, #0c3d5c 0%, #042018 42%, #020b06 100%)";
 export const DARK_BG = "#030e08";
 export const DARK_BG_ALT = "#020b06";
-export const CARD_BG = "rgba(255,255,255,0.04)";
-export const CARD_BORDER = "rgba(255,255,255,0.08)";
+export const CARD_BG = "rgba(3,12,9,0.72)";
+export const CARD_BORDER = "rgba(255,255,255,0.12)";
+export const TEXT_BODY = "rgba(255,255,255,0.78)";
+export const TEXT_MUTED = "rgba(255,255,255,0.52)";
+export const TEXT_CARD_TITLE = "#ffffff";
+export const FOG_BLUE = "rgba(14,165,233,0.088)";
+export const FOG_GREEN = "rgba(16,185,129,0.078)";
+export const FOG_DEEP = "rgba(8,40,64,0.48)";
+export const FOG_MIST = "rgba(56,189,248,0.042)";
+export const FOOTER_BG = `linear-gradient(180deg, ${DARK_BG_ALT} 0%, #031510 40%, ${DARK_BG_ALT} 100%)`;
+export const SECTION_PAD = "py-20 md:py-28";
+export const SECTION_PAD_COMPACT = "py-16 md:py-24";
+export const BRAND_WORDMARK = "/brand/lyfion/svg/lyfion_wordmark_primary.svg";
+export const BRAND_WORDMARK_DARK = "/brand/lyfion/svg/lyfion_wordmark_dark.svg";
+export const BRAND_FAVICON = "/brand/lyfion/favicon/favicon.svg";
+export const BRAND_ICON_512 = "/brand/lyfion/png/lyfion_icon_512.png";
+
+export const SECTION_FOG_BLUE = (base: string) => base;
+export const SECTION_FOG_GREEN = (base: string) => base;
+export const SECTION_FOG_DEEP = (base: string) => base;
+
+export function sectionBg(tone: "a" | "b" | "deep" = "a"): string {
+  const tones = {
+    a: `linear-gradient(180deg, ${DARK_BG} 0%, #041a12 48%, ${DARK_BG} 100%)`,
+    b: `linear-gradient(180deg, ${DARK_BG_ALT} 0%, #031510 52%, ${DARK_BG_ALT} 100%)`,
+    deep: `linear-gradient(180deg, #020b06 0%, #082840 38%, ${DARK_BG} 100%)`,
+  };
+  return tones[tone];
+}
+
+export function FogBackdrop({
+  variant = "blue",
+}: {
+  variant?: "blue" | "green" | "deep" | "dual";
+}) {
+  const layers: Record<string, string> = {
+    blue: [
+      `radial-gradient(ellipse 130% 95% at 100% 0%, ${FOG_BLUE} 0%, transparent 54%)`,
+      `radial-gradient(ellipse 75% 60% at 72% 38%, ${FOG_MIST} 0%, transparent 50%)`,
+    ].join(", "),
+    green: [
+      `radial-gradient(ellipse 130% 95% at 0% 100%, ${FOG_GREEN} 0%, transparent 54%)`,
+      `radial-gradient(ellipse 70% 55% at 18% 72%, rgba(16,185,129,0.022) 0%, transparent 50%)`,
+    ].join(", "),
+    deep: [
+      `radial-gradient(ellipse 115% 85% at 50% -12%, ${FOG_DEEP} 0%, transparent 58%)`,
+      `radial-gradient(ellipse 85% 65% at 92% 85%, ${FOG_BLUE} 0%, transparent 52%)`,
+      `radial-gradient(ellipse 85% 65% at 8% 15%, ${FOG_GREEN} 0%, transparent 52%)`,
+    ].join(", "),
+    dual: [
+      `radial-gradient(ellipse 130% 95% at 100% 0%, ${FOG_BLUE} 0%, transparent 54%)`,
+      `radial-gradient(ellipse 130% 95% at 0% 100%, ${FOG_GREEN} 0%, transparent 54%)`,
+    ].join(", "),
+  };
+
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute inset-0 pointer-events-none z-0"
+      style={{ background: layers[variant] }}
+    />
+  );
+}
+
+/** Soft lamp-style radial glow behind content (not over text). */
+export function SpotlightBackdrop({
+  position = "center",
+}: {
+  position?: "center" | "top";
+}) {
+  const y = position === "top" ? "28%" : "48%";
+  return (
+    <div
+      aria-hidden="true"
+      className="absolute inset-0 pointer-events-none z-0"
+      style={{
+        background: [
+          `radial-gradient(ellipse 52% 42% at 50% ${y}, rgba(14,165,233,0.13) 0%, transparent 72%)`,
+          `radial-gradient(ellipse 38% 32% at 50% ${y}, rgba(16,185,129,0.075) 0%, transparent 68%)`,
+          `radial-gradient(ellipse 70% 50% at 50% ${y}, rgba(45,212,191,0.045) 0%, transparent 75%)`,
+        ].join(", "),
+      }}
+    />
+  );
+}
+
+export function LyfionWordmark({
+  className = "",
+  size = "md",
+}: {
+  className?: string;
+  size?: "sm" | "md" | "lg";
+}) {
+  const scale = {
+    sm: { main: "text-sm", suffix: "text-[9px]", tracking: "tracking-[0.22em]", gap: "ml-1" },
+    md: { main: "text-lg", suffix: "text-[10px]", tracking: "tracking-[0.24em]", gap: "ml-1.5" },
+    lg: { main: "text-xl", suffix: "text-[11px]", tracking: "tracking-[0.26em]", gap: "ml-2" },
+  }[size];
+
+  return (
+    <span className={`inline-flex items-baseline select-none ${className}`}>
+      <span
+        className={`font-extrabold ${scale.main} ${scale.tracking}`}
+        style={GRADIENT_TEXT}
+      >
+        LYFION
+      </span>
+      <span
+        className={`font-mono font-medium ${scale.suffix} tracking-[0.3em] ${scale.gap}`}
+        style={{ color: "rgba(148,163,184,0.78)" }}
+      >
+        .DIGITAL
+      </span>
+    </span>
+  );
+}
+
+export const SUPPORT_EMAIL = "support@lyfion.digital";
+export const DIRECT_EMAIL = "filip@lyfion.digital";
+
+export const OFFER_PRICE = "from $499 / €429";
+
+export const MAILTO_CTA =
+  "mailto:support@lyfion.digital?subject=Lyfion.digital%20System%20Review%20Request&body=Hi%20Lyfion%20Digital%2C%0A%0AI%20would%20like%20to%20request%20a%20system%20review.%0A%0AProject%20/%20business%20name%3A%0ACurrent%20website%20or%20links%3A%0AWhat%20needs%20to%20be%20improved%3A%0ATools%20currently%20used%3A%0APriority%3A%0A%0AThank%20you.";
+
+export const MAILTO_DIRECT =
+  "mailto:filip@lyfion.digital?subject=Lyfion.digital%20Business%20Development%20Inquiry&body=Hi%20Lyfion%20Digital%2C%0A%0AI%20would%20like%20to%20discuss%20business%20development%20or%20European%20execution.%0A%0AName%20/%20company%3A%0AProject%20context%3A%0APriority%3A%0A%0AThank%20you.";
+
+export const OFFER_DISCLAIMER =
+  "From $499 / €429. Final scope, deliverables, timeline, taxes/VAT and payment terms are confirmed before work begins. No guaranteed business outcome, lead volume, ranking, automation result, or revenue result is implied.";
 
 export const GRADIENT_TEXT: React.CSSProperties = {
   background: GRADIENT,
@@ -25,12 +153,6 @@ export const GRADIENT_TEXT: React.CSSProperties = {
 
 // Route prefix — "" = root (promoted from /v1)
 export const BASE = "";
-
-export const MAILTO_CTA =
-  "mailto:filip@lyfion.digital?subject=Lyfion.digital%20System%20Review%20Request&body=Hi%20Lyfion%20Digital%2C%0A%0AI%20would%20like%20to%20request%20a%20system%20review.%0A%0AProject%20/%20business%20name%3A%0ACurrent%20website%20or%20links%3A%0AWhat%20needs%20to%20be%20improved%3A%0ATools%20currently%20used%3A%0APriority%3A%0A%0AThank%20you.";
-
-export const OFFER_DISCLAIMER =
-  "From $499. Final scope, deliverables, timeline, taxes/VAT and payment terms are confirmed before work begins. No guaranteed business outcome, lead volume, ranking, automation result, or revenue result is implied.";
 
 // ─── Primitives ───────────────────────────────────────────────────────────────
 
@@ -195,15 +317,9 @@ export function PageHeader({
 }) {
   return (
     <section className="relative overflow-hidden" style={{ background: HERO_BG }}>
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 18% 90%, rgba(16,185,129,0.06) 0%, transparent 60%)",
-        }}
-      />
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-36 pb-20 md:pt-44 md:pb-28">
+      <FogBackdrop variant="deep" />
+      <SpotlightBackdrop position="top" />
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-36 pb-20 md:pt-44 md:pb-28">
         <SectionLabel>{label}</SectionLabel>
         <h1
           className="text-3xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] tracking-tight max-w-3xl"
@@ -214,7 +330,7 @@ export function PageHeader({
         {intro && (
           <p
             className="text-base md:text-lg leading-relaxed mt-7 max-w-2xl"
-            style={{ color: "rgba(255,255,255,0.6)" }}
+            style={{ color: TEXT_BODY }}
           >
             {intro}
           </p>
@@ -234,94 +350,161 @@ export const NAV_ITEMS = [
   { label: "Contact", href: `${BASE}/contact` },
 ];
 
+export function FooterSignal() {
+  return (
+    <div
+      className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-mono tracking-wide"
+      style={{
+        background: CARD_BG,
+        border: `1px solid ${CARD_BORDER}`,
+        color: TEXT_BODY,
+      }}
+    >
+      <span
+        className="inline-block w-1.5 h-1.5 rounded-full flex-shrink-0"
+        style={{ background: "#10b981" }}
+      />
+      <span>Review</span>
+      <span style={{ color: "#38bdf8" }}>→</span>
+      <span>Build</span>
+      <span style={{ color: "#38bdf8" }}>→</span>
+      <span>Production</span>
+    </div>
+  );
+}
+
 export function Footer() {
+  const entityCard = {
+    background: CARD_BG,
+    border: `1px solid ${CARD_BORDER}`,
+  };
+  const linkStyle = {
+    color: "rgba(45,212,191,0.9)",
+    textDecoration: "none" as const,
+  };
+
   return (
     <footer
+      className="relative overflow-hidden"
       style={{
-        background: "#020906",
+        background: FOOTER_BG,
         borderTop: "1px solid rgba(255,255,255,0.05)",
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-14">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <Link href={BASE || "/"} className="flex items-center gap-2">
-            <GradientText className="font-extrabold text-base tracking-[0.28em] select-none">
-              LYFION
-            </GradientText>
-            <span
-              className="text-[10px] font-mono tracking-widest"
-              style={{ color: "rgba(255,255,255,0.3)" }}
-            >
-              .DIGITAL
-            </span>
-          </Link>
-
-          <nav className="flex flex-wrap gap-5 justify-center">
-            {NAV_ITEMS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className="text-xs transition-colors hover:text-white"
-                style={{ color: "rgba(255,255,255,0.4)" }}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        {/* Company signal block */}
-        <div
-          className="mt-10 pt-8"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
-        >
+      <FogBackdrop variant="blue" />
+      <SpotlightBackdrop position="top" />
+      <div className="relative z-10 max-w-[72rem] mx-auto px-6 sm:px-8 lg:px-10 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] gap-8 lg:gap-6 items-start">
+          {/* Left — LYFION LLC (mobile order 1) */}
           <div
-            className="rounded-xl px-5 py-4 w-full md:max-w-md"
-            style={{
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.07)",
-            }}
+            className="order-1 rounded-xl px-4 py-4 w-full lg:max-w-[240px]"
+            style={entityCard}
           >
             <div className="w-8 h-px mb-3" style={{ background: GRADIENT }} />
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mb-2">
-              <span
-                className="inline-block w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style={{ background: "#2dd4bf" }}
-              />
-              <span
-                className="text-xs font-semibold tracking-wide"
-                style={{ color: "rgba(255,255,255,0.8)" }}
-              >
-                LYFION LLC
-              </span>
-              <span className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-                · Registered in Wyoming, United States
-              </span>
-            </div>
-            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
-              Principal Office: 30 N Gould St Ste R, Sheridan, WY 82801, USA
+            <p
+              className="text-xs font-semibold tracking-wide mb-2"
+              style={{ color: TEXT_CARD_TITLE }}
+            >
+              LYFION LLC
             </p>
-            <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
-              Contact:{" "}
-              <a
-                href={MAILTO_CTA}
-                style={{ color: "rgba(45,212,191,0.85)", textDecoration: "none" }}
-              >
-                filip@lyfion.digital
-              </a>
+            <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_BODY }}>
+              Digital systems and automation operations
             </p>
+            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+              Principal Office:
+            </p>
+            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+              30 N Gould St Ste R
+            </p>
+            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+              Sheridan, WY 82801
+            </p>
+            <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_MUTED }}>
+              United States
+            </p>
+            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+              Support:
+            </p>
+            <a href={MAILTO_CTA} style={linkStyle} className="text-xs">
+              {SUPPORT_EMAIL}
+            </a>
+          </div>
+
+          {/* Center — nav + signal (mobile order 3) */}
+          <div className="order-3 lg:order-none flex flex-col items-center justify-center gap-4 lg:px-4 lg:min-w-[210px] lg:pt-1">
+            <LyfionWordmark size="sm" className="inline-flex opacity-85" />
+            <nav className="flex flex-wrap gap-x-5 gap-y-2 justify-center">
+              {NAV_ITEMS.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className="text-xs transition-colors hover:text-white"
+                  style={{ color: "rgba(255,255,255,0.62)" }}
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+            <FooterSignal />
+          </div>
+
+          {/* Right — LYFION S.L. (mobile order 2) */}
+          <div
+            className="order-2 rounded-xl px-4 py-4 w-full lg:max-w-[240px] lg:ml-auto"
+            style={entityCard}
+          >
+            <div className="w-8 h-px mb-3" style={{ background: GRADIENT }} />
+            <p
+              className="text-xs font-semibold tracking-wide mb-2"
+              style={{ color: TEXT_CARD_TITLE }}
+            >
+              LYFION S.L.
+            </p>
+            <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_BODY }}>
+              Business development and European execution
+            </p>
+            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+              Dirección social:
+            </p>
+            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+              Rbla Catalunya, 38
+            </p>
+            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+              08007 Barcelona
+            </p>
+            <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_MUTED }}>
+              Barcelona, Spain
+            </p>
+            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+              NIF/CIF:
+            </p>
+            <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_BODY }}>
+              B24818064
+            </p>
+            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+              Contact:
+            </p>
+            <a href={MAILTO_DIRECT} style={linkStyle} className="text-xs">
+              {DIRECT_EMAIL}
+            </a>
           </div>
         </div>
 
         <p
-          className="text-xs leading-relaxed mt-8 pt-6 max-w-3xl"
+          className="text-xs leading-relaxed mt-8 pt-6 text-center max-w-2xl mx-auto"
           style={{
-            color: "rgba(255,255,255,0.3)",
+            color: TEXT_MUTED,
             borderTop: "1px solid rgba(255,255,255,0.05)",
           }}
         >
-          Practical digital systems, websites, workflows, and AI-assisted
-          production structures for modern business execution.
+          Practical systems for websites, intake, workflows, and AI-assisted
+          production.
+        </p>
+        <p
+          className="text-[11px] leading-relaxed mt-4 text-center"
+          style={{ color: "rgba(255,255,255,0.28)" }}
+        >
+          © 2026 Lyfion.digital. All rights reserved.
         </p>
       </div>
     </footer>
@@ -469,7 +652,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     summary:
       "Understand the project, source material, current tools, risks, and desired outcome.",
     detail:
-      "We start by looking at what already exists — files, tools, forms, sites, and goals — before proposing anything.",
+      "We start by looking at what already exists: files, tools, forms, sites, and goals. Then we propose the next step.",
   },
   {
     title: "Structure",
@@ -496,7 +679,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     title: "Launch / Handoff",
     summary: "Only after approval. No uncontrolled publishing.",
     detail:
-      "Nothing goes public without explicit approval. Launch and handoff happen on your sign-off — never automatically.",
+      "Nothing goes public without explicit approval. Launch and handoff happen on your sign-off, not automatically.",
   },
   {
     title: "Iterate",

@@ -1,13 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import HeroOrbitPanel from "./_hero-orbit-panel";
 import {
   GRADIENT,
   GRADIENT_TEXT,
   HERO_BG,
-  DARK_BG,
-  DARK_BG_ALT,
   CARD_BG,
   CARD_BORDER,
+  TEXT_BODY,
+  TEXT_MUTED,
+  TEXT_CARD_TITLE,
+  FogBackdrop,
+  SpotlightBackdrop,
+  sectionBg,
   GradientText,
   SectionLabel,
   RomanLabel,
@@ -21,24 +26,35 @@ import {
   BASE,
   MAILTO_CTA,
   OFFER_DISCLAIMER,
+  OFFER_PRICE,
 } from "./_shared";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Lyfion.digital — Homepage · route: /
-// Nav + Footer are provided by ./layout.tsx. All CTAs use MAILTO_CTA.
+// Nav + Footer provided by ./layout.tsx. All CTAs use MAILTO_CTA.
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: {
     absolute:
-      "Lyfion.digital — AI-Powered Business Systems, Websites & Automation Workflows",
+      "Lyfion.digital | Digital Systems, Websites and Automation Workflows",
   },
   description:
-    "Lyfion.digital builds practical AI-powered business systems, websites, automation workflows, CRM and lead intake operations, content engines, and internal operating structures for projects that need speed, structure, and controlled execution.",
+    "Lyfion Digital builds the structure behind modern business execution: websites, lead intake, content workflows, AI-assisted production, and automation-ready operating systems.",
 };
 
 const CONTAINER = "max-w-7xl mx-auto px-6 sm:px-10 lg:px-12";
-const SECTION = "py-28 md:py-36";
+const PAD_PROBLEM = "py-16 md:py-24";
+const PAD_BUILD = "py-16 md:py-24";
+const PAD_SERVICES = "py-16 md:py-24";
+const PAD_WHO = "py-14 md:py-20";
+const PAD_PROOF = "py-14 md:py-20";
+const PAD_WORK = "py-14 md:py-20";
+const PAD_PROCESS = "py-14 md:py-[5.5rem]";
+const PAD_COMMERCIAL = "py-16 md:py-24";
+const PAD_OFFER = "py-14 md:py-20";
+const PAD_TRUST = "py-12 md:py-16";
+const PAD_CTA = "py-16 md:py-[5.5rem]";
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
@@ -46,82 +62,87 @@ function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden"
+      className="relative overflow-x-clip"
       style={{
         background: HERO_BG,
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
-        paddingTop: 96,
+        paddingTop: 80,
         paddingBottom: 80,
       }}
     >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 18% 80%, rgba(16,185,129,0.06) 0%, transparent 60%)",
-        }}
-      />
-      <div className={`relative ${CONTAINER} w-full`}>
-        <div
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8 animate-fade-in"
-          style={{
-            background: "rgba(255,255,255,0.05)",
-            border: "1px solid rgba(255,255,255,0.1)",
-          }}
-        >
-          <span
-            className="w-1.5 h-1.5 rounded-full"
-            style={{ background: "#10b981" }}
-          />
-          <span
-            className="text-[11px] font-mono tracking-wider"
-            style={{ color: "rgba(255,255,255,0.45)" }}
-          >
-            Lyfion.digital · Practical digital systems studio
-          </span>
-        </div>
+      {/* Bottom-left ambient green */}
+      <FogBackdrop variant="deep" />
+      <SpotlightBackdrop position="top" />
 
-        <div className="max-w-3xl animate-fade-in-up">
-          <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] tracking-tight mb-7"
-            style={{ color: "#ffffff" }}
-          >
-            Practical AI-powered{" "}
-            <GradientText>business systems</GradientText> for projects that need
-            structure, speed, and execution.
-          </h1>
+      <div className={`relative z-10 ${CONTAINER} w-full`}>
+        <div className="grid md:grid-cols-2 gap-12 md:gap-8 items-center">
+          {/* Left — text */}
+          <div>
+            {/* Eyebrow */}
+            <div className="flex items-center gap-3 mb-8 animate-fade-in">
+              <span
+                style={{
+                  display: "inline-block",
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: "#10b981",
+                  flexShrink: 0,
+                  animation: "dotPulse 2s ease-in-out infinite",
+                }}
+              />
+              <span
+                className="text-[11px] font-mono tracking-[0.25em] uppercase"
+                style={{ color: "rgba(56,189,248,0.72)" }}
+              >
+                LYFION.DIGITAL · 2026
+              </span>
+            </div>
 
-          <p
-            className="text-base md:text-lg leading-relaxed mb-10 max-w-2xl"
-            style={{ color: "rgba(255,255,255,0.6)" }}
-          >
-            Lyfion.digital builds websites, automation workflows, CRM and lead
-            intake systems, content engines, and internal Business OS structures
-            for founders and teams that need clarity instead of chaos.
-          </p>
+            {/* Headline */}
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.06] tracking-tight mb-6 animate-fade-in-up"
+              style={{ color: "#ffffff" }}
+            >
+              Build the system behind{" "}
+              <GradientText>your business.</GradientText>
+            </h1>
 
-          <div className="flex flex-wrap gap-4">
-            <PrimaryCta href={MAILTO_CTA}>Start with a system review</PrimaryCta>
-            <SecondaryCta href={`${BASE}/services`}>See what we build</SecondaryCta>
+            {/* Subheadline */}
+            <p
+              className="text-base md:text-lg leading-relaxed mb-10 max-w-xl animate-fade-in-up-delay-1"
+              style={{ color: TEXT_BODY }}
+            >
+              Lyfion reviews your website, intake, tools, and workflows, then
+              maps the first practical build step. Websites, CRM flow, content
+              systems, and automation-ready structure.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-4 animate-fade-in-up-delay-2">
+              <PrimaryCta href={MAILTO_CTA}>
+                Start with a system review
+              </PrimaryCta>
+              <SecondaryCta href={`${BASE}/services`}>
+                View what we build
+              </SecondaryCta>
+            </div>
+
+            {/* Offer hint */}
+            <p
+              className="mt-8 text-xs animate-fade-in-up-delay-3"
+              style={{ color: TEXT_MUTED }}
+            >
+              Digital Refresh Review ·{" "}
+              <span style={{ color: "rgba(56,189,248,0.75)" }}>{OFFER_PRICE}</span>
+            </p>
           </div>
 
-          <div
-            className="flex flex-wrap items-center gap-x-3 gap-y-2 mt-12 text-xs"
-            style={{ color: "rgba(255,255,255,0.4)" }}
-          >
-            {["Practical, not hype", "Structured execution", "Proof before scale"].map(
-              (item, i, arr) => (
-                <span key={item} className="flex items-center gap-3">
-                  <span>{item}</span>
-                  {i < arr.length - 1 && (
-                    <span style={{ color: "rgba(255,255,255,0.18)" }}>·</span>
-                  )}
-                </span>
-              )
-            )}
+          {/* Right — orbit map */}
+          <div className="flex items-center justify-center mt-4 md:mt-0 w-full min-h-[288px] md:min-h-[360px] overflow-hidden isolate">
+            <HeroOrbitPanel />
           </div>
         </div>
       </div>
@@ -132,26 +153,32 @@ function HeroSection() {
 // ─── Problem ──────────────────────────────────────────────────────────────────
 
 const PROBLEM_POINTS = [
-  "Business ideas are spread across chats, docs, tools, and unfinished tasks.",
-  "Websites are launched without intake, CRM, or follow-up structure.",
-  "Forms collect data but do not create controlled operations.",
-  "AI tools are used without proof, QA, or business logic.",
-  "Teams move fast but lose source-of-truth control.",
-  "Automation is added before the process is clear.",
+  "Ideas are scattered across chats, docs, and tools with no clear source of truth.",
+  "People move before the priority is clear, so work starts fast but loses direction.",
+  "Websites go live without intake forms, follow-up logic, or CRM structure.",
+  "Forms collect data, but nobody owns the next step.",
+  "AI tools run without QA, approval gates, or defined business logic.",
+  "Founders change direction because the project has no operating board, proof layer, or decision log.",
 ];
 
 function ProblemSection() {
   return (
-    <section className={SECTION} style={{ background: DARK_BG }}>
-      <div className={CONTAINER}>
-        <div className="max-w-3xl mb-14">
+    <section
+      className={`relative overflow-hidden ${PAD_PROBLEM}`}
+      style={{ background: sectionBg("a") }}
+    >
+      <FogBackdrop variant="blue" />
+      <SpotlightBackdrop position="top" />
+      <div className={`relative z-10 ${CONTAINER}`}>
+        <div className="max-w-3xl mb-10">
           <SectionLabel>The problem</SectionLabel>
           <h2
             className="text-2xl md:text-4xl font-bold leading-tight"
             style={{ color: "#ffffff" }}
           >
-            Most projects do not fail because the idea is bad. They fail because
-            the <GradientText>execution system is scattered.</GradientText>
+            Most projects do not fail because the idea is bad. They fail
+            because the{" "}
+            <GradientText>execution layer is broken.</GradientText>
           </h2>
         </div>
 
@@ -165,7 +192,7 @@ function ProblemSection() {
               <RomanLabel n={i + 1} className="mb-4" />
               <p
                 className="text-sm md:text-[15px] leading-relaxed mt-3"
-                style={{ color: "rgba(255,255,255,0.6)" }}
+                style={{ color: TEXT_BODY }}
               >
                 {point}
               </p>
@@ -182,45 +209,51 @@ function ProblemSection() {
 const BUILD_CATEGORIES = [
   {
     title: "Business operating systems",
-    desc: "Source-of-truth, project control, permissions, SOPs, and AI-ready delegation so execution stays organised as the work grows.",
+    desc: "Source-of-truth structure, project control, permissions, SOPs, and delegation logic so execution stays organised as the work scales.",
   },
   {
     title: "Websites and landing pages",
-    desc: "Clear public pages, a real conversion path, CTAs, and a controlled launch checklist instead of a page that just sits there.",
+    desc: "Clear public pages with a real conversion path, CTA logic, and a controlled launch checklist. Not a page that just sits there.",
   },
   {
     title: "Automation workflows",
-    desc: "Controlled routing, reporting, notifications, intake, and follow-up so the right steps happen without manual chasing.",
+    desc: "Controlled routing, notifications, intake, and follow-up so the right steps happen without manual chasing every time.",
   },
   {
-    title: "CRM / Lead Intake Systems",
-    desc: "Forms, routing, status tracking, follow-up structure, and practical verification so leads do not disappear.",
+    title: "CRM and lead intake systems",
+    desc: "Forms, routing logic, status tracking, follow-up structure, and verification steps so leads do not disappear.",
   },
   {
     title: "AI content production workflows",
-    desc: "Repeatable AI-assisted image, video, and content workflows with QA and approval rules built in.",
+    desc: "Repeatable AI-assisted image, video, and content workflows with QA gates and approval steps built in.",
   },
   {
     title: "Proof and market-test systems",
-    desc: "Structured ways to test an idea and gather evidence before committing to a bigger investment.",
+    desc: "A structured way to test an idea and gather real evidence before committing time or investment to a larger build.",
   },
 ];
 
 function WhatWeBuildSection() {
   return (
-    <section id="what-we-build" className={SECTION} style={{ background: DARK_BG_ALT }}>
-      <div className={CONTAINER}>
-        <div className="max-w-2xl mb-16">
+    <section
+      id="what-we-build"
+      className={`relative overflow-hidden ${PAD_BUILD}`}
+      style={{ background: sectionBg("b") }}
+    >
+      <FogBackdrop variant="green" />
+      <SpotlightBackdrop position="top" />
+      <div className={`relative z-10 ${CONTAINER}`}>
+        <div className="max-w-2xl mb-12">
           <SectionLabel>What we build</SectionLabel>
           <h2
             className="text-3xl md:text-4xl font-bold leading-tight mb-5"
             style={{ color: "#ffffff" }}
           >
-            Lyfion.digital builds the digital structure behind serious execution.
+            We build the files, flows, and pages that hold the work together.
           </h2>
-          <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-            Each build is a practical outcome — not a buzzword. Here is what that
-            looks like in practice.
+          <p className="text-base leading-relaxed" style={{ color: TEXT_BODY }}>
+            Each service is a concrete output: a working system, not a
+            deliverable document or vague consultation.
           </p>
         </div>
 
@@ -233,10 +266,10 @@ function WhatWeBuildSection() {
             >
               <RomanLabel n={i + 1} className="mb-4" />
               <div className="w-8 h-1 rounded-full mb-4 mt-3" style={{ background: GRADIENT }} />
-              <h3 className="text-base font-semibold mb-2" style={{ color: "rgba(255,255,255,0.92)" }}>
+              <h3 className="text-base font-semibold mb-2" style={{ color: TEXT_CARD_TITLE }}>
                 {c.title}
               </h3>
-              <p className="text-sm md:text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+              <p className="text-sm md:text-[15px] leading-relaxed" style={{ color: TEXT_BODY }}>
                 {c.desc}
               </p>
             </div>
@@ -247,17 +280,22 @@ function WhatWeBuildSection() {
   );
 }
 
-// ─── Services preview (links to /v1/services) ─────────────────────────────────
+// ─── Services preview ─────────────────────────────────────────────────────────
 
 function ServicesPreview() {
   return (
-    <section className={SECTION} style={{ background: DARK_BG }}>
-      <div className={CONTAINER}>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+    <section
+      className={`relative overflow-hidden ${PAD_SERVICES}`}
+      style={{ background: sectionBg("a") }}
+    >
+      <FogBackdrop variant="blue" />
+      <SpotlightBackdrop position="top" />
+      <div className={`relative z-10 ${CONTAINER}`}>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           <div className="max-w-2xl">
             <SectionLabel>Service pillars</SectionLabel>
             <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#ffffff" }}>
-              Six ways we can work together.
+              Six build areas. One entry point: the review.
             </h2>
           </div>
           <Link
@@ -281,10 +319,10 @@ function ServicesPreview() {
               style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
             >
               <RomanLabel n={i + 1} total={SERVICES.length} className="mb-4" />
-              <h3 className="text-lg font-semibold mb-2 mt-3" style={{ color: "rgba(255,255,255,0.92)" }}>
+              <h3 className="text-lg font-semibold mb-2 mt-3" style={{ color: TEXT_CARD_TITLE }}>
                 {s.title}
               </h3>
-              <p className="text-sm md:text-[15px] leading-relaxed flex-1" style={{ color: "rgba(255,255,255,0.5)" }}>
+              <p className="text-sm md:text-[15px] leading-relaxed flex-1" style={{ color: TEXT_BODY }}>
                 {s.short}
               </p>
               <span
@@ -310,36 +348,40 @@ const WHO_FOR_ITEMS = [
   },
   {
     title: "Service businesses that need intake structure",
-    desc: "A stronger website, lead intake, follow-up flow, and CRM logic so potential clients do not fall through the gaps.",
+    desc: "A cleaner website, lead intake flow, follow-up logic, and CRM structure so potential clients do not fall through the gaps.",
   },
   {
-    title: "Teams using AI tools without guardrails",
+    title: "Teams running AI tools without guardrails",
     desc: "AI workflows running without a clear source-of-truth, QA process, or approval boundaries before publishing.",
   },
   {
     title: "Projects that need market evidence first",
-    desc: "A structured test layer before committing serious time or investment to a bigger build.",
+    desc: "A structured test layer before committing serious time or money to a larger build.",
   },
   {
-    title: "Businesses not ready for complex systems",
-    desc: "Practical automation and operating structure without the overhead of enterprise platforms or long agency contracts.",
+    title: "Businesses not ready for complex platforms",
+    desc: "Practical automation and operating structure without the overhead of enterprise software or long agency retainers.",
   },
 ];
 
 function WhoItIsForSection() {
   return (
-    <section className={SECTION} style={{ background: DARK_BG }}>
-      <div className={CONTAINER}>
-        <div className="max-w-2xl mb-14">
+    <section
+      className={`relative overflow-hidden ${PAD_WHO}`}
+      style={{ background: sectionBg("a") }}
+    >
+      <FogBackdrop variant="blue" />
+      <div className={`relative z-10 ${CONTAINER}`}>
+        <div className="max-w-2xl mb-10">
           <SectionLabel>Who it is for</SectionLabel>
           <h2
             className="text-3xl md:text-4xl font-bold leading-tight mb-5"
             style={{ color: "#ffffff" }}
           >
-            Built for founders, teams, and service businesses that need{" "}
-            <GradientText>structure before scale.</GradientText>
+            For teams where the work exists, but the{" "}
+            <GradientText>system does not.</GradientText>
           </h2>
-          <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+          <p className="text-base leading-relaxed" style={{ color: TEXT_BODY }}>
             Not for every project. Built for the ones where execution is the
             problem, not the idea.
           </p>
@@ -355,13 +397,13 @@ function WhoItIsForSection() {
               <RomanLabel n={i + 1} className="mb-4" />
               <h3
                 className="text-base font-semibold mb-2 mt-3"
-                style={{ color: "rgba(255,255,255,0.92)" }}
+                style={{ color: TEXT_CARD_TITLE }}
               >
                 {item.title}
               </h3>
               <p
                 className="text-sm md:text-[15px] leading-relaxed"
-                style={{ color: "rgba(255,255,255,0.5)" }}
+                style={{ color: TEXT_BODY }}
               >
                 {item.desc}
               </p>
@@ -385,7 +427,7 @@ const PROOF_CARDS = [
     desc: "Structured pages, CTA logic, service framing, and launch-readiness checklists built as real digital infrastructure.",
   },
   {
-    title: "CRM / intake workflows",
+    title: "CRM and intake workflows",
     desc: "Forms, routing logic, lead and application tracking, follow-up structure, and practical verification steps.",
   },
   {
@@ -397,27 +439,27 @@ const PROOF_CARDS = [
 function ProofSection() {
   return (
     <section
-      className={SECTION}
-      style={{
-        background: `radial-gradient(ellipse at 75% 30%, #082840 0%, ${DARK_BG_ALT} 60%)`,
-      }}
+      className={`relative overflow-hidden ${PAD_PROOF}`}
+      style={{ background: sectionBg("b") }}
     >
-      <div className={CONTAINER}>
-        <div className="max-w-2xl mb-12">
-          <SectionLabel>Proof / internal systems</SectionLabel>
+      <FogBackdrop variant="deep" />
+      <SpotlightBackdrop position="top" />
+      <div className={`relative z-10 ${CONTAINER}`}>
+        <div className="max-w-2xl mb-10">
+          <SectionLabel>Internal systems</SectionLabel>
           <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-5" style={{ color: "#ffffff" }}>
             Built from real internal systems,{" "}
             <GradientText>not theory.</GradientText>
           </h2>
-          <p className="text-base leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>
-            Lyfion.digital is shaped through real internal builds: business
-            operating files, website structures, CRM and intake logic, intake
-            workflows, content production systems, QA checklists, and controlled
-            project documentation used across internal and client-facing work.
+          <p className="text-base leading-relaxed" style={{ color: TEXT_BODY }}>
+            Lyfion Digital is shaped through real internal builds: business
+            operating files, website structures, CRM and intake logic, content
+            production systems, QA checklists, and controlled project
+            documentation used across internal and client-facing work.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
           {PROOF_CARDS.map((card, i) => (
             <div
               key={card.title}
@@ -427,18 +469,18 @@ function ProofSection() {
               <RomanLabel n={i + 1} className="mb-4" />
               <h3
                 className="text-sm font-semibold mb-2 mt-3"
-                style={{ color: "rgba(255,255,255,0.92)" }}
+                style={{ color: TEXT_CARD_TITLE }}
               >
                 {card.title}
               </h3>
-              <p className="text-xs md:text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
+              <p className="text-xs md:text-sm leading-relaxed" style={{ color: TEXT_BODY }}>
                 {card.desc}
               </p>
             </div>
           ))}
         </div>
 
-        <div className="flex items-center gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
           <Link
             href={`${BASE}/work`}
             className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-80"
@@ -446,8 +488,8 @@ function ProofSection() {
           >
             See selected work <Arrow />
           </Link>
-          <p className="text-xs leading-relaxed" style={{ color: "rgba(255,255,255,0.3)" }}>
-            High-level references only — no screenshots, metrics, or private data.
+          <p className="text-xs leading-relaxed" style={{ color: TEXT_MUTED }}>
+            High-level references only. No screenshots, metrics, or private data.
           </p>
         </div>
       </div>
@@ -455,61 +497,21 @@ function ProofSection() {
   );
 }
 
-// ─── Process preview (links to /v1/process) ───────────────────────────────────
-
-function ProcessPreview() {
-  return (
-    <section className={SECTION} style={{ background: DARK_BG }}>
-      <div className={CONTAINER}>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
-          <div className="max-w-2xl">
-            <SectionLabel>Process</SectionLabel>
-            <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#ffffff" }}>
-              A controlled path from messy input to working system.
-            </h2>
-          </div>
-          <Link
-            href={`${BASE}/process`}
-            className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-80 self-start md:self-auto"
-            style={{ color: "#38bdf8" }}
-          >
-            See the full process <Arrow />
-          </Link>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {PROCESS_STEPS.map((step, i) => (
-            <div
-              key={step.title}
-              className="rounded-2xl p-7"
-              style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
-            >
-              <RomanLabel n={i + 1} className="mb-4" />
-              <h3 className="text-base font-semibold mb-2 mt-3" style={{ color: "rgba(255,255,255,0.92)" }}>
-                {step.title}
-              </h3>
-              <p className="text-sm md:text-[15px] leading-relaxed" style={{ color: "rgba(255,255,255,0.5)" }}>
-                {step.summary}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Work preview (links to /v1/work) ─────────────────────────────────────────
+// ─── Work preview ─────────────────────────────────────────────────────────────
 
 function WorkPreview() {
   return (
-    <section className={SECTION} style={{ background: DARK_BG_ALT }}>
-      <div className={CONTAINER}>
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+    <section
+      className={`relative overflow-hidden ${PAD_WORK}`}
+      style={{ background: sectionBg("b") }}
+    >
+      <FogBackdrop variant="green" />
+      <div className={`relative z-10 ${CONTAINER}`}>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
           <div className="max-w-2xl">
             <SectionLabel>Selected work</SectionLabel>
             <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#ffffff" }}>
-              Real systems, staged concepts, and project infrastructure.
+              Real internal systems and project infrastructure.
             </h2>
           </div>
           <Link
@@ -541,6 +543,204 @@ function WorkPreview() {
   );
 }
 
+// ─── Process preview ──────────────────────────────────────────────────────────
+
+function ProcessPreview() {
+  return (
+    <section
+      className={`relative overflow-hidden ${PAD_PROCESS}`}
+      style={{ background: sectionBg("a") }}
+    >
+      <FogBackdrop variant="blue" />
+      <div className={`relative z-10 ${CONTAINER}`}>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-8">
+          <div className="max-w-2xl">
+            <SectionLabel>Process</SectionLabel>
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight" style={{ color: "#ffffff" }}>
+              A clear path from review to working system.
+            </h2>
+          </div>
+          <Link
+            href={`${BASE}/process`}
+            className="inline-flex items-center gap-2 text-sm font-semibold transition-opacity hover:opacity-80 self-start md:self-auto"
+            style={{ color: "#38bdf8" }}
+          >
+            See the full process <Arrow />
+          </Link>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {PROCESS_STEPS.map((step, i) => (
+            <div
+              key={step.title}
+              className="rounded-2xl p-7"
+              style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
+            >
+              <RomanLabel n={i + 1} className="mb-4" />
+              <h3 className="text-base font-semibold mb-2 mt-3" style={{ color: TEXT_CARD_TITLE }}>
+                {step.title}
+              </h3>
+              <p className="text-sm md:text-[15px] leading-relaxed" style={{ color: TEXT_BODY }}>
+                {step.summary}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Commercial path: Review → Build → Production ────────────────────────────
+
+const COMMERCIAL_STEPS = [
+  {
+    title: "Digital Refresh Review",
+    price: OFFER_PRICE,
+    purpose:
+      "A focused review of the current website, tools, lead intake, content flow, and execution structure.",
+    outcome:
+      "Clear gaps, risks, priorities, and the first practical build recommendation.",
+    includes: null as string[] | null,
+  },
+  {
+    title: "Digital System Build",
+    price: "Custom scope after review",
+    purpose: "For businesses that need the actual system built after the review.",
+    outcome: null,
+    includes: [
+      "Website or landing page structure",
+      "Lead intake flow",
+      "CRM / follow-up logic",
+      "Service logic",
+      "Content workflow base",
+      "Approval and QA structure",
+      "Launch-readiness checklist",
+    ],
+  },
+  {
+    title: "AI Content & Production Workflow",
+    price: "Custom scope after review",
+    purpose:
+      "For brands that need repeatable content, image, video, and AI-assisted production without chaos.",
+    outcome: null,
+    includes: [
+      "Content planning system",
+      "Image/video prompt workflows",
+      "Approval gates",
+      "QA checklist",
+      "Reusable production templates",
+      "Posting/preparation workflow",
+      "Handoff structure for team or client",
+    ],
+  },
+];
+
+function CommercialPathSection() {
+  return (
+    <section
+      className={`relative overflow-hidden ${PAD_COMMERCIAL}`}
+      style={{ background: sectionBg("b") }}
+    >
+      <FogBackdrop variant="green" />
+      <SpotlightBackdrop position="top" />
+      <div className={`relative z-10 ${CONTAINER}`}>
+        <div className="max-w-2xl mb-10">
+          <SectionLabel>From review to build</SectionLabel>
+          <h2
+            className="text-3xl md:text-4xl font-bold leading-tight mb-5"
+            style={{ color: "#ffffff" }}
+          >
+            What happens after the{" "}
+            <GradientText>review.</GradientText>
+          </h2>
+          <p className="text-base leading-relaxed" style={{ color: TEXT_BODY }}>
+            Digital Refresh Review is the entry point, not the only service.
+            Most projects move review, system build, and production workflow
+            in a controlled sequence.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-3 gap-6">
+          {COMMERCIAL_STEPS.map((step, i) => (
+            <div
+              key={step.title}
+              className="rounded-2xl p-7 flex flex-col h-full"
+              style={{
+                background: CARD_BG,
+                border:
+                  i === 0
+                    ? "1px solid rgba(14,165,233,0.22)"
+                    : `1px solid ${CARD_BORDER}`,
+              }}
+            >
+              <RomanLabel n={i + 1} total={3} className="mb-4" />
+              <h3
+                className="text-lg font-semibold mb-2 mt-2"
+                style={{ color: TEXT_CARD_TITLE }}
+              >
+                {step.title}
+              </h3>
+              <p
+                className="text-sm font-semibold mb-4"
+                style={i === 0 ? GRADIENT_TEXT : { color: TEXT_MUTED }}
+              >
+                {step.price}
+              </p>
+              <p
+                className="text-sm leading-relaxed mb-4"
+                style={{ color: TEXT_BODY }}
+              >
+                <span
+                  className="block text-[11px] font-semibold tracking-[0.18em] uppercase mb-1.5"
+                  style={{ color: "rgba(56,189,248,0.75)" }}
+                >
+                  Purpose
+                </span>
+                {step.purpose}
+              </p>
+              {step.outcome && (
+                <p
+                  className="text-sm leading-relaxed mb-4"
+                  style={{ color: TEXT_BODY }}
+                >
+                  <span
+                    className="block text-[11px] font-semibold tracking-[0.18em] uppercase mb-1.5"
+                    style={{ color: "rgba(52,211,153,0.85)" }}
+                  >
+                    Outcome
+                  </span>
+                  {step.outcome}
+                </p>
+              )}
+              {step.includes && (
+                <ul className="space-y-2 mb-6 flex-1">
+                  {step.includes.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <Check />
+                      <span
+                        className="text-xs md:text-sm leading-relaxed"
+                        style={{ color: TEXT_BODY }}
+                      >
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className={step.includes ? "mt-auto" : "mt-auto pt-2"}>
+                <PrimaryCta href={MAILTO_CTA}>
+                  Start with a system review
+                </PrimaryCta>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Offer: Digital Refresh Review ───────────────────────────────────────────
 
 const REVIEW_DELIVERABLES = [
@@ -555,12 +755,12 @@ const REVIEW_DELIVERABLES = [
 function OfferSection() {
   return (
     <section
-      className="py-24 md:py-32"
-      style={{
-        background: `radial-gradient(ellipse at 20% 50%, rgba(14,165,233,0.05) 0%, ${DARK_BG} 65%)`,
-      }}
+      className={`relative overflow-hidden ${PAD_OFFER}`}
+      style={{ background: sectionBg("deep") }}
     >
-      <div className={`${CONTAINER} max-w-4xl`}>
+      <FogBackdrop variant="deep" />
+      <SpotlightBackdrop position="top" />
+      <div className={`relative z-10 ${CONTAINER} max-w-4xl`}>
         <div className="text-center mb-10">
           <SectionLabel>Where most projects start</SectionLabel>
           <h2
@@ -573,7 +773,7 @@ function OfferSection() {
             className="text-2xl font-bold"
             style={GRADIENT_TEXT}
           >
-            from $499
+            {OFFER_PRICE}
           </span>
         </div>
 
@@ -586,10 +786,10 @@ function OfferSection() {
         >
           <p
             className="text-base md:text-lg leading-relaxed mb-8"
-            style={{ color: "rgba(255,255,255,0.65)" }}
+            style={{ color: TEXT_BODY }}
           >
-            We review your current digital setup — website, forms, tools, intake
-            logic, and content workflow — and map the first practical build step
+            We review your current digital setup: website, forms, tools, intake
+            logic, and content workflow. Then we map the first practical build step
             with clear scope and priorities.
           </p>
 
@@ -613,7 +813,7 @@ function OfferSection() {
 
           <p
             className="text-xs leading-relaxed max-w-2xl"
-            style={{ color: "rgba(255,255,255,0.3)" }}
+            style={{ color: TEXT_MUTED }}
           >
             {OFFER_DISCLAIMER}
           </p>
@@ -627,42 +827,48 @@ function OfferSection() {
 
 function TrustSection() {
   return (
-    <section className="py-24 md:py-32" style={{ background: DARK_BG }}>
-      <div className={`${CONTAINER} max-w-3xl text-center`}>
+    <section
+      className={`relative overflow-hidden ${PAD_TRUST}`}
+      style={{ background: sectionBg("b") }}
+    >
+      <FogBackdrop variant="green" />
+      <SpotlightBackdrop />
+      <div className={`relative z-10 ${CONTAINER} max-w-3xl text-center`}>
         <SectionLabel>Trust &amp; safety</SectionLabel>
         <p
-          className="text-xl md:text-2xl font-light leading-relaxed mb-6"
+          className="text-lg md:text-xl font-normal leading-relaxed mb-5"
           style={{ color: "rgba(255,255,255,0.82)" }}
         >
-          We build practical systems from verified source material, clear scope,
-          and controlled execution. No fake guarantees, no uncontrolled
-          automation, and no public claims without proof.
+          We work from verified source material, defined scope, and approval
+          gates. No fake guarantees. No public claims without proof.
         </p>
-        <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
-          Every build starts with structure: source review, scope, workflow, QA,
-          and approval gates before launch.
+        <p className="text-sm leading-relaxed" style={{ color: TEXT_MUTED }}>
+          Every build starts with a review, a clear workflow, and a decision on
+          what should be built first.
         </p>
       </div>
     </section>
   );
 }
 
-// ─── CTA (links to /v1/contact) ───────────────────────────────────────────────
+// ─── CTA ──────────────────────────────────────────────────────────────────────
 
 function CtaSection() {
   return (
     <section
-      className="py-28 md:py-40"
-      style={{ background: `radial-gradient(ellipse at 30% 60%, #082840 0%, ${DARK_BG} 60%)` }}
+      className={`relative overflow-hidden ${PAD_CTA}`}
+      style={{ background: sectionBg("deep") }}
     >
-      <div className={`${CONTAINER} max-w-3xl text-center`}>
+      <FogBackdrop variant="deep" />
+      <SpotlightBackdrop position="top" />
+      <div className={`relative z-10 ${CONTAINER} max-w-3xl text-center`}>
         <SectionLabel>Get started</SectionLabel>
         <h2 className="text-4xl md:text-5xl font-bold leading-tight mb-6" style={{ color: "#ffffff" }}>
           Start with a <GradientText>system review.</GradientText>
         </h2>
         <p
           className="text-base md:text-lg leading-relaxed mb-10 max-w-2xl mx-auto"
-          style={{ color: "rgba(255,255,255,0.5)" }}
+          style={{ color: TEXT_BODY }}
         >
           Send your project, current tools, website, forms, or workflow. We
           review what exists, identify the gaps, and map the first practical
@@ -678,7 +884,7 @@ function CtaSection() {
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-export default function LyfionDigitalV1Home() {
+export default function LyfionDigitalHome() {
   return (
     <>
       <HeroSection />
@@ -689,6 +895,7 @@ export default function LyfionDigitalV1Home() {
       <ProofSection />
       <WorkPreview />
       <ProcessPreview />
+      <CommercialPathSection />
       <OfferSection />
       <TrustSection />
       <CtaSection />
