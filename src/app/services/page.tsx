@@ -26,11 +26,14 @@ import {
   type ServiceArea,
   type ServicePackage,
 } from "../_services-data";
+import { PAGE_SEO, PageStructuredData } from "../_structured-data";
 
 export const metadata: Metadata = {
-  title: "Services",
-  description:
-    "Four ways to build the digital layer behind your business: Digital Refresh, Ready Business Kit, Digital System Build, and AI Content & Production Workflow.",
+  title: PAGE_SEO.services.title,
+  description: PAGE_SEO.services.description,
+  alternates: {
+    canonical: PAGE_SEO.services.path,
+  },
 };
 
 const CONTAINER = "max-w-7xl mx-auto px-6 sm:px-10 lg:px-12";
@@ -186,6 +189,7 @@ function ServiceAreaSection({
 export default function ServicesPage() {
   return (
     <>
+      <PageStructuredData page="services" />
       <PageHeader
         label="Services"
         title="Four ways to build the digital layer behind your business."

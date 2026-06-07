@@ -16,11 +16,14 @@ import {
   INTAKE_FORM_URL,
   BASE,
 } from "../_shared";
+import { PAGE_SEO, PageStructuredData } from "../_structured-data";
 
 export const metadata: Metadata = {
-  title: "Process",
-  description:
-    "How Lyfion works: understand what exists, choose the right service path, structure the digital layer, build, QA, and handoff.",
+  title: PAGE_SEO.process.title,
+  description: PAGE_SEO.process.description,
+  alternates: {
+    canonical: PAGE_SEO.process.path,
+  },
 };
 
 const PROCESS_STEPS = [
@@ -82,6 +85,7 @@ const SERVICE_PATHS = [
 export default function ProcessPage() {
   return (
     <>
+      <PageStructuredData page="process" />
       <PageHeader
         label="Process"
         title="A clear path from first review to working system."

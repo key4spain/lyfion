@@ -14,11 +14,14 @@ import {
   INTAKE_FORM_URL,
   BASE,
 } from "../_shared";
+import { PAGE_SEO, PageStructuredData } from "../_structured-data";
 
 export const metadata: Metadata = {
-  title: "Work",
-  description:
-    "Work directions and build models at Lyfion: internal systems, ready catalog models, digital refresh structures, and content production workflows.",
+  title: PAGE_SEO.work.title,
+  description: PAGE_SEO.work.description,
+  alternates: {
+    canonical: PAGE_SEO.work.path,
+  },
 };
 
 const INTERNAL_EXAMPLES = [
@@ -31,6 +34,7 @@ const INTERNAL_EXAMPLES = [
 export default function WorkPage() {
   return (
     <>
+      <PageStructuredData page="work" />
       <PageHeader
         label="Work"
         title="Work that shows how Lyfion builds systems."

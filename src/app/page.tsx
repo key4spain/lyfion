@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import HeroOrbitPanel from "./_hero-orbit-panel";
+import { PageStructuredData, PAGE_SEO } from "./_structured-data";
 import {
   GRADIENT,
   HERO_BG,
@@ -34,11 +35,12 @@ import {
 
 export const metadata: Metadata = {
   title: {
-    absolute:
-      "Lyfion.digital | Digital Systems, Websites and Automation Workflows",
+    absolute: PAGE_SEO.home.title,
   },
-  description:
-    "Lyfion Digital builds the structure behind modern business execution: websites, lead intake, content workflows, approval gates, and launch-ready operating systems.",
+  description: PAGE_SEO.home.description,
+  alternates: {
+    canonical: PAGE_SEO.home.path,
+  },
 };
 
 const CONTAINER = "max-w-7xl mx-auto px-6 sm:px-10 lg:px-12";
@@ -735,6 +737,7 @@ function CtaSection() {
 export default function LyfionDigitalHome() {
   return (
     <>
+      <PageStructuredData page="home" />
       <HeroSection />
       <ProblemSection />
       <WhatWeBuildSection />

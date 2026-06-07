@@ -21,11 +21,14 @@ import {
   DIRECT_EMAIL,
   BASE,
 } from "../_shared";
+import { PAGE_SEO, PageStructuredData } from "../_structured-data";
 
 export const metadata: Metadata = {
-  title: "Tell us what you want to improve",
-  description:
-    "Send what exists today and what you want to improve. Lyfion reviews your visible business layer and points you to the clearest next step.",
+  title: PAGE_SEO.contact.title,
+  description: PAGE_SEO.contact.description,
+  alternates: {
+    canonical: PAGE_SEO.contact.path,
+  },
 };
 
 const LOOK_AT_FIRST = [
@@ -68,6 +71,7 @@ const NEXT_STEPS = [
 export default function ContactPage() {
   return (
     <>
+      <PageStructuredData page="contact" />
       <PageHeader
         label="Contact"
         title="Tell us what you want to improve"

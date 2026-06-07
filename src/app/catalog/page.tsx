@@ -19,11 +19,14 @@ import {
   CATALOG_CATEGORIES,
   CATALOG_REQUEST_URL,
 } from "../_services-data";
+import { PAGE_SEO, PageStructuredData } from "../_structured-data";
 
 export const metadata: Metadata = {
-  title: "Ready Business Catalog",
-  description:
-    "Ready-made business websites, shops, landing pages, and web app starting models that can be adapted, built, and deployed on Vercel.",
+  title: PAGE_SEO.catalog.title,
+  description: PAGE_SEO.catalog.description,
+  alternates: {
+    canonical: PAGE_SEO.catalog.path,
+  },
 };
 
 const CONTAINER = "max-w-7xl mx-auto px-6 sm:px-10 lg:px-12";
@@ -38,6 +41,7 @@ function statusStyle(status: string) {
 export default function CatalogPage() {
   return (
     <>
+      <PageStructuredData page="catalog" />
       <PageHeader
         label="Catalog"
         title="Ready-made business websites and launch kits."
