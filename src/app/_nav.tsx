@@ -10,7 +10,7 @@ export default function NavBar() {
   const [open, setOpen] = useState(false);
 
   const isActive = (href: string) =>
-    href === BASE ? pathname === BASE : pathname.startsWith(href);
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
     <nav

@@ -1,12 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Lyfion.digital — V1 staged mini-site · shared design + data
-//
-// Server-safe module (no "use client"). Holds the reused design tokens,
-// presentational primitives, the Footer, and the centralised content data so
-// the homepage previews and the detail pages stay consistent.
-//
-// Source of truth: LYFION_DIGITAL_SITE_IMPLEMENTATION_PROMPT_v3.md
-// Mode: CONTROLLED / NO DEPLOY. No forms, CRM, analytics, payments connected.
+// Lyfion.digital — shared design tokens, primitives, Footer, and content data.
+// Server-safe module (no "use client").
 // ─────────────────────────────────────────────────────────────────────────────
 
 import Link from "next/link";
@@ -29,8 +23,8 @@ export const GRADIENT_TEXT: React.CSSProperties = {
   backgroundClip: "text",
 };
 
-// Route prefix — change to "" when promoting /v1 to homepage
-export const BASE = "/v1";
+// Route prefix — "" = root (promoted from /v1)
+export const BASE = "";
 
 export const MAILTO_CTA =
   "mailto:filip@lyfion.digital?subject=Lyfion.digital%20System%20Review%20Request&body=Hi%20Lyfion%20Digital%2C%0A%0AI%20would%20like%20to%20request%20a%20system%20review.%0A%0AProject%20/%20business%20name%3A%0ACurrent%20website%20or%20links%3A%0AWhat%20needs%20to%20be%20improved%3A%0ATools%20currently%20used%3A%0APriority%3A%0A%0AThank%20you.";
@@ -233,7 +227,7 @@ export function PageHeader({
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
 export const NAV_ITEMS = [
-  { label: "Home", href: BASE },
+  { label: "Home", href: BASE || "/" },
   { label: "Services", href: `${BASE}/services` },
   { label: "Process", href: `${BASE}/process` },
   { label: "Work", href: `${BASE}/work` },
@@ -250,7 +244,7 @@ export function Footer() {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-14">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <Link href={BASE} className="flex items-center gap-2">
+          <Link href={BASE || "/"} className="flex items-center gap-2">
             <GradientText className="font-extrabold text-base tracking-[0.28em] select-none">
               LYFION
             </GradientText>
