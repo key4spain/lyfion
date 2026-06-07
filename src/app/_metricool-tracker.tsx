@@ -9,6 +9,7 @@ import {
 const METRICOOL_SCRIPT_SRC = "https://tracker.metricool.com/resources/be.js";
 const METRICOOL_HASH = "26535b4d71a0961caaba49a0c55c5f9";
 const METRICOOL_SCRIPT_ID = "lyfion-metricool-tracker";
+const ALLOWED_HOSTS = ["lyfion.digital", "www.lyfion.digital"];
 
 declare global {
   interface Window {
@@ -16,6 +17,10 @@ declare global {
       t: (config: { hash: string }) => void;
     };
   }
+}
+
+function isProductionHostname(): boolean {
+  return ALLOWED_HOSTS.includes(window.location.hostname);
 }
 
 function metricoolScriptPresent(): boolean {
@@ -56,6 +61,11 @@ function removeMetricoolScript() {
 }
 
 export function syncMetricoolFromPrefs() {
+  if (!isProductionHostname()) {
+    removeMetricoolScript();
+    return;
+  }
+
   if (analyticsAllowed()) {
     loadMetricoolScript();
     return;
