@@ -2,30 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { CARD_BG, CARD_BORDER, TEXT_BODY, TEXT_MUTED } from "./_shared";
-
-const STORAGE_KEY = "lyfion-cookie-consent";
-
-type CookiePrefs = {
-  necessary: true;
-  analytics: boolean;
-  interactive: boolean;
-  decided: true;
-};
-
-function readPrefs(): CookiePrefs | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    return JSON.parse(raw) as CookiePrefs;
-  } catch {
-    return null;
-  }
-}
-
-function savePrefs(prefs: CookiePrefs) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-}
+import {
+  readPrefs,
+  savePrefs,
+  type CookiePrefs,
+} from "./_cookie-prefs";
 
 function clearBannerOffset() {
   document.body.classList.remove("cookie-banner-open");
@@ -99,7 +80,7 @@ export default function CookieConsent() {
       >
         <p className="text-sm leading-relaxed mb-3 sm:mb-4" style={{ color: TEXT_BODY }}>
           We use necessary cookies to keep the site working. Optional cookies may
-          later help us understand visits or improve interactive features. You can
+          help us understand visits or improve interactive features. You can
           accept, reject, or manage preferences.
         </p>
 
@@ -130,7 +111,7 @@ export default function CookieConsent() {
                   Analytics
                 </p>
                 <p className="text-xs" style={{ color: TEXT_MUTED }}>
-                  Off by default. Not loaded on this site yet.
+                  Helps us understand visits and improve the site. Disabled by default.
                 </p>
               </div>
               <input

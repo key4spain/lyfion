@@ -5,6 +5,7 @@ import NavBar from "./_nav";
 import CursorGlow from "./_cursor-glow";
 import AssistantCorner from "./_assistant-corner";
 import CookieConsent from "./_cookie-consent";
+import MetricoolTracker from "./_metricool-tracker";
 import { LyfionInteractionProvider } from "./_lyfion-interaction";
 import { Footer, BRAND_FAVICON, BRAND_ICON_512 } from "./_shared";
 import { SiteStructuredData } from "./_structured-data";
@@ -60,6 +61,7 @@ export default function RootLayout({
           <Footer />
           <AssistantCorner />
           <CookieConsent />
+          <MetricoolTracker />
         </LyfionInteractionProvider>
       </body>
     </html>

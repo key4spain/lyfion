@@ -1,4 +1,4 @@
-import { BRAND_ICON_512, DIRECT_EMAIL, SUPPORT_EMAIL } from "./_shared";
+import { BRAND_ICON_512, DIRECT_EMAIL, SOCIAL_SAME_AS, SUPPORT_EMAIL } from "./_shared";
 import { CATALOG_ITEMS, SERVICE_AREAS } from "./_services-data";
 
 export const SITE_URL = "https://lyfion.digital";
@@ -82,6 +82,7 @@ export function organizationJsonLd(): Record<string, unknown> {
       name: ORG_NAME,
     },
     logo: absoluteUrl(BRAND_ICON_512),
+    sameAs: [...SOCIAL_SAME_AS],
     subOrganization: [
       {
         "@type": "Organization",

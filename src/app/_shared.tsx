@@ -30,6 +30,18 @@ export const BRAND_WORDMARK_DARK = "/brand/lyfion/svg/lyfion_wordmark_dark.svg";
 export const BRAND_FAVICON = "/brand/lyfion/favicon/favicon.svg";
 export const BRAND_ICON_512 = "/brand/lyfion/png/lyfion_icon_512.png";
 
+export const SOCIAL_LINKS = {
+  instagram: "https://www.instagram.com/lyfion.digital/",
+  tiktok: "https://www.tiktok.com/@lyfion.digital",
+  youtube: "https://www.youtube.com/@lyfion.digital",
+} as const;
+
+export const SOCIAL_SAME_AS = [
+  SOCIAL_LINKS.instagram,
+  SOCIAL_LINKS.tiktok,
+  SOCIAL_LINKS.youtube,
+];
+
 export const SECTION_FOG_BLUE = (base: string) => base;
 export const SECTION_FOG_GREEN = (base: string) => base;
 export const SECTION_FOG_DEEP = (base: string) => base;
@@ -380,45 +392,46 @@ export function FooterSignal() {
   );
 }
 
-function SocialIcon({ label, children }: { label: string; children: React.ReactNode }) {
+function SocialLink({
+  href,
+  label,
+  children,
+}: {
+  href: string;
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
-    <span
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
       aria-label={label}
-      className="inline-flex items-center justify-center w-7 h-7 rounded-full"
-      style={{
-        color: "rgba(148,163,184,0.55)",
-        border: "1px solid rgba(255,255,255,0.06)",
-        background: "rgba(255,255,255,0.02)",
-      }}
+      className="inline-flex items-center justify-center w-7 h-7 rounded-full transition-all duration-200 text-slate-400/55 border border-white/[0.06] bg-white/[0.02] hover:text-sky-400/85 hover:border-sky-500/25 hover:bg-sky-500/10"
     >
       {children}
-    </span>
+    </a>
   );
 }
 
 export function FooterSocial() {
   return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="flex items-center gap-2.5" aria-hidden="true">
-        <SocialIcon label="Instagram">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.25 6a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.25 6z" />
-          </svg>
-        </SocialIcon>
-        <SocialIcon label="TikTok">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M14 3h3.2l.1 2.2a5.8 5.8 0 0 0 4.2 2V10a8.4 8.4 0 0 1-4.5-1.3v7.4a6.2 6.2 0 1 1-6.2-6.2c.3 0 .6 0 .9.1v3.1a3.1 3.1 0 1 0 2.2 3V3z" />
-          </svg>
-        </SocialIcon>
-        <SocialIcon label="YouTube">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C17.7 5 12 5 12 5s-5.7 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C6.3 19 12 19 12 19s5.7 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z" />
-          </svg>
-        </SocialIcon>
-      </div>
-      <p className="text-[10px] tracking-wide" style={{ color: "rgba(255,255,255,0.28)" }}>
-        Social channels coming soon
-      </p>
+    <div className="flex items-center gap-2.5">
+      <SocialLink href={SOCIAL_LINKS.instagram} label="Lyfion Digital on Instagram">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zM17.25 6a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.25 6z" />
+        </svg>
+      </SocialLink>
+      <SocialLink href={SOCIAL_LINKS.tiktok} label="Lyfion Digital on TikTok">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M14 3h3.2l.1 2.2a5.8 5.8 0 0 0 4.2 2V10a8.4 8.4 0 0 1-4.5-1.3v7.4a6.2 6.2 0 1 1-6.2-6.2c.3 0 .6 0 .9.1v3.1a3.1 3.1 0 1 0 2.2 3V3z" />
+        </svg>
+      </SocialLink>
+      <SocialLink href={SOCIAL_LINKS.youtube} label="Lyfion Digital on YouTube">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C17.7 5 12 5 12 5s-5.7 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C6.3 19 12 19 12 19s5.7 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z" />
+        </svg>
+      </SocialLink>
     </div>
   );
 }
