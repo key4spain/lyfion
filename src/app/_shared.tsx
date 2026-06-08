@@ -273,7 +273,7 @@ export function PrimaryCta({
   children: React.ReactNode;
 }) {
   const cls =
-    "inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90";
+    "inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90 cursor-pointer";
   const sty = {
     background: GRADIENT,
     color: "#ffffff",
@@ -281,7 +281,12 @@ export function PrimaryCta({
   };
   if (href.startsWith("mailto:") || href.startsWith("http")) {
     return (
-      <a href={href} className={cls} style={sty}>
+      <a
+        href={href}
+        className={cls}
+        style={sty}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+      >
         {children}
         <Arrow />
       </a>
@@ -303,7 +308,7 @@ export function SecondaryCta({
   children: React.ReactNode;
 }) {
   const cls =
-    "inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition-colors duration-200 hover:bg-white/10";
+    "inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-sm font-semibold transition-colors duration-200 hover:bg-white/10 cursor-pointer";
   const sty = {
     background: "rgba(255,255,255,0.06)",
     border: "1px solid rgba(255,255,255,0.12)",
@@ -311,7 +316,12 @@ export function SecondaryCta({
   };
   if (href.startsWith("mailto:") || href.startsWith("http")) {
     return (
-      <a href={href} className={cls} style={sty}>
+      <a
+        href={href}
+        className={cls}
+        style={sty}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+      >
         {children}
       </a>
     );

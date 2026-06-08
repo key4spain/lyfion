@@ -233,7 +233,7 @@ body {
 
 /* Reserve space when cookie consent banner is visible */
 body.cookie-banner-open main {
-  padding-bottom: var(--lyfion-cookie-offset, 10rem);
+  padding-bottom: var(--lyfion-cookie-offset, 0px);
 }
 
 body.cookie-banner-open footer {

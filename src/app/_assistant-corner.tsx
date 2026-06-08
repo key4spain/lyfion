@@ -71,8 +71,9 @@ export default function AssistantCorner() {
                 {link.external ? (
                   <a
                     href={link.href}
+                    rel="noopener noreferrer"
                     onClick={() => setOpen(false)}
-                    className="block rounded-xl px-3 py-2.5 text-sm transition-colors hover:bg-white/5"
+                    className="block rounded-xl px-3 py-2.5 text-sm transition-colors hover:bg-white/5 cursor-pointer"
                     style={{ color: "rgba(255,255,255,0.78)" }}
                   >
                     {link.label}

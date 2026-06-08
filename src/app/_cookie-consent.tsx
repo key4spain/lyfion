@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { CARD_BG, CARD_BORDER, TEXT_BODY, TEXT_MUTED } from "./_shared";
 import {
-  readPrefs,
+  COOKIE_CONSENT_UPDATED_EVENT,
+  STORAGE_KEY,
   savePrefs,
   type CookiePrefs,
 } from "./_cookie-prefs";
@@ -21,21 +22,63 @@ function applyBannerOffset(height: number) {
   );
 }
 
+function getConsentSnapshot(): string | null {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem(STORAGE_KEY);
+}
+
+function subscribeConsent(onStoreChange: () => void) {
+  if (typeof window === "undefined") {
+    return () => {};
+  }
+
+  const onChange = () => onStoreChange();
+  window.addEventListener(COOKIE_CONSENT_UPDATED_EVENT, onChange);
+  window.addEventListener("storage", onChange);
+  return () => {
+    window.removeEventListener(COOKIE_CONSENT_UPDATED_EVENT, onChange);
+    window.removeEventListener("storage", onChange);
+  };
+}
+
+function subscribeNoop() {
+  return () => {};
+}
+
 export default function CookieConsent() {
-  const initial = readPrefs();
-  const [visible, setVisible] = useState(initial === null);
+  const isClient = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false
+  );
+  const consentRaw = useSyncExternalStore(
+    subscribeConsent,
+    getConsentSnapshot,
+    () => null
+  );
+  const storedPrefs = consentRaw
+    ? (JSON.parse(consentRaw) as CookiePrefs)
+    : null;
+  const visible = storedPrefs?.decided !== true;
   const [manageOpen, setManageOpen] = useState(false);
-  const [analytics, setAnalytics] = useState(initial?.analytics ?? false);
-  const [interactive, setInteractive] = useState(initial?.interactive ?? false);
+  const [analytics, setAnalytics] = useState(false);
+  const [interactive, setInteractive] = useState(false);
   const bannerRef = useRef<HTMLDivElement>(null);
 
   const closeWith = (prefs: CookiePrefs) => {
     savePrefs(prefs);
-    setAnalytics(prefs.analytics);
-    setInteractive(prefs.interactive);
-    setVisible(false);
     setManageOpen(false);
     clearBannerOffset();
+  };
+
+  const toggleManage = () => {
+    setManageOpen((open) => {
+      if (!open) {
+        setAnalytics(storedPrefs?.analytics ?? false);
+        setInteractive(storedPrefs?.interactive ?? false);
+      }
+      return !open;
+    });
   };
 
   useEffect(() => {
@@ -61,17 +104,19 @@ export default function CookieConsent() {
     };
   }, [visible, manageOpen]);
 
-  if (!visible) return null;
+  if (!isClient || !visible) {
+    return null;
+  }
 
   return (
     <div
       ref={bannerRef}
-      className="fixed inset-x-0 bottom-0 z-50 px-4 pb-4 pt-2 sm:px-5 sm:pb-5 pointer-events-none"
+      className="fixed z-[60] bottom-4 left-1/2 w-[min(calc(100vw-2rem),48rem)] -translate-x-1/2 sm:bottom-5"
       role="dialog"
       aria-label="Cookie preferences"
     >
       <div
-        className="max-w-3xl mx-auto rounded-2xl p-4 sm:p-5 pointer-events-auto"
+        className="rounded-2xl p-4 sm:p-5 w-full"
         style={{
           background: CARD_BG,
           border: `1px solid ${CARD_BORDER}`,
@@ -118,7 +163,7 @@ export default function CookieConsent() {
                 type="checkbox"
                 checked={analytics}
                 onChange={(e) => setAnalytics(e.target.checked)}
-                className="accent-teal-500"
+                className="accent-teal-500 cursor-pointer"
               />
             </label>
             <label className="flex items-center justify-between gap-4 cursor-pointer">
@@ -134,7 +179,7 @@ export default function CookieConsent() {
                 type="checkbox"
                 checked={interactive}
                 onChange={(e) => setInteractive(e.target.checked)}
-                className="accent-teal-500"
+                className="accent-teal-500 cursor-pointer"
               />
             </label>
             <button
@@ -147,7 +192,7 @@ export default function CookieConsent() {
                   decided: true,
                 })
               }
-              className="text-sm font-semibold px-4 py-2 rounded-full"
+              className="text-sm font-semibold px-4 py-2 rounded-full cursor-pointer"
               style={{
                 background: "rgba(255,255,255,0.08)",
                 border: `1px solid ${CARD_BORDER}`,
@@ -170,7 +215,7 @@ export default function CookieConsent() {
                 decided: true,
               })
             }
-            className="px-4 py-2.5 rounded-full text-sm font-semibold"
+            className="px-4 py-2.5 rounded-full text-sm font-semibold cursor-pointer"
             style={{
               background: "linear-gradient(135deg, #0ea5e9, #10b981)",
               color: "#ffffff",
@@ -188,7 +233,7 @@ export default function CookieConsent() {
                 decided: true,
               })
             }
-            className="px-4 py-2.5 rounded-full text-sm font-semibold"
+            className="px-4 py-2.5 rounded-full text-sm font-semibold cursor-pointer"
             style={{
               background: "rgba(255,255,255,0.06)",
               border: `1px solid ${CARD_BORDER}`,
@@ -199,8 +244,8 @@ export default function CookieConsent() {
           </button>
           <button
             type="button"
-            onClick={() => setManageOpen((v) => !v)}
-            className="px-4 py-2.5 rounded-full text-sm font-semibold"
+            onClick={toggleManage}
+            className="px-4 py-2.5 rounded-full text-sm font-semibold cursor-pointer"
             style={{ color: "rgba(56,189,248,0.85)" }}
           >
             Manage

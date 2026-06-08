@@ -29,3 +29,7 @@ export function savePrefs(prefs: CookiePrefs) {
 export function analyticsAllowed(): boolean {
   return readPrefs()?.analytics === true;
 }
+
+export function hasConsentDecision(): boolean {
+  return readPrefs()?.decided === true;
+}

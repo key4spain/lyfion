@@ -109,7 +109,8 @@ export default function CatalogPage() {
                   </span>
                   <a
                     href={CATALOG_REQUEST_URL}
-                    className="text-xs font-semibold transition-opacity hover:opacity-80"
+                    rel="noopener noreferrer"
+                    className="text-xs font-semibold transition-opacity hover:opacity-80 cursor-pointer"
                     style={{ color: "#38bdf8" }}
                   >
                     Request this model
