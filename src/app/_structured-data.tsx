@@ -1,58 +1,59 @@
+import type { Metadata } from "next";
 import { BRAND_ICON_512, DIRECT_EMAIL, SOCIAL_SAME_AS, SUPPORT_EMAIL } from "./_shared";
-import { CATALOG_ITEMS, SERVICE_AREAS } from "./_services-data";
+import {
+  type Locale,
+  getContent,
+  localizePath,
+  LOCALES,
+} from "./_i18n";
 
 export const SITE_URL = "https://lyfion.digital";
 
 const ORG_NAME = "Lyfion Digital";
 const WEBSITE_NAME = "Lyfion.digital";
 
-export const PAGE_SEO = {
-  home: {
-    title: "Lyfion.digital | Digital Systems, Websites and Automation Workflows",
-    description:
-      "Practical digital systems, websites, lead intake flows, content workflows, and automation-ready structures for businesses that need a clearer digital layer.",
-    path: "/",
-  },
-  services: {
-    title: "Services",
-    description:
-      "Explore Lyfion Digital services: Digital Refresh, Ready Business Kit, Digital System Build, AI Content Workflow, add-ons, and system review options.",
-    path: "/services",
-  },
-  catalog: {
-    title: "Ready Business Catalog",
-    description:
-      "Ready-made business website, landing page, shop, and web app starting models that can be adapted, built, and launched with Lyfion Digital.",
-    path: "/catalog",
-  },
-  process: {
-    title: "Process",
-    description:
-      "See how Lyfion Digital moves from review to structure, build, QA, handoff, and the next practical step.",
-    path: "/process",
-  },
-  work: {
-    title: "Work",
-    description:
-      "Selected Lyfion Digital work directions, internal systems, catalog models, digital refresh structures, and AI content workflow foundations.",
-    path: "/work",
-  },
-  contact: {
-    title: "Tell us what you want to improve",
-    description:
-      "Tell Lyfion Digital what you want to improve. Send your current website, profile, lead flow, or workflow problem and get the clearest next step.",
-    path: "/contact",
-  },
-} as const;
+export type StructuredPage =
+  | "home"
+  | "services"
+  | "catalog"
+  | "process"
+  | "work"
+  | "contact";
 
-export type StructuredPage = keyof typeof PAGE_SEO;
+// Neutral (EN) path per page.
+export const PAGE_PATH: Record<StructuredPage, string> = {
+  home: "/",
+  services: "/services",
+  catalog: "/catalog",
+  process: "/process",
+  work: "/work",
+  contact: "/contact",
+};
 
-function absoluteUrl(path: string) {
+function absUrl(path: string): string {
   return path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`;
 }
 
-export function pageCanonical(path: string) {
-  return absoluteUrl(path);
+function localeUrl(neutralPath: string, locale: Locale): string {
+  return absUrl(localizePath(neutralPath, locale));
+}
+
+/** Per-page metadata: localized title/description, canonical + hreflang alternates. */
+export function buildMetadata(page: StructuredPage, locale: Locale): Metadata {
+  const meta = getContent(locale).meta[page];
+  const neutral = PAGE_PATH[page];
+  const languages: Record<string, string> = {};
+  for (const l of LOCALES) languages[l] = localeUrl(neutral, l);
+  languages["x-default"] = localeUrl(neutral, "en");
+
+  return {
+    title: page === "home" ? { absolute: meta.title } : meta.title,
+    description: meta.description,
+    alternates: {
+      canonical: localeUrl(neutral, locale),
+      languages,
+    },
+  };
 }
 
 export function JsonLd({
@@ -77,11 +78,8 @@ export function organizationJsonLd(): Record<string, unknown> {
     email: SUPPORT_EMAIL,
     description:
       "Lyfion Digital builds practical digital systems, websites, lead intake flows, content workflows, automation-ready structures, and AI-assisted production workflows.",
-    brand: {
-      "@type": "Brand",
-      name: ORG_NAME,
-    },
-    logo: absoluteUrl(BRAND_ICON_512),
+    brand: { "@type": "Brand", name: ORG_NAME },
+    logo: absUrl(BRAND_ICON_512),
     sameAs: [...SOCIAL_SAME_AS],
     subOrganization: [
       {
@@ -102,7 +100,7 @@ export function organizationJsonLd(): Record<string, unknown> {
         name: "LYFION S.L.",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Rbla Catalunya, 38",
+          streetAddress: "Rambla Catalunya, 38",
           addressLocality: "Barcelona",
           postalCode: "08007",
           addressCountry: "ES",
@@ -122,15 +120,12 @@ export function websiteJsonLd(): Record<string, unknown> {
     url: SITE_URL,
     description:
       "Practical digital systems, websites, workflows, and AI-assisted production structures for modern business execution.",
-    publisher: {
-      "@type": "Organization",
-      name: ORG_NAME,
-    },
+    publisher: { "@type": "Organization", name: ORG_NAME },
   };
 }
 
-export function breadcrumbJsonLd(
-  crumbs: Array<{ name: string; path: string }>
+function breadcrumbJsonLd(
+  crumbs: Array<{ name: string; url: string }>
 ): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
@@ -139,110 +134,106 @@ export function breadcrumbJsonLd(
       "@type": "ListItem",
       position: index + 1,
       name: crumb.name,
-      item: absoluteUrl(crumb.path),
+      item: crumb.url,
     })),
   };
 }
 
-const SERVICE_AREA_SERVED = [
-  "International",
-  "Europe",
-  "United States",
-  "Spain",
-];
+const SERVICE_AREA_SERVED = ["International", "Europe", "United States", "Spain"];
 
-export function servicesItemListJsonLd(): Record<string, unknown> {
+function servicesItemListJsonLd(locale: Locale): Record<string, unknown> {
+  const areas = getContent(locale).services.areas;
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Lyfion Digital Services",
-    itemListElement: SERVICE_AREAS.map((area, index) => ({
+    itemListElement: areas.map((area, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
         "@type": "Service",
         name: area.title,
         description: area.summary,
-        provider: {
-          "@type": "Organization",
-          name: ORG_NAME,
-        },
+        provider: { "@type": "Organization", name: ORG_NAME },
         serviceType: area.title,
         areaServed: SERVICE_AREA_SERVED,
-        url: `${SITE_URL}/services#${area.id}`,
+        url: `${localeUrl("/services", locale)}#${area.id}`,
       },
     })),
   };
 }
 
-export function catalogItemListJsonLd(): Record<string, unknown> {
+function catalogItemListJsonLd(locale: Locale): Record<string, unknown> {
+  const items = getContent(locale).catalog.items;
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: "Ready Business Catalog",
-    itemListElement: CATALOG_ITEMS.map((item, index) => ({
+    itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
         "@type": "CreativeWork",
         name: item.name,
-        description: `${item.bestFor}. Starting models adapted with your name, offer, colors, contact details, and lead form.`,
-        url: `${SITE_URL}/catalog#${item.id}`,
+        description: item.bestFor,
+        url: `${localeUrl("/catalog", locale)}#${item.id}`,
       },
     })),
   };
 }
 
-export function webPageJsonLd(
+function webPageJsonLd(
   page: StructuredPage,
-  pageType: "WebPage" | "ContactPage" = "WebPage"
+  locale: Locale,
+  pageType: "WebPage" | "ContactPage"
 ): Record<string, unknown> {
-  const seo = PAGE_SEO[page];
+  const meta = getContent(locale).meta[page];
   return {
     "@context": "https://schema.org",
     "@type": pageType,
-    name: seo.title,
-    description: seo.description,
-    url: absoluteUrl(seo.path),
-    isPartOf: {
-      "@type": "WebSite",
-      name: WEBSITE_NAME,
-      url: SITE_URL,
-    },
-    about: {
-      "@type": "Organization",
-      name: ORG_NAME,
-    },
+    name: meta.title,
+    description: meta.description,
+    url: localeUrl(PAGE_PATH[page], locale),
+    inLanguage: locale,
+    isPartOf: { "@type": "WebSite", name: WEBSITE_NAME, url: SITE_URL },
+    about: { "@type": "Organization", name: ORG_NAME },
   };
 }
 
-export function pageStructuredData(page: StructuredPage) {
-  const seo = PAGE_SEO[page];
-  const crumbs = [{ name: "Home", path: "/" }];
+function pageStructuredData(
+  page: StructuredPage,
+  locale: Locale
+): Record<string, unknown>[] {
+  const c = getContent(locale);
+  const crumbs = [{ name: c.nav.items[0].label, url: localeUrl("/", locale) }];
   if (page !== "home") {
-    crumbs.push({ name: seo.title, path: seo.path });
+    crumbs.push({
+      name: c.meta[page].title,
+      url: localeUrl(PAGE_PATH[page], locale),
+    });
   }
 
   const blocks: Record<string, unknown>[] = [
     breadcrumbJsonLd(crumbs),
-    webPageJsonLd(page, page === "contact" ? "ContactPage" : "WebPage"),
+    webPageJsonLd(page, locale, page === "contact" ? "ContactPage" : "WebPage"),
   ];
 
-  if (page === "services") {
-    blocks.push(servicesItemListJsonLd());
-  }
-
-  if (page === "catalog") {
-    blocks.push(catalogItemListJsonLd());
-  }
+  if (page === "services") blocks.push(servicesItemListJsonLd(locale));
+  if (page === "catalog") blocks.push(catalogItemListJsonLd(locale));
 
   return blocks;
 }
 
-export function PageStructuredData({ page }: { page: StructuredPage }) {
+export function PageStructuredData({
+  page,
+  locale,
+}: {
+  page: StructuredPage;
+  locale: Locale;
+}) {
   return (
     <>
-      {pageStructuredData(page).map((block, index) => (
+      {pageStructuredData(page, locale).map((block, index) => (
         <JsonLd key={`${String(block["@type"])}-${index}`} data={block} />
       ))}
     </>

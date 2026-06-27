@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import NavBar from "./_nav";
 import CursorGlow from "./_cursor-glow";
-import AssistantCorner from "./_assistant-corner";
-import CookieConsent from "./_cookie-consent";
 import MetricoolTracker from "./_metricool-tracker";
 import { LyfionInteractionProvider } from "./_lyfion-interaction";
-import { Footer, BRAND_FAVICON, BRAND_ICON_512 } from "./_shared";
+import { BRAND_FAVICON, BRAND_ICON_512 } from "./_shared";
 import { SiteStructuredData } from "./_structured-data";
+import LocaleBoot from "./_locale-boot";
+import HashScroll from "./_hash-scroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,17 +49,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <LocaleBoot />
         <SiteStructuredData />
         <LyfionInteractionProvider>
           <CursorGlow />
-          <NavBar />
-          <main>{children}</main>
-          <Footer />
-          <AssistantCorner />
-          <CookieConsent />
+          <HashScroll />
+          {children}
           <MetricoolTracker />
         </LyfionInteractionProvider>
       </body>

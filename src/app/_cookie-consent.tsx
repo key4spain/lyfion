@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { CARD_BG, CARD_BORDER, TEXT_BODY, TEXT_MUTED } from "./_shared";
+import { type Locale, getContent } from "./_i18n";
 import {
   COOKIE_CONSENT_UPDATED_EVENT,
   STORAGE_KEY,
@@ -45,7 +46,8 @@ function subscribeNoop() {
   return () => {};
 }
 
-export default function CookieConsent() {
+export default function CookieConsent({ locale }: { locale: Locale }) {
+  const t = getContent(locale).cookie;
   const isClient = useSyncExternalStore(
     subscribeNoop,
     () => true,
@@ -113,7 +115,7 @@ export default function CookieConsent() {
       ref={bannerRef}
       className="fixed z-[60] bottom-4 left-1/2 w-[min(calc(100vw-2rem),48rem)] -translate-x-1/2 sm:bottom-5"
       role="dialog"
-      aria-label="Cookie preferences"
+      aria-label={t.dialogLabel}
     >
       <div
         className="rounded-2xl p-4 sm:p-5 w-full"
@@ -124,9 +126,7 @@ export default function CookieConsent() {
         }}
       >
         <p className="text-sm leading-relaxed mb-3 sm:mb-4" style={{ color: TEXT_BODY }}>
-          We use necessary cookies to keep the site working. Optional cookies may
-          help us understand visits or improve interactive features. You can
-          accept, reject, or manage preferences.
+          {t.intro}
         </p>
 
         {manageOpen && (
@@ -140,23 +140,23 @@ export default function CookieConsent() {
             <div className="flex items-center justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold" style={{ color: "#ffffff" }}>
-                  Necessary
+                  {t.necessary}
                 </p>
                 <p className="text-xs" style={{ color: TEXT_MUTED }}>
-                  Always on. Required for basic site function.
+                  {t.necessaryDesc}
                 </p>
               </div>
               <span className="text-xs font-mono" style={{ color: "rgba(16,185,129,0.85)" }}>
-                On
+                {t.on}
               </span>
             </div>
             <label className="flex items-center justify-between gap-4 cursor-pointer">
               <div>
                 <p className="text-sm font-semibold" style={{ color: "#ffffff" }}>
-                  Analytics
+                  {t.analytics}
                 </p>
                 <p className="text-xs" style={{ color: TEXT_MUTED }}>
-                  Helps us understand visits and improve the site. Disabled by default.
+                  {t.analyticsDesc}
                 </p>
               </div>
               <input
@@ -169,10 +169,10 @@ export default function CookieConsent() {
             <label className="flex items-center justify-between gap-4 cursor-pointer">
               <div>
                 <p className="text-sm font-semibold" style={{ color: "#ffffff" }}>
-                  Interactive features
+                  {t.interactive}
                 </p>
                 <p className="text-xs" style={{ color: TEXT_MUTED }}>
-                  Off by default. Not loaded on this site yet.
+                  {t.interactiveDesc}
                 </p>
               </div>
               <input
@@ -199,7 +199,7 @@ export default function CookieConsent() {
                 color: "rgba(255,255,255,0.82)",
               }}
             >
-              Save preferences
+              {t.save}
             </button>
           </div>
         )}
@@ -221,7 +221,7 @@ export default function CookieConsent() {
               color: "#ffffff",
             }}
           >
-            Accept optional
+            {t.acceptOptional}
           </button>
           <button
             type="button"
@@ -240,7 +240,7 @@ export default function CookieConsent() {
               color: "rgba(255,255,255,0.82)",
             }}
           >
-            Reject optional
+            {t.rejectOptional}
           </button>
           <button
             type="button"
@@ -248,7 +248,7 @@ export default function CookieConsent() {
             className="px-4 py-2.5 rounded-full text-sm font-semibold cursor-pointer"
             style={{ color: "rgba(56,189,248,0.85)" }}
           >
-            Manage
+            {t.manage}
           </button>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import {
   CARD_BG,
   CARD_BORDER,
@@ -12,41 +11,33 @@ import {
   PrimaryCta,
   SecondaryCta,
   PageHeader,
-  BASE,
+  INTAKE_FORM_URL,
 } from "../_shared";
+import { PageStructuredData } from "../_structured-data";
 import {
-  CATALOG_ITEMS,
-  CATALOG_CATEGORIES,
-  CATALOG_REQUEST_URL,
-} from "../_services-data";
-import { PAGE_SEO, PageStructuredData } from "../_structured-data";
-
-export const metadata: Metadata = {
-  title: PAGE_SEO.catalog.title,
-  description: PAGE_SEO.catalog.description,
-  alternates: {
-    canonical: PAGE_SEO.catalog.path,
-  },
-};
+  type Locale,
+  type CatalogStatus,
+  getContent,
+  resolveHref,
+  formatStartingPrice,
+} from "../_i18n";
 
 const CONTAINER = "max-w-7xl mx-auto px-6 sm:px-10 lg:px-12";
 
-function statusStyle(status: string) {
-  if (status === "Available for build") return "rgba(56,189,248,0.85)";
-  if (status === "Demo ready") return "rgba(16,185,129,0.85)";
-  if (status === "In production") return "rgba(56,189,248,0.85)";
-  return "rgba(148,163,184,0.85)";
+function statusStyle(status: CatalogStatus) {
+  if (status === "demo") return "rgba(16,185,129,0.85)";
+  return "rgba(56,189,248,0.85)";
 }
 
-export default function CatalogPage() {
+export default function CatalogView({ locale }: { locale: Locale }) {
+  const c = getContent(locale);
+  const cat = c.catalog;
+  const requestUrl = INTAKE_FORM_URL;
+
   return (
     <>
-      <PageStructuredData page="catalog" />
-      <PageHeader
-        label="Catalog"
-        title="Ready-made business websites and launch kits."
-        intro="Choose a starting model. Each item can be adapted with your name, offer, colors, contact details, lead form, and launch materials."
-      />
+      <PageStructuredData page="catalog" locale={locale} />
+      <PageHeader label={cat.headerLabel} title={cat.headerTitle} intro={cat.headerIntro} />
 
       <section
         className="relative overflow-hidden py-12 md:py-16"
@@ -55,13 +46,15 @@ export default function CatalogPage() {
         <FogBackdrop variant="blue" />
         <div className={`relative z-10 ${CONTAINER}`}>
           <p className="text-sm leading-relaxed max-w-3xl mb-8" style={{ color: TEXT_MUTED }}>
-            Categories: {CATALOG_CATEGORIES.join(" · ")}
+            {cat.categoriesLabel}
+            {cat.categories.join(" · ")}
           </p>
           <div className="grid md:grid-cols-2 gap-6">
-            {CATALOG_ITEMS.map((item) => (
+            {cat.items.map((item) => (
               <article
                 key={item.id}
-                className="rounded-2xl p-7 flex flex-col h-full"
+                id={item.id}
+                className="rounded-2xl p-7 flex flex-col h-full scroll-mt-24"
                 style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
               >
                 <div className="flex items-start justify-between gap-4 mb-3">
@@ -84,12 +77,12 @@ export default function CatalogPage() {
                       background: "rgba(255,255,255,0.03)",
                     }}
                   >
-                    {item.status}
+                    {c.common.catalogStatus[item.status]}
                   </span>
                 </div>
                 <p className="text-sm leading-relaxed mb-4" style={{ color: TEXT_BODY }}>
                   <span className="font-semibold" style={{ color: "rgba(56,189,248,0.75)" }}>
-                    Best for:{" "}
+                    {c.common.bestFor}
                   </span>
                   {item.bestFor}
                 </p>
@@ -105,15 +98,15 @@ export default function CatalogPage() {
                 </ul>
                 <div className="flex items-center justify-between gap-4 pt-4" style={{ borderTop: `1px solid ${CARD_BORDER}` }}>
                   <span className="text-sm font-mono" style={{ color: "rgba(56,189,248,0.85)" }}>
-                    Starting {item.startingPrice}
+                    {formatStartingPrice(item.startingPrice, locale)}
                   </span>
                   <a
-                    href={CATALOG_REQUEST_URL}
+                    href={requestUrl}
                     rel="noopener noreferrer"
                     className="text-xs font-semibold transition-opacity hover:opacity-80 cursor-pointer"
                     style={{ color: "#38bdf8" }}
                   >
-                    Request this model
+                    {cat.requestModel}
                   </a>
                 </div>
               </article>
@@ -130,12 +123,12 @@ export default function CatalogPage() {
         <SpotlightBackdrop />
         <div className={`relative z-10 ${CONTAINER} max-w-3xl text-center`}>
           <p className="text-base leading-relaxed mb-6" style={{ color: TEXT_BODY }}>
-            Catalog models are starting points. Final content, scope, timeline, and price are confirmed before work begins.
+            {cat.footnote}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <PrimaryCta href={CATALOG_REQUEST_URL}>Request a catalog model</PrimaryCta>
-            <SecondaryCta href={`${BASE}/services#ready-business-kit`}>
-              View Ready Business Kit
+            <PrimaryCta href={requestUrl}>{cat.requestCta}</PrimaryCta>
+            <SecondaryCta href={resolveHref("/services#ready-business-kit", locale)}>
+              {c.home.secondaryCards[0].cta}
             </SecondaryCta>
           </div>
         </div>
