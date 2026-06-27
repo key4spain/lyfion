@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import {
   CARD_BG,
   CARD_BORDER,
@@ -12,34 +11,18 @@ import {
   SecondaryCta,
   PageHeader,
   INTAKE_FORM_URL,
-  BASE,
 } from "../_shared";
-import { PAGE_SEO, PageStructuredData } from "../_structured-data";
+import { PageStructuredData } from "../_structured-data";
+import { type Locale, getContent, resolveHref } from "../_i18n";
 
-export const metadata: Metadata = {
-  title: PAGE_SEO.work.title,
-  description: PAGE_SEO.work.description,
-  alternates: {
-    canonical: PAGE_SEO.work.path,
-  },
-};
+export default function WorkView({ locale }: { locale: Locale }) {
+  const c = getContent(locale);
+  const w = c.work;
 
-const INTERNAL_EXAMPLES = [
-  "Business OS structure",
-  "Service architecture",
-  "Intake and CRM logic",
-  "Launch-readiness checks",
-];
-
-export default function WorkPage() {
   return (
     <>
-      <PageStructuredData page="work" />
-      <PageHeader
-        label="Work"
-        title="Work that shows how Lyfion builds systems."
-        intro="This page shows the kinds of systems Lyfion builds and prepares: digital refresh structures, ready launch models, service systems, content workflows, and internal operating layers. Public case studies are added only when proof and permission are clear."
-      />
+      <PageStructuredData page="work" locale={locale} />
+      <PageHeader label={w.headerLabel} title={w.headerTitle} intro={w.headerIntro} />
 
       <section
         className="relative overflow-hidden py-16 md:py-20"
@@ -54,14 +37,13 @@ export default function WorkPage() {
             style={{ background: CARD_BG, border: `1px solid ${CARD_BORDER}` }}
           >
             <h2 className="text-xl font-semibold mb-3" style={{ color: TEXT_CARD_TITLE }}>
-              Internal systems
+              {w.internalTitle}
             </h2>
             <p className="text-sm md:text-base leading-relaxed mb-5" style={{ color: TEXT_BODY }}>
-              Lyfion builds from real internal operating structures: source-of-truth files,
-              service maps, offer logic, intake flows, QA checklists, and launch systems.
+              {w.internalBody}
             </p>
             <ul className="grid sm:grid-cols-2 gap-3">
-              {INTERNAL_EXAMPLES.map((item) => (
+              {w.internalExamples.map((item) => (
                 <li key={item} className="flex gap-2.5">
                   <Check />
                   <span className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
@@ -79,14 +61,13 @@ export default function WorkPage() {
           >
             <div className="max-w-2xl">
               <h2 className="text-xl font-semibold mb-3" style={{ color: TEXT_CARD_TITLE }}>
-                Ready Business Catalog
+                {w.catalogTitle}
               </h2>
               <p className="text-sm md:text-base leading-relaxed" style={{ color: TEXT_BODY }}>
-                Ready business models are prepared as starting points for one-page sites,
-                multi-section websites, and web app starters.
+                {w.catalogBody}
               </p>
             </div>
-            <SecondaryCta href={`${BASE}/catalog`}>View catalog</SecondaryCta>
+            <SecondaryCta href={resolveHref("/catalog", locale)}>{w.viewCatalog}</SecondaryCta>
           </article>
 
           {/* C. Digital Refresh */}
@@ -96,15 +77,14 @@ export default function WorkPage() {
           >
             <div className="max-w-2xl">
               <h2 className="text-xl font-semibold mb-3" style={{ color: TEXT_CARD_TITLE }}>
-                Digital Refresh work direction
+                {w.refreshTitle}
               </h2>
               <p className="text-sm md:text-base leading-relaxed" style={{ color: TEXT_BODY }}>
-                Digital Refresh work focuses on cleaning the visible business layer: website,
-                landing page, profile structure, trust signals, search structure, and lead flow.
+                {w.refreshBody}
               </p>
             </div>
-            <SecondaryCta href={`${BASE}/services#digital-refresh`}>
-              View Digital Refresh
+            <SecondaryCta href={resolveHref("/services#digital-refresh", locale)}>
+              {c.common.viewDigitalRefresh}
             </SecondaryCta>
           </article>
 
@@ -115,15 +95,14 @@ export default function WorkPage() {
           >
             <div className="max-w-2xl">
               <h2 className="text-xl font-semibold mb-3" style={{ color: TEXT_CARD_TITLE }}>
-                AI Content &amp; Production Workflow
+                {w.aiTitle}
               </h2>
               <p className="text-sm md:text-base leading-relaxed" style={{ color: TEXT_BODY }}>
-                AI production work focuses on repeatable planning, prompt workflows, approval gates,
-                QA, handoff, and publishing preparation.
+                {w.aiBody}
               </p>
             </div>
-            <SecondaryCta href={`${BASE}/services#ai-content-workflow`}>
-              View AI Workflow
+            <SecondaryCta href={resolveHref("/services#ai-content-workflow", locale)}>
+              {c.home.secondaryCards[2].cta}
             </SecondaryCta>
           </article>
 
@@ -133,11 +112,10 @@ export default function WorkPage() {
             style={{ background: CARD_BG, border: "1px solid rgba(16,185,129,0.18)" }}
           >
             <h2 className="text-xl font-semibold mb-3" style={{ color: TEXT_CARD_TITLE }}>
-              Proof policy
+              {w.proofTitle}
             </h2>
             <p className="text-sm md:text-base leading-relaxed" style={{ color: TEXT_BODY }}>
-              We do not publish private client systems, dashboards, or results without permission.
-              Public proof will be added only when the source, rights, and wording are approved.
+              {w.proofBody}
             </p>
           </article>
         </div>
@@ -150,10 +128,10 @@ export default function WorkPage() {
         <FogBackdrop variant="deep" />
         <div className="relative z-10 max-w-3xl mx-auto px-6 sm:px-10 lg:px-12 text-center">
           <p className="text-base leading-relaxed mb-8" style={{ color: TEXT_BODY }}>
-            Tell us what you want to build and we will map the right starting path.
+            {w.closingNote}
           </p>
           <div className="flex justify-center">
-            <PrimaryCta href={INTAKE_FORM_URL}>Tell us what you want to build</PrimaryCta>
+            <PrimaryCta href={INTAKE_FORM_URL}>{c.common.tellUsBuild}</PrimaryCta>
           </div>
         </div>
       </section>

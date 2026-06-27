@@ -4,6 +4,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 import Link from "next/link";
+import { type Locale, getContent, localizePath } from "./_i18n";
+export { INTAKE_FORM_URL } from "./_constants";
 
 // ─── Brand constants (reused from this project's design language) ─────────────
 
@@ -145,16 +147,9 @@ export function LyfionWordmark({
 export const SUPPORT_EMAIL = "support@lyfion.digital";
 export const DIRECT_EMAIL = "filip@lyfion.digital";
 
-export const OFFER_PRICE = "from €429 / $499";
-
-export const INTAKE_FORM_URL = "https://form.jotform.com/261574330244048";
-
 export const MAILTO_SUPPORT = `mailto:${SUPPORT_EMAIL}`;
 
 export const MAILTO_DIRECT = `mailto:${DIRECT_EMAIL}`;
-
-export const OFFER_DISCLAIMER =
-  "From €429 / $499. Final scope, deliverables, timeline, taxes/VAT and payment terms are confirmed before work begins. No guaranteed business outcome, lead volume, ranking, automation result, or revenue result is implied.";
 
 export const GRADIENT_TEXT: React.CSSProperties = {
   background: GRADIENT,
@@ -370,16 +365,8 @@ export function PageHeader({
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
-export const NAV_ITEMS = [
-  { label: "Home", href: BASE || "/" },
-  { label: "Services", href: `${BASE}/services` },
-  { label: "Catalog", href: `${BASE}/catalog` },
-  { label: "Process", href: `${BASE}/process` },
-  { label: "Work", href: `${BASE}/work` },
-  { label: "Contact", href: `${BASE}/contact` },
-];
-
-export function FooterSignal() {
+export function FooterSignal({ locale }: { locale: Locale }) {
+  const f = getContent(locale).footer;
   return (
     <div
       className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[11px] font-mono tracking-wide"
@@ -393,11 +380,11 @@ export function FooterSignal() {
         className="inline-block w-1.5 h-1.5 rounded-full flex-shrink-0"
         style={{ background: "#10b981" }}
       />
-      <span>Review</span>
+      <span>{f.signalReview}</span>
       <span style={{ color: "#38bdf8" }}>→</span>
-      <span>Build</span>
+      <span>{f.signalBuild}</span>
       <span style={{ color: "#38bdf8" }}>→</span>
-      <span>Production</span>
+      <span>{f.signalProduction}</span>
     </div>
   );
 }
@@ -446,7 +433,9 @@ export function FooterSocial() {
   );
 }
 
-export function Footer() {
+export function Footer({ locale }: { locale: Locale }) {
+  const f = getContent(locale).footer;
+  const navItems = getContent(locale).nav.items;
   const entityCard = {
     background: CARD_BG,
     border: `1px solid ${CARD_BORDER}`,
@@ -455,6 +444,76 @@ export function Footer() {
     color: "rgba(45,212,191,0.9)",
     textDecoration: "none" as const,
   };
+
+  // Lead with the market-relevant entity: ES → S.L. (Barcelona) first.
+  const llcCard = (
+    <div className="rounded-xl px-4 py-4 w-full lg:max-w-[240px]" style={entityCard}>
+      <div className="w-8 h-px mb-3" style={{ background: GRADIENT }} />
+      <p className="text-xs font-semibold tracking-wide mb-2" style={{ color: TEXT_CARD_TITLE }}>
+        {f.llcName}
+      </p>
+      <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_BODY }}>
+        {f.llcRole}
+      </p>
+      <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+        {f.llcOfficeLabel}
+      </p>
+      <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+        30 N Gould St Ste R
+      </p>
+      <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+        Sheridan, WY 82801
+      </p>
+      <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_MUTED }}>
+        United States
+      </p>
+      <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+        {f.supportLabel}
+      </p>
+      <a href={MAILTO_SUPPORT} style={linkStyle} className="text-xs">
+        {SUPPORT_EMAIL}
+      </a>
+    </div>
+  );
+
+  const slCard = (
+    <div className="rounded-xl px-4 py-4 w-full lg:max-w-[240px] lg:ml-auto" style={entityCard}>
+      <div className="w-8 h-px mb-3" style={{ background: GRADIENT }} />
+      <p className="text-xs font-semibold tracking-wide mb-2" style={{ color: TEXT_CARD_TITLE }}>
+        {f.slName}
+      </p>
+      <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_BODY }}>
+        {f.slRole}
+      </p>
+      <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+        {f.slAddressLabel}
+      </p>
+      <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+        Rbla Catalunya, 38
+      </p>
+      <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+        08007 Barcelona
+      </p>
+      <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_MUTED }}>
+        Barcelona, Spain
+      </p>
+      <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+        {f.nifLabel}
+      </p>
+      <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_BODY }}>
+        B24818064
+      </p>
+      <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
+        {f.contactLabel}
+      </p>
+      <a href={MAILTO_DIRECT} style={linkStyle} className="text-xs">
+        {DIRECT_EMAIL}
+      </a>
+    </div>
+  );
+
+  const primaryCard = locale === "es" ? slCard : llcCard;
+  const secondaryCard = locale === "es" ? llcCard : slCard;
 
   return (
     <footer
@@ -468,49 +527,17 @@ export function Footer() {
       <SpotlightBackdrop position="top" />
       <div className="relative z-10 max-w-[72rem] mx-auto px-6 sm:px-8 lg:px-10 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] gap-8 lg:gap-6 items-start">
-          {/* Left — LYFION LLC (mobile order 1) */}
-          <div
-            className="order-1 rounded-xl px-4 py-4 w-full lg:max-w-[240px]"
-            style={entityCard}
-          >
-            <div className="w-8 h-px mb-3" style={{ background: GRADIENT }} />
-            <p
-              className="text-xs font-semibold tracking-wide mb-2"
-              style={{ color: TEXT_CARD_TITLE }}
-            >
-              LYFION LLC
-            </p>
-            <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_BODY }}>
-              Digital systems and automation operations
-            </p>
-            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
-              Principal Office:
-            </p>
-            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
-              30 N Gould St Ste R
-            </p>
-            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
-              Sheridan, WY 82801
-            </p>
-            <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_MUTED }}>
-              United States
-            </p>
-            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
-              Support:
-            </p>
-            <a href={MAILTO_SUPPORT} style={linkStyle} className="text-xs">
-              {SUPPORT_EMAIL}
-            </a>
-          </div>
+          {/* Market-relevant entity first */}
+          <div className="order-1">{primaryCard}</div>
 
           {/* Center — nav + signal (mobile order 3) */}
           <div className="order-3 lg:order-none flex flex-col items-center justify-center gap-4 lg:px-4 lg:min-w-[210px] lg:pt-1">
             <LyfionWordmark size="sm" className="inline-flex opacity-85" />
             <nav className="flex flex-wrap gap-x-5 gap-y-2 justify-center">
-              {NAV_ITEMS.map((l) => (
+              {navItems.map((l) => (
                 <Link
-                  key={l.href}
-                  href={l.href}
+                  key={l.key}
+                  href={localizePath(l.href, locale)}
                   className="text-xs transition-colors hover:text-white"
                   style={{ color: "rgba(255,255,255,0.62)" }}
                 >
@@ -518,50 +545,12 @@ export function Footer() {
                 </Link>
               ))}
             </nav>
-            <FooterSignal />
+            <FooterSignal locale={locale} />
             <FooterSocial />
           </div>
 
-          {/* Right — LYFION S.L. (mobile order 2) */}
-          <div
-            className="order-2 rounded-xl px-4 py-4 w-full lg:max-w-[240px] lg:ml-auto"
-            style={entityCard}
-          >
-            <div className="w-8 h-px mb-3" style={{ background: GRADIENT }} />
-            <p
-              className="text-xs font-semibold tracking-wide mb-2"
-              style={{ color: TEXT_CARD_TITLE }}
-            >
-              LYFION S.L.
-            </p>
-            <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_BODY }}>
-              Business development and European execution
-            </p>
-            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
-              Dirección social:
-            </p>
-            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
-              Rbla Catalunya, 38
-            </p>
-            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
-              08007 Barcelona
-            </p>
-            <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_MUTED }}>
-              Barcelona, Spain
-            </p>
-            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
-              NIF/CIF:
-            </p>
-            <p className="text-xs leading-relaxed mb-3" style={{ color: TEXT_BODY }}>
-              B24818064
-            </p>
-            <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
-              Contact:
-            </p>
-            <a href={MAILTO_DIRECT} style={linkStyle} className="text-xs">
-              {DIRECT_EMAIL}
-            </a>
-          </div>
+          {/* Secondary entity */}
+          <div className="order-2">{secondaryCard}</div>
         </div>
 
         <p
@@ -571,222 +560,15 @@ export function Footer() {
             borderTop: "1px solid rgba(255,255,255,0.05)",
           }}
         >
-          Practical systems for websites, intake, workflows, and AI-assisted
-          production.
+          {f.tagline}
         </p>
         <p
           className="text-[11px] leading-relaxed mt-4 text-center"
           style={{ color: "rgba(255,255,255,0.28)" }}
         >
-          © 2026 Lyfion.digital. All rights reserved.
+          {f.rights}
         </p>
       </div>
     </footer>
   );
 }
-
-// ─── Centralised content data ─────────────────────────────────────────────────
-
-export interface ServiceContent {
-  id: string;
-  title: string;
-  short: string;
-  whoFor: string;
-  problem: string;
-  builds: string[];
-  outcome: string;
-}
-
-export const SERVICES: ServiceContent[] = [
-  {
-    id: "business-os",
-    title: "Business OS Setup",
-    short:
-      "Source-of-truth, project control, permissions, SOPs, and AI-ready delegation.",
-    whoFor:
-      "Founders and teams running several projects who keep losing track of decisions, versions, and ownership.",
-    problem:
-      "Work is scattered across chats, docs, and tools, and no one is fully sure what the current source of truth is.",
-    builds: [
-      "A single source-of-truth structure",
-      "Project boards and ownership rules",
-      "Permissions and access boundaries",
-      "SOPs and repeatable checklists",
-      "AI-ready delegation instructions",
-    ],
-    outcome:
-      "A clearer operating base where the team can find, trust, and act on the right information.",
-  },
-  {
-    id: "website",
-    title: "Website / Landing System",
-    short:
-      "A clear public page, conversion path, CTA logic, basic SEO structure, and a controlled launch checklist.",
-    whoFor:
-      "Projects that need a credible public page and a clear path from visitor to next step.",
-    problem:
-      "A site exists but it does not explain the offer clearly or guide visitors toward action.",
-    builds: [
-      "Modern, scalable Next.js website or landing page",
-      "Clear structure and messaging",
-      "CTA logic and conversion path",
-      "Basic SEO / metadata structure",
-      "Controlled launch checklist",
-    ],
-    outcome:
-      "A clean digital base that presents the business clearly and is ready for a controlled launch.",
-  },
-  {
-    id: "crm",
-    title: "CRM / Lead Intake System",
-    short:
-      "Forms, routing, status tracking, follow-up structure, and practical verification so leads do not disappear.",
-    whoFor:
-      "Businesses that collect leads, applications, client requests, or operational forms.",
-    problem:
-      "Forms collect data but nothing structured happens next, so leads stall or get lost.",
-    builds: [
-      "Intake forms and field structure",
-      "Routing and assignment logic",
-      "Lead status and pipeline structure",
-      "Follow-up flow design",
-      "Practical verification steps",
-    ],
-    outcome:
-      "A practical intake structure where requests are captured, routed, and followed up consistently.",
-  },
-  {
-    id: "automation",
-    title: "Automation Workflow Plan",
-    short:
-      "Controlled routing, reporting, notifications, intake, and follow-up automation.",
-    whoFor:
-      "Teams doing repetitive manual steps who want automation only where the process is already clear.",
-    problem:
-      "Manual steps get forgotten or delayed, but adding automation blindly would just automate the chaos.",
-    builds: [
-      "Mapped current process",
-      "Controlled routing and notifications",
-      "Reporting and status updates",
-      "Intake and follow-up automation plan",
-      "Clear approval and fail-safe points",
-    ],
-    outcome:
-      "A documented automation plan that reduces manual chasing without losing human control.",
-  },
-  {
-    id: "ai-content",
-    title: "AI Content Production System",
-    short:
-      "Repeatable AI-assisted image/video/content workflows with QA and approval rules.",
-    whoFor:
-      "Brands that want consistent AI-assisted content without quality or brand drift.",
-    problem:
-      "AI content is produced ad hoc, with inconsistent quality and no review before publishing.",
-    builds: [
-      "Prompt and template systems",
-      "Output QA and brand-realism checks",
-      "Content workflow structure",
-      "Approval gates before publishing",
-      "Asset organisation and handoff",
-    ],
-    outcome:
-      "A repeatable content workflow with quality checks and approval steps built in.",
-  },
-  {
-    id: "market-test",
-    title: "Digital Market Test Pack",
-    short:
-      "A structured way to test an idea and gather evidence before bigger investment.",
-    whoFor:
-      "Founders who want evidence for an idea before committing serious time or money.",
-    problem:
-      "Big decisions are made on assumptions instead of structured, observable signals.",
-    builds: [
-      "Landing page or concept demo",
-      "Clear offer framing",
-      "Structured test setup",
-      "Observation and feedback structure",
-      "Findings and next-step recommendation",
-    ],
-    outcome:
-      "A structured market test that produces practical evidence to guide the next decision.",
-  },
-];
-
-export interface ProcessStep {
-  title: string;
-  summary: string;
-  detail: string;
-}
-
-export const PROCESS_STEPS: ProcessStep[] = [
-  {
-    title: "Review",
-    summary:
-      "Understand the project, source material, current tools, risks, and desired outcome.",
-    detail:
-      "We start by looking at what already exists: files, tools, forms, sites, and goals. Then we propose the next step.",
-  },
-  {
-    title: "Structure",
-    summary:
-      "Define source of truth, service logic, user flow, CTA, forms, CRM, and approval boundaries.",
-    detail:
-      "We define the structure and approval boundaries first, so the build has a clear backbone instead of guesswork.",
-  },
-  {
-    title: "Build",
-    summary:
-      "Create the website, workflow, CRM and intake structure, content system, or operating layer.",
-    detail:
-      "We build in scoped, reviewable steps, keeping each change controlled and easy to check.",
-  },
-  {
-    title: "QA",
-    summary:
-      "Check claims, routing, mobile view, form logic, proof, data risk, and launch readiness.",
-    detail:
-      "We verify claims, data exposure, mobile behaviour, and routing before anything is considered ready.",
-  },
-  {
-    title: "Launch / Handoff",
-    summary: "Only after approval. No uncontrolled publishing.",
-    detail:
-      "Nothing goes public without explicit approval. Launch and handoff happen on your sign-off, not automatically.",
-  },
-  {
-    title: "Iterate",
-    summary: "Measure response, improve the offer, and build the next layer.",
-    detail:
-      "After launch we observe the response, refine the offer, and plan the next controlled layer.",
-  },
-];
-
-export interface WorkCategory {
-  title: string;
-  desc: string;
-}
-
-export const WORK_CATEGORIES: WorkCategory[] = [
-  {
-    title: "Internal operating systems",
-    desc: "Source-of-truth files, project boards, permission rules, agent-ready instructions, and execution structures for complex business ecosystems.",
-  },
-  {
-    title: "Websites and landing systems",
-    desc: "Modern Next.js websites and landing pages designed around structure, clarity, CTA logic, and future scalability.",
-  },
-  {
-    title: "CRM / lead intake workflows",
-    desc: "Intake forms, routing logic, lead status structures, follow-up flows, and practical verification systems.",
-  },
-  {
-    title: "AI production workflows",
-    desc: "Prompt systems, output QA, brand realism checks, content workflow structures, and approval gates before publishing.",
-  },
-  {
-    title: "Internal dashboard logic",
-    desc: "Internal operational dashboard logic for workflow structure, intake thinking, and process control. No private data shown.",
-  },
-];
