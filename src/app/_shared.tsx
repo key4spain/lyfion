@@ -506,8 +506,8 @@ export function Footer({ locale }: { locale: Locale }) {
       <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
         {f.contactLabel}
       </p>
-      <a href={MAILTO_DIRECT} style={linkStyle} className="text-xs">
-        {DIRECT_EMAIL}
+      <a href={MAILTO_SUPPORT} style={linkStyle} className="text-xs">
+        {SUPPORT_EMAIL}
       </a>
     </div>
   );
