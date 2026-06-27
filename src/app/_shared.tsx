@@ -489,7 +489,7 @@ export function Footer({ locale }: { locale: Locale }) {
         {f.slAddressLabel}
       </p>
       <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
-        Rbla Catalunya, 38
+        Rambla Catalunya, 38
       </p>
       <p className="text-xs leading-relaxed mb-1" style={{ color: TEXT_MUTED }}>
         08007 Barcelona

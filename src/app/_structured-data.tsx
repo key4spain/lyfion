@@ -100,7 +100,7 @@ export function organizationJsonLd(): Record<string, unknown> {
         name: "LYFION S.L.",
         address: {
           "@type": "PostalAddress",
-          streetAddress: "Rbla Catalunya, 38",
+          streetAddress: "Rambla Catalunya, 38",
           addressLocality: "Barcelona",
           postalCode: "08007",
           addressCountry: "ES",

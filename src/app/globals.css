@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0a0f0a;
+  /* Dark by default so any uncovered area (e.g. cookie-banner offset on <main>)
+     shows the brand dark, never a white gap. */
+  --background: #030e08;
+  --foreground: #e6edf3;
   --blue-electric: #0ea5e9;
   --blue-light: #38bdf8;
   --green-deep: #031a10;
