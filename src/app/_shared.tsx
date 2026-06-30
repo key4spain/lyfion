@@ -35,13 +35,11 @@ export const BRAND_ICON_512 = "/brand/lyfion/png/lyfion_icon_512.png";
 export const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/lyfion.digital/",
   tiktok: "https://www.tiktok.com/@lyfion.digital",
-  youtube: "https://www.youtube.com/@lyfion.digital",
 } as const;
 
 export const SOCIAL_SAME_AS = [
   SOCIAL_LINKS.instagram,
   SOCIAL_LINKS.tiktok,
-  SOCIAL_LINKS.youtube,
 ];
 
 export const SECTION_FOG_BLUE = (base: string) => base;
@@ -422,11 +420,6 @@ export function FooterSocial() {
       <SocialLink href={SOCIAL_LINKS.tiktok} label="Lyfion Digital on TikTok">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M14 3h3.2l.1 2.2a5.8 5.8 0 0 0 4.2 2V10a8.4 8.4 0 0 1-4.5-1.3v7.4a6.2 6.2 0 1 1-6.2-6.2c.3 0 .6 0 .9.1v3.1a3.1 3.1 0 1 0 2.2 3V3z" />
-        </svg>
-      </SocialLink>
-      <SocialLink href={SOCIAL_LINKS.youtube} label="Lyfion Digital on YouTube">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C17.7 5 12 5 12 5s-5.7 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C6.3 19 12 19 12 19s5.7 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z" />
         </svg>
       </SocialLink>
     </div>
